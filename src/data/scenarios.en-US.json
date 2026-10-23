@@ -101,7 +101,13 @@
       "address": "billing@brightline-supplies.example"
     },
     "subject": "Invoice INV-20817 · $2,846.50",
-    "body": "Brightline Office Supply requested $2,846.50\nDue: Upon receipt\n\nMemo: Toner and printer maintenance, Q3.\n\nOur records show this invoice is 45 days past due. To avoid service suspension and a 15% late fee, pay today using the secure link below. We now accept payment by card or bank transfer only through this portal.\n\nPay securely: https://brightline-supplies.example/pay/INV-20817",
+    "body": "Brightline Office Supply requested $2,846.50\nDue: Upon receipt\n\nMemo: Toner and printer maintenance, Q3.\n\nOur records show this invoice is 45 days past due. To avoid service suspension and a 15% late fee, pay today using the secure link below. We now accept payment by card or bank transfer only through this portal.\n\nPAY INVOICE SECURELY",
+    "links": [
+      {
+        "text": "PAY INVOICE SECURELY",
+        "url": "https://brightline-supplies.example/pay/INV-20817"
+      }
+    ],
     "redFlags": [
       {
         "id": "vague-memo",
@@ -143,12 +149,22 @@
       "address": "no-reply@cloudsuite365-security.example"
     },
     "subject": "Action required: 3 messages held in quarantine",
-    "body": "CloudSuite 365\n\nYour mailbox has 3 incoming messages on hold due to a storage sync error.\n\nHeld messages:\n• Payment remittance – ACH confirmation\n• Updated W-9 – please review\n• Voicemail from (555) 014-7731\n\nYour messages will be deleted in 24 hours unless you verify your account.\n\nRelease messages: https://cloudsuite365-security.example/login?user=you\n\nThis is an automated message from your CloudSuite 365 administrator. Do not reply.",
+    "body": "CloudSuite 365\n\nYour mailbox has 3 incoming messages on hold due to a storage sync error.\n\nHeld messages:\n• Payment remittance – ACH confirmation\n• Updated W-9 – please review\n• Voicemail from (555) 014-7731\n\nYour messages will be deleted in 24 hours unless you verify your account.\n\nRELEASE MESSAGES\n\nThis is an automated message from your CloudSuite 365 administrator. Do not reply.\nPrivacy statement",
+    "links": [
+      {
+        "text": "RELEASE MESSAGES",
+        "url": "https://cloudsuite365-security.example/login?user=you"
+      },
+      {
+        "text": "Privacy statement",
+        "url": "https://cloudsuite365.example/privacy"
+      }
+    ],
     "redFlags": [
       {
         "id": "sender-domain",
         "label": "Not your IT team's domain",
-        "explanation": "Real account notices come from your own company or the service's real domain, not a lookalike \"security\" domain.",
+        "explanation": "CloudSuite's real domain is cloudsuite365.example (tap the privacy link to compare); this came from a lookalike \"security\" domain.",
         "target": "cloudsuite365-security.example"
       },
       {
@@ -166,8 +182,8 @@
       {
         "id": "login-link",
         "label": "Sign-in link in an email",
-        "explanation": "This page will look like the real sign-in screen and capture your password.",
-        "target": "https://cloudsuite365-security.example/login?user=you"
+        "explanation": "The button goes to cloudsuite365-security.example/login, a copy of the sign-in page built to capture your password.",
+        "target": "RELEASE MESSAGES"
       }
     ],
     "tip": "Never sign in from an email link. Open CloudSuite yourself, or ask IT whether mail is really on hold."
@@ -185,7 +201,13 @@
       "address": "dse_na4@signright-notice.example"
     },
     "subject": "Petra Novak sent you 2025_Engagement_Letter_FINAL.pdf to review and sign",
-    "body": "SignRight\n\nPetra Novak sent you a document to review and sign.\n\nDocument: 2025_Engagement_Letter_FINAL.pdf\nPages: 4\n\nREVIEW DOCUMENT\nhttps://signright-notice.example.app-docs.example/v/7731\n\nThis document will expire in 12 hours.\n\nTo view secure documents, sign in with your email password.\n\nDo not share this email. SignRight, Inc.",
+    "body": "SignRight\n\nPetra Novak sent you a document to review and sign.\n\nDocument: 2025_Engagement_Letter_FINAL.pdf\nPages: 4\n\nREVIEW DOCUMENT\n\nThis document will expire in 12 hours.\n\nTo view secure documents, sign in with your email password.\n\nDo not share this email. SignRight, Inc.",
+    "links": [
+      {
+        "text": "REVIEW DOCUMENT",
+        "url": "https://signright-notice.example.app-docs.example/v/7731"
+      }
+    ],
     "redFlags": [
       {
         "id": "unexpected-doc",
@@ -196,8 +218,8 @@
       {
         "id": "link-domain",
         "label": "Disguised link",
-        "explanation": "The real domain is the last part before the first slash: app-docs.example, not SignRight.",
-        "target": "https://signright-notice.example.app-docs.example/v/7731"
+        "explanation": "The button goes to signright-notice.example.app-docs.example. The real domain is the last part before the first slash: app-docs.example, not SignRight.",
+        "target": "REVIEW DOCUMENT"
       },
       {
         "id": "expiry",
@@ -227,6 +249,12 @@
       "address": "toll.notice88@mailbox-sms.example"
     },
     "body": "Ridgeway Toll Authority: You have an unpaid toll balance of $6.85. To avoid a late fee of $50.00 and suspension of your vehicle registration, pay by 11:59 PM tonight: https://ridgewaytoll-pay.example/i\n\n(Reply Y, then reopen this message to activate the link.)",
+    "links": [
+      {
+        "text": "https://ridgewaytoll-pay.example/i",
+        "url": "https://ridgewaytoll-pay.example/i"
+      }
+    ],
     "redFlags": [
       {
         "id": "email-sender",
@@ -249,7 +277,7 @@
       {
         "id": "link",
         "label": "Unofficial payment link",
-        "explanation": "The link goes to a lookalike site built to collect your card number.",
+        "explanation": "Toll agencies don't text payment links from email addresses; this one goes to a site built to collect your card number.",
         "target": "https://ridgewaytoll-pay.example/i"
       },
       {
@@ -273,7 +301,13 @@
       "name": "(555) 017-3308",
       "address": "(555) 017-3308"
     },
-    "body": "ParcelGo: Your package #PG4471902 could not be delivered due to an incomplete address. Update your address and pay a $1.99 redelivery fee within 24 hrs or it will be returned to sender: https://parcelgo-redelivery.example/us",
+    "body": "ParcelGo: Your package #PG4471902 could not be delivered due to an incomplete address. Update your address and pay a $1.99 redelivery fee within 24 hrs or it will be returned to sender: parcelgo.example.redeliver-now.example/us",
+    "links": [
+      {
+        "text": "parcelgo.example.redeliver-now.example/us",
+        "url": "https://parcelgo.example.redeliver-now.example/us"
+      }
+    ],
     "redFlags": [
       {
         "id": "personal-number",
@@ -302,8 +336,8 @@
       {
         "id": "link",
         "label": "Lookalike link",
-        "explanation": "The carrier's name is in the link, but the domain isn't the carrier's.",
-        "target": "https://parcelgo-redelivery.example/us"
+        "explanation": "It starts with ParcelGo's real domain, parcelgo.example, but the domain that counts is the end of the address: redeliver-now.example.",
+        "target": "parcelgo.example.redeliver-now.example/us"
       }
     ],
     "tip": "Track packages on the store's order page or the carrier's site, typed in yourself. Never pay a \"redelivery fee\" from a text."
@@ -320,13 +354,13 @@
       "name": "Robert Alder",
       "address": "robert.alder@alderfinch-cpa.example"
     },
-    "subject": "Quick request",
-    "body": "Hi Jenna,\n\nI need a copy of every employee's 2025 W-2 (PDF format) for a review with our outside auditors before Friday. Please send them all in one email to me directly as soon as you can.\n\nI'm in client meetings all afternoon so email is best. Please don't loop in anyone else on this yet, it's a sensitive matter.\n\nThanks,\nRobert\n\nSent from my mobile",
+    "subject": "RE: Year-end payroll checklist",
+    "body": "Hi Jenna,\n\nI need a copy of every employee's 2025 W-2 (PDF format) for a review with our outside auditors before Friday. Please send them all in one email to me directly as soon as you can.\n\nI'm in client meetings all afternoon so email is best. Please don't loop in anyone else on this yet, it's a sensitive matter.\n\nThanks,\nRobert\n\nSent from my mobile\n\n> On Tue, Oct 21, Jenna Ruiz <jenna.ruiz@alderfinch.example> wrote:\n> Hi Robert, the year-end payroll checklist is attached. Let me know if you need anything else.",
     "redFlags": [
       {
         "id": "lookalike",
         "label": "Lookalike domain",
-        "explanation": "The firm's domain is alderfinch.example; \"-cpa\" was added to look official.",
+        "explanation": "The firm's domain is alderfinch.example, as in Jenna's quoted message; \"-cpa\" was added to look official.",
         "target": "alderfinch-cpa.example"
       },
       {
@@ -522,12 +556,18 @@
       "address": "hr-benefits@peoplehub-portal.example"
     },
     "subject": "Mandatory: 2026 Compensation Adjustment Review",
-    "body": "When: Thu, Oct 30 · 9:00 – 9:15 AM CT\nWhere: Online\n\nAll staff must review and acknowledge their updated compensation letter before this session. Your adjusted salary details are in the secure portal:\nhttps://peoplehub-portal.example/comp-review\n\nSign in with your work email and password. Employees who do not acknowledge by Thursday may see a delay in their next paycheck.",
+    "body": "When: Thu, Oct 30 · 9:00 – 9:15 AM CT\nWhere: Online\nGuests: all-staff@lakesidegroup.example\n\nAll staff must review and acknowledge their updated compensation letter before this session. Your adjusted salary details are in the secure portal:\nView compensation letter\n\nSign in with your work email and password. Employees who do not acknowledge by Thursday may see a delay in their next paycheck.",
+    "links": [
+      {
+        "text": "View compensation letter",
+        "url": "https://peoplehub-portal.example/comp-review"
+      }
+    ],
     "redFlags": [
       {
         "id": "external",
         "label": "Outside organizer",
-        "explanation": "Real HR invites come from your company's own calendar, not an outside domain.",
+        "explanation": "Real HR invites come from your company's own domain, lakesidegroup.example like the guest list, not an outside portal.",
         "target": "peoplehub-portal.example"
       },
       {
@@ -606,9 +646,15 @@
       "address": "billing@coastlinecopier.example"
     },
     "subject": "Invoice 10422 for PO 7781 – October service",
-    "body": "Hi Accounts Payable,\n\nInvoice 10422 for October copier service under PO 7781 is now in your AP portal.\n\nAmount: $612.40\nTerms: Net 30 (due November 22)\nPayment: same as always, check or ACH to the account on file.\n\nIf anything looks off, call me at the number on your vendor record.\n\nThanks,\nLuis Ferreira\nAccounts Receivable, Coastline Copier Co.",
+    "body": "Hi Accounts Payable,\n\nInvoice 10422 for October copier service under PO 7781 is now in your AP portal.\n\nAmount: $612.40\nTerms: Net 30 (due November 22)\nPayment: same as always, check or ACH to the account on file.\nCopy for your records: Invoice 10422 (PDF)\n\nIf anything looks off, call me at the number on your vendor record.\n\nThanks,\nLuis Ferreira\nAccounts Receivable, Coastline Copier Co.",
+    "links": [
+      {
+        "text": "Invoice 10422 (PDF)",
+        "url": "https://billing.coastlinecopier.example/invoices/10422"
+      }
+    ],
     "redFlags": [],
-    "legitReason": "It references a PO you issued, uses normal net-30 terms, keeps payment on the account already on file, and invites you to verify by phone.",
+    "legitReason": "It references a PO you issued, uses normal net-30 terms, keeps payment on the account already on file, links to the vendor's real coastlinecopier.example site, and invites you to verify by phone.",
     "tip": "A real invoice matches a PO, keeps the usual payment method, and holds up to a phone check."
   },
   {
@@ -678,6 +724,12 @@
     },
     "subject": "Payment request · $1,150.00",
     "body": "Interstate Car Haul requested $1,150.00\n\nFor: Transport of 2 units from Riverside Auto Auction (BOL #77310)\nMatched to: PO 5520, approved by Greg Tolliver on 10/20\nPay to: ACH account on file (unchanged since 2023)\n\nApprove or flag this request in the AP portal as usual.",
+    "links": [
+      {
+        "text": "AP portal",
+        "url": "https://ap.lakeviewmotors.example/requests/2208-77310"
+      }
+    ],
     "redFlags": [],
     "legitReason": "It came through your own AP portal, matches an approved PO and a bill of lading, and pays the vendor's long-standing account on file.",
     "tip": "Real payment requests flow through your normal approval system and match paperwork you can check."
@@ -748,6 +800,12 @@
     },
     "subject": "Clear to close – Oakes file #HT-24-1203",
     "body": "Hi team,\n\nThe Oakes loan is clear to close for Thursday at 3:00 PM. The final CD is balanced and uploaded to the closing portal.\n\nFunding will come from our warehouse bank the same way as on previous files. Nothing has changed with our wire process. If you see anything different, call me at the number in your lender contacts before you do anything.\n\nThanks,\nDevon Price\nLoan Officer, Meridian Home Loans",
+    "links": [
+      {
+        "text": "closing portal",
+        "url": "https://portal.meridianhomeloans.example/files/HT-24-1203"
+      }
+    ],
     "redFlags": [],
     "legitReason": "The sender is on the lender's real domain (no extra hyphen), shares status through the closing portal, changes nothing about payments, and encourages a phone check.",
     "tip": "Real lender emails keep the payment process unchanged and welcome a call to your known contact."
@@ -765,8 +823,1270 @@
       "address": "72745"
     },
     "body": "ParcelGo: Your package from Lakeview Office Furniture is out for delivery today by 8 PM. Track: https://parcelgo.example/t/PG5520183\nReply STOP to opt out.",
+    "links": [
+      {
+        "text": "https://parcelgo.example/t/PG5520183",
+        "url": "https://parcelgo.example/t/PG5520183"
+      }
+    ],
     "redFlags": [],
     "legitReason": "It comes from the carrier's short code, links to the carrier's real domain, names an order you'd expect, and asks for nothing: no fee, no login, no deadline.",
     "tip": "Real delivery texts inform you; they don't ask for money or personal details."
+  },
+  {
+    "id": "floorplan-curtailment-wire-harbor",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "auto_dealer",
+    "scamType": "floorplan_fraud",
+    "difficulty": 4,
+    "verdict": "scam",
+    "sender": {
+      "name": "Dana Whitley – Harbor Floorplan Finance",
+      "address": "dwhitley@harborflooplan.example"
+    },
+    "subject": "RE: Floor plan audit – 3 aged units",
+    "body": "Hi Tasha,\n\nFollowing up on the audit below. The three aged units need to be paid down today to keep your floor plan line in compliance.\n\nCurtailment total: $38,915.00\n\nPlease note we are no longer accepting ACH pulls for curtailments. Send a wire to our collections account instead:\n\nBank: Gulf Coast Commerce Bank\nAccount name: HFF Recovery Services\nRouting: 111000555\nAccount: 300418827\n\nIf this isn't received by 4:00 PM, your line will be frozen and we can't fund tomorrow's units.\n\nDana Whitley\nDealer Audit Team\n\n> On Mon, Oct 20, Dana Whitley <dwhitley@harborfloorplan.example> wrote:\n> Audit complete for Lakeview Motors. Stock #L23-077, L23-091 and L23-102 are past 270 days and will need curtailment payments.",
+    "redFlags": [
+      {
+        "id": "lookalike",
+        "label": "Lookalike domain",
+        "explanation": "The sender's domain is missing an \"r\". Dana's real address, in the quoted message, is on harborfloorplan.example.",
+        "target": "harborflooplan.example"
+      },
+      {
+        "id": "method-change",
+        "label": "Payment method changed",
+        "explanation": "Floor plan lenders collect curtailments the way your agreement says; a sudden switch to a wire is how fraudsters redirect the money.",
+        "target": "we are no longer accepting ACH pulls"
+      },
+      {
+        "id": "account-name",
+        "label": "Account name doesn't match",
+        "explanation": "The money would go to a company that isn't Harbor Floorplan Finance.",
+        "target": "Account name: HFF Recovery Services"
+      },
+      {
+        "id": "threat",
+        "label": "Same-day threat",
+        "explanation": "Threatening to freeze your line is meant to rush you past a phone call.",
+        "target": "your line will be frozen"
+      }
+    ],
+    "tip": "Pay curtailments only the way your floor plan agreement says. Call your rep at a known number before acting on any change."
+  },
+  {
+    "id": "lender-funding-hold-crestline",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "auto_dealer",
+    "scamType": "funding_phish",
+    "difficulty": 3,
+    "verdict": "scam",
+    "sender": {
+      "name": "Crestline Auto Finance",
+      "address": "funding@crestline-dealerfunding.example"
+    },
+    "subject": "Funding notice: Contract #CAF-88134 – $27,960.00 on hold",
+    "body": "Crestline Auto Finance\nDealer Funding Notice\n\nContract: CAF-88134 (Ruiz, A.)\nAmount: $27,960.00\nStatus: ON HOLD – dealer banking verification\n\nFunding for this contract is on hold until your dealership re-verifies its deposit account, as required once a year under our updated dealer agreement.\n\nVERIFY DEALER ACCOUNT\n\nHave your dealer portal login and the dealership's routing and account number ready. Contracts not verified within 24 hours are returned unfunded.\n\nCrestline Auto Finance · Dealer Services · crestlineauto.example",
+    "links": [
+      {
+        "text": "VERIFY DEALER ACCOUNT",
+        "url": "https://crestline-dealerfunding.example/verify?dealer=LV2208"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "sender-domain",
+        "label": "Wrong domain",
+        "explanation": "Crestline's real domain, in the footer, is crestlineauto.example; this came from a different one.",
+        "target": "crestline-dealerfunding.example"
+      },
+      {
+        "id": "held-money",
+        "label": "Money you're expecting, on hold",
+        "explanation": "Holding a deal's funding is bait to make the F&I office act fast.",
+        "target": "Funding for this contract is on hold"
+      },
+      {
+        "id": "button",
+        "label": "Link to a fake portal",
+        "explanation": "The button goes to crestline-dealerfunding.example, not the dealer portal you normally use.",
+        "target": "VERIFY DEALER ACCOUNT"
+      },
+      {
+        "id": "login-and-bank",
+        "label": "Asks for login and bank details",
+        "explanation": "Lenders already have your banking on file; asking for your login plus account numbers is a phishing tell.",
+        "target": "your dealer portal login and the dealership's routing and account number"
+      }
+    ],
+    "tip": "Check funding status by opening the lender's dealer portal from your own bookmark, never from an email button."
+  },
+  {
+    "id": "chargeback-alert-text-paylane",
+    "locale": "en-US",
+    "channel": "sms",
+    "industry": "auto_dealer",
+    "scamType": "chargeback_phish",
+    "difficulty": 2,
+    "verdict": "scam",
+    "sender": {
+      "name": "(555) 018-6627",
+      "address": "(555) 018-6627"
+    },
+    "body": "PayLane Merchant Alert: A chargeback of $4,500.00 was filed on a vehicle deposit at Lakeview Motors. The amount will be debited from your account in 24 hrs unless you respond. View dispute: paylane-disputes.example/c/88412",
+    "links": [
+      {
+        "text": "paylane-disputes.example/c/88412",
+        "url": "https://paylane-disputes.example/c/88412?m=lakeview"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "number",
+        "label": "Ordinary phone number",
+        "explanation": "Payment processors alert you inside your merchant dashboard or from a short code, not from a regular 10-digit number.",
+        "target": "(555) 018-6627"
+      },
+      {
+        "id": "debit-threat",
+        "label": "Countdown to a debit",
+        "explanation": "A deadline on your own money pushes you to tap before you think.",
+        "target": "debited from your account in 24 hrs"
+      },
+      {
+        "id": "link",
+        "label": "Dispute link in a text",
+        "explanation": "Real disputes are handled in your processor's dashboard; a texted link is how scammers capture your merchant login.",
+        "target": "paylane-disputes.example/c/88412"
+      }
+    ],
+    "tip": "Check chargebacks by signing in to your processor's dashboard yourself, never from a text link."
+  },
+  {
+    "id": "dmv-title-fee-text",
+    "locale": "en-US",
+    "channel": "sms",
+    "industry": "auto_dealer",
+    "scamType": "gov_fee",
+    "difficulty": 1,
+    "verdict": "scam",
+    "sender": {
+      "name": "(555) 019-0341",
+      "address": "(555) 019-0341"
+    },
+    "body": "RIVERSTATE DMV: Your title application #RS-20448 is ON HOLD. An unpaid processing fee of $24.50 must be paid today or the application will be cancelled and late penalties applied. Pay now: riverstate-dmvfees.example/t",
+    "links": [
+      {
+        "text": "riverstate-dmvfees.example/t",
+        "url": "https://riverstate-dmvfees.example/t/RS-20448"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "number",
+        "label": "Random phone number",
+        "explanation": "Dealer title alerts come from the state's registered short code, not an ordinary number.",
+        "target": "(555) 019-0341"
+      },
+      {
+        "id": "fee",
+        "label": "Surprise fee",
+        "explanation": "Title fees are paid when you file through the state's dealer system, not later by text.",
+        "target": "An unpaid processing fee of $24.50"
+      },
+      {
+        "id": "deadline",
+        "label": "Cancel-today threat",
+        "explanation": "Threatening to cancel a title over a small fee is meant to rush you.",
+        "target": "must be paid today or the application will be cancelled"
+      },
+      {
+        "id": "link",
+        "label": "Payment link in a text",
+        "explanation": "A pay-now link in a text is how scammers collect card numbers.",
+        "target": "riverstate-dmvfees.example/t"
+      }
+    ],
+    "tip": "Pay title and registration fees only through your state's dealer system. Check any \"on hold\" text there first."
+  },
+  {
+    "id": "tech-support-dms-remote-access",
+    "locale": "en-US",
+    "channel": "voicemail",
+    "industry": "auto_dealer",
+    "scamType": "remote_access",
+    "difficulty": 3,
+    "verdict": "scam",
+    "sender": {
+      "name": "DealerDrive Support",
+      "address": "(555) 015-7720"
+    },
+    "body": "Hi, this is Kevin with DealerDrive DMS support. Our system shows your dealership's accounting module failed its license security check last night, and it's going to lock out your F&I and accounting users at 5 PM today. I can fix it in about ten minutes. I just need you to go to helpdesk-connect.example on your computer and type in the code I give you, so I can connect and push the patch. Call me back directly at 555-015-7720, and please don't open a ticket, that queue is backed up two days.",
+    "redFlags": [
+      {
+        "id": "lockout",
+        "label": "Lockout countdown",
+        "explanation": "A deadline on losing your systems is meant to stop you from checking with IT first.",
+        "target": "lock out your F&I and accounting users at 5 PM today"
+      },
+      {
+        "id": "remote",
+        "label": "Wants to connect to your computer",
+        "explanation": "Letting a caller connect gives them control of your computer and everything you're signed in to.",
+        "target": "so I can connect and push the patch"
+      },
+      {
+        "id": "callback",
+        "label": "Callback number they control",
+        "explanation": "Use the support number in your DMS contract or from IT, not one left in a voicemail.",
+        "target": "Call me back directly at 555-015-7720"
+      },
+      {
+        "id": "no-ticket",
+        "label": "Skips the ticket",
+        "explanation": "Real vendors want a ticket; skipping it keeps your IT team out of the loop.",
+        "target": "please don't open a ticket"
+      }
+    ],
+    "tip": "Never let an unexpected caller connect to your computer. Call your IT provider or the vendor's known support line first."
+  },
+  {
+    "id": "legit-dmv-title-shortcode",
+    "locale": "en-US",
+    "channel": "sms",
+    "industry": "auto_dealer",
+    "scamType": "none",
+    "difficulty": 3,
+    "verdict": "legit",
+    "sender": {
+      "name": "46873",
+      "address": "46873"
+    },
+    "body": "Riverstate DMV Dealer Services: Title application T-55190 (VIN ending 0932) was approved 10/22. The title will be mailed to Lakeview Motors in 7-10 business days. No action needed. Status: dmv.riverstate.example/s/T55190\nReply STOP to end alerts.",
+    "links": [
+      {
+        "text": "dmv.riverstate.example/s/T55190",
+        "url": "https://dmv.riverstate.example/s/T55190"
+      }
+    ],
+    "redFlags": [],
+    "legitReason": "It comes from the state short code your office signed up for, matches a title application you filed, asks for no payment or login, and the link goes to the state's real dmv.riverstate.example site.",
+    "tip": "Real agency texts report status and ask for nothing. Fee demands and deadlines are what to watch for."
+  },
+  {
+    "id": "legit-floorplan-audit-invite",
+    "locale": "en-US",
+    "channel": "calendar_invite",
+    "industry": "auto_dealer",
+    "scamType": "none",
+    "difficulty": 2,
+    "verdict": "legit",
+    "sender": {
+      "name": "Tasha Greene",
+      "address": "tasha.greene@lakeviewmotors.example"
+    },
+    "subject": "Floor plan audit – Harbor auditor on site",
+    "body": "When: Wed, Oct 29 · 8:00 – 10:00 AM CT\nWhere: Lakeview Motors, front lot\nGuests: Marcus Bell, Sales managers (3), Office (2)\n\nHarbor's auditor is coming for our scheduled quarterly floor plan audit. Please have keys and the aged-unit list ready. The list is in Harbor's dealer portal: Q4 audit unit list\n\nNo payments are made during the audit. Curtailments still go through the portal as usual.",
+    "links": [
+      {
+        "text": "Q4 audit unit list",
+        "url": "https://dealers.harborfloorplan.example/audits/LV-Q4"
+      }
+    ],
+    "redFlags": [],
+    "legitReason": "The organizer is your own office manager on the dealership's domain, the audit is routine and scheduled, the link goes to Harbor's real harborfloorplan.example portal, and nothing about payments changes.",
+    "tip": "Internal invites about routine vendor visits are normal. Payment changes tied to an audit are not."
+  },
+  {
+    "id": "legit-lender-stip-voicemail",
+    "locale": "en-US",
+    "channel": "voicemail",
+    "industry": "auto_dealer",
+    "scamType": "none",
+    "difficulty": 4,
+    "verdict": "legit",
+    "sender": {
+      "name": "Tara Simmons",
+      "address": "(555) 013-8814"
+    },
+    "body": "Hi, this is Tara Simmons with Crestline Auto Finance dealer services, calling about the Maddox contract, CAF-88120. It's approved, but funding is waiting on one stip, proof of income. When you get a chance, upload a pay stub in the Crestline dealer portal like usual and I'll release funding the same day. If you have questions, I'm at the dealer services number on our rate sheet. Thanks.",
+    "redFlags": [],
+    "legitReason": "She asks for a normal stipulation, sends you to the dealer portal you already use, points you to the number on the lender's rate sheet instead of leaving her own, and asks for no logins or bank details.",
+    "tip": "Real lender reps send you to the portal and number you already have. Be wary of callers who supply their own."
+  },
+  {
+    "id": "irs-eservices-suspension-phish",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "tax_cpa",
+    "scamType": "irs_impersonation",
+    "difficulty": 2,
+    "verdict": "scam",
+    "sender": {
+      "name": "IRS e-Services",
+      "address": "e-services@irs-notice-center.example"
+    },
+    "subject": "e-Services account suspended – EFIN verification required",
+    "body": "Internal Revenue Service\ne-Services Notification\n\nDear Tax Professional,\n\nDuring a routine review we were unable to verify the identity information linked to your Electronic Filing Identification Number (EFIN). Your e-Services access and e-file privileges have been temporarily suspended.\n\nTo restore access, verify your identity, EFIN and PTIN within 48 hours:\n\nRESTORE E-SERVICES ACCESS\n\nFailure to verify will result in permanent revocation of your e-file privileges for the 2026 filing season.\n\nIRS e-Services | irs.example",
+    "links": [
+      {
+        "text": "RESTORE E-SERVICES ACCESS",
+        "url": "https://irs-notice-center.example/eservices/verify"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "sender",
+        "label": "Not the IRS's domain",
+        "explanation": "The footer even names the real site, irs.example; this email came from irs-notice-center.example.",
+        "target": "irs-notice-center.example"
+      },
+      {
+        "id": "suspended",
+        "label": "Emailed suspension notice",
+        "explanation": "The IRS doesn't email tax pros to say their e-Services access is suspended.",
+        "target": "temporarily suspended"
+      },
+      {
+        "id": "button",
+        "label": "Fake sign-in link",
+        "explanation": "The button goes to irs-notice-center.example, a copy of the sign-in page built to steal your e-Services login.",
+        "target": "RESTORE E-SERVICES ACCESS"
+      },
+      {
+        "id": "threat",
+        "label": "Season-ending threat",
+        "explanation": "Threatening your whole filing season is meant to make you click before you check.",
+        "target": "permanent revocation of your e-file privileges"
+      }
+    ],
+    "tip": "The IRS doesn't email tax pros to verify an EFIN. Sign in to e-Services by typing the address yourself."
+  },
+  {
+    "id": "client-portal-phish-clientvault",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "tax_cpa",
+    "scamType": "credential_phish",
+    "difficulty": 5,
+    "verdict": "scam",
+    "sender": {
+      "name": "ClientVault",
+      "address": "notifications@clientvault-secure.example"
+    },
+    "subject": "Marcus Webb uploaded 3 documents",
+    "body": "ClientVault\n\nMarcus Webb uploaded 3 documents to your firm's portal.\n\n• 2025_1099-B_Brokerage.pdf\n• K-1_Webb_Partners.pdf\n• Signed_8879.pdf\n\nVIEW DOCUMENTS\n\nFor your security, you'll be asked to sign in with your CloudSuite 365 email and password.\n\nYou're receiving this because you're an administrator of alderfinch.clientvault.example.",
+    "links": [
+      {
+        "text": "VIEW DOCUMENTS",
+        "url": "https://clientvault-secure.example/alderfinch/login"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "sender",
+        "label": "Wrong domain",
+        "explanation": "Your portal lives at alderfinch.clientvault.example, as the footer says; this came from clientvault-secure.example.",
+        "target": "clientvault-secure.example"
+      },
+      {
+        "id": "button",
+        "label": "Link leaves your portal",
+        "explanation": "The button goes to clientvault-secure.example, not your firm's portal address.",
+        "target": "VIEW DOCUMENTS"
+      },
+      {
+        "id": "password",
+        "label": "Asks for your email password",
+        "explanation": "Your client portal has its own login; a page asking for your email password is harvesting it.",
+        "target": "sign in with your CloudSuite 365 email and password"
+      }
+    ],
+    "tip": "Open client uploads from your portal bookmark. The notice and the real portal should share the same address."
+  },
+  {
+    "id": "efax-phish-cp2000",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "tax_cpa",
+    "scamType": "efax_phish",
+    "difficulty": 1,
+    "verdict": "scam",
+    "sender": {
+      "name": "FaxLink Delivery",
+      "address": "fax-delivery@faxlink-mail.example"
+    },
+    "subject": "New fax from (555) 019-2287 – 4 pages",
+    "body": "You have received a new fax.\n\nFrom: (555) 019-2287\nPages: 4\nRe: IRS NOTICE CP2000 – CLIENT RESPONSE REQUIRED\nReceived: 10/23 6:41 AM\n\nOPEN FAX\n\nTo open the fax, sign in with your work email and password. Faxes are deleted after 24 hours.",
+    "links": [
+      {
+        "text": "OPEN FAX",
+        "url": "https://docview-fax.example/f/55210"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "bait",
+        "label": "Scary IRS bait",
+        "explanation": "The IRS mails CP2000 notices; an urgent \"IRS\" fax from a number you don't know is bait.",
+        "target": "IRS NOTICE CP2000 – CLIENT RESPONSE REQUIRED"
+      },
+      {
+        "id": "button",
+        "label": "Link to an unknown site",
+        "explanation": "The button goes to docview-fax.example, not a fax service your firm uses.",
+        "target": "OPEN FAX"
+      },
+      {
+        "id": "password",
+        "label": "Asks for your email password",
+        "explanation": "Fax services don't need your email password to show you a document.",
+        "target": "sign in with your work email and password"
+      },
+      {
+        "id": "deletion",
+        "label": "Deletion countdown",
+        "explanation": "The countdown is there to rush you.",
+        "target": "Faxes are deleted after 24 hours"
+      }
+    ],
+    "tip": "Real fax services don't need your email password. If you're not sure which fax service your office uses, ask before clicking."
+  },
+  {
+    "id": "new-client-shared-file-lure",
+    "locale": "en-US",
+    "channel": "chat",
+    "industry": "tax_cpa",
+    "scamType": "shared_file_phish",
+    "difficulty": 4,
+    "verdict": "scam",
+    "sender": {
+      "name": "Website visitor",
+      "address": "Alder & Finch website chat"
+    },
+    "body": "Hi, I'm looking for a CPA for my 2025 return, my last preparer retired. I have a rental property and some crypto, so it's a bit complicated. I put all my documents in one folder so you can give me a quote: dbx-share.example/f/Tax2025_Collins\n\nIt says you have to sign in with your work email to see it. Can you look today? I'd like to sign an engagement letter this week.",
+    "links": [
+      {
+        "text": "dbx-share.example/f/Tax2025_Collins",
+        "url": "https://dbx-share.example/f/Tax2025_Collins"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "link",
+        "label": "Stranger's file link",
+        "explanation": "\"New client\" file links are a well-known way to plant malware or a fake sign-in page at tax firms.",
+        "target": "dbx-share.example/f/Tax2025_Collins"
+      },
+      {
+        "id": "signin",
+        "label": "Needs your work login",
+        "explanation": "Viewing someone's files shouldn't need your work email password.",
+        "target": "sign in with your work email to see it"
+      },
+      {
+        "id": "rush",
+        "label": "Rush from a stranger",
+        "explanation": "Pressure to open it right away is meant to skip your intake process.",
+        "target": "Can you look today?"
+      }
+    ],
+    "tip": "Ask new prospects to upload documents through your own client portal. Don't open links they send."
+  },
+  {
+    "id": "software-cert-renewal-invite",
+    "locale": "en-US",
+    "channel": "calendar_invite",
+    "industry": "tax_cpa",
+    "scamType": "calendar_phish",
+    "difficulty": 4,
+    "verdict": "scam",
+    "sender": {
+      "name": "LedgerLine Support",
+      "address": "support@ledgerline-renewals.example"
+    },
+    "subject": "Required: 2026 e-file certificate renewal (15 min)",
+    "body": "When: Mon, Nov 3 · 9:00 – 9:15 AM CT\nWhere: Online\nGuests: Alder & Finch staff (9)\n\nLedgerLine's e-file transmission certificate expires before the 2026 season. Every user must run the renewal tool before this session or returns cannot be transmitted.\n\nDownload the renewal tool\n\nIf prompted, allow the tool to make changes to your computer and enter your LedgerLine admin password.\n\nQuestions: support@ledgerline.example",
+    "links": [
+      {
+        "text": "Download the renewal tool",
+        "url": "https://ledgerline-renewals.example/dl/LL_CertRenew.exe"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "organizer",
+        "label": "Outside organizer",
+        "explanation": "LedgerLine's real support address, at the bottom, is on ledgerline.example; the organizer's domain is different.",
+        "target": "ledgerline-renewals.example"
+      },
+      {
+        "id": "download",
+        "label": "Program download",
+        "explanation": "The link downloads LL_CertRenew.exe from the lookalike site. Real updates come through the software itself or your IT team.",
+        "target": "Download the renewal tool"
+      },
+      {
+        "id": "admin",
+        "label": "Asks for admin rights and password",
+        "explanation": "Giving an unknown program admin rights and your password hands over your machine.",
+        "target": "allow the tool to make changes to your computer and enter your LedgerLine admin password"
+      },
+      {
+        "id": "threat",
+        "label": "Filing-season threat",
+        "explanation": "Fear of missing deadlines is the pressure point for tax firms.",
+        "target": "returns cannot be transmitted"
+      }
+    ],
+    "tip": "Install software updates from inside the program or through IT, never from a calendar invite link."
+  },
+  {
+    "id": "legit-client-irs-letter-voicemail",
+    "locale": "en-US",
+    "channel": "voicemail",
+    "industry": "tax_cpa",
+    "scamType": "none",
+    "difficulty": 3,
+    "verdict": "legit",
+    "sender": {
+      "name": "Omar Haddad",
+      "address": "(555) 013-5502"
+    },
+    "body": "Hi, it's Omar Haddad. We got a letter from the IRS in the mail today, a CP2000 I think. It says we owe about eighteen hundred dollars on our 2024 return, and the response date is December 1st. I'm a little worried. I'll scan it and upload it to the portal tonight. Can you take a look and call me tomorrow? I'm at the same number as always. Thanks.",
+    "redFlags": [],
+    "legitReason": "A known client is telling you about a paper IRS letter, which is how the IRS really sends CP2000 notices. He's using your portal, the deadline is weeks away, and he only asks for a call back on his usual number.",
+    "tip": "Real IRS notices arrive by mail with weeks to respond. Callers who want payment today are the warning sign."
+  },
+  {
+    "id": "legit-clientvault-upload",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "tax_cpa",
+    "scamType": "none",
+    "difficulty": 5,
+    "verdict": "legit",
+    "sender": {
+      "name": "ClientVault",
+      "address": "notifications@clientvault.example"
+    },
+    "subject": "Marcus Webb uploaded 3 documents",
+    "body": "ClientVault\n\nMarcus Webb uploaded 3 documents to your firm's portal.\n\n• 2025_1099-B_Brokerage.pdf\n• K-1_Webb_Partners.pdf\n• 2025_Property_Tax_Bill.pdf\n\nVIEW DOCUMENTS\n\nSign in with your ClientVault username and authenticator code. ClientVault will never ask for your email password.\n\nYou're receiving this because you're an administrator of alderfinch.clientvault.example.",
+    "links": [
+      {
+        "text": "VIEW DOCUMENTS",
+        "url": "https://alderfinch.clientvault.example/clients/webb/documents"
+      }
+    ],
+    "redFlags": [],
+    "legitReason": "It comes from ClientVault's real domain, the button goes to your firm's portal address (alderfinch.clientvault.example), the client is one you expect documents from, and it asks for your normal portal login, not your email password.",
+    "tip": "Tap the button before trusting it: a real portal notice links to the same portal address you use every day."
+  },
+  {
+    "id": "legit-software-renewal-ap",
+    "locale": "en-US",
+    "channel": "payment_request",
+    "industry": "tax_cpa",
+    "scamType": "none",
+    "difficulty": 3,
+    "verdict": "legit",
+    "sender": {
+      "name": "LedgerLine Tax Software",
+      "address": "Alder & Finch AP portal · Vendor #1042"
+    },
+    "subject": "Payment request · $2,480.00",
+    "body": "LedgerLine Tax Software requested $2,480.00\n\nFor: 2026 annual license renewal, 10 seats (Invoice LL-26-55871)\nMatched to: Renewal contract signed by Robert Alder on 10/15\nPay to: ACH account on file (unchanged since 2021)\nTerms: Net 30\n\nView the signed contract before approving.",
+    "links": [
+      {
+        "text": "View the signed contract",
+        "url": "https://ap.alderfinch.example/contracts/LL-2026"
+      }
+    ],
+    "redFlags": [],
+    "legitReason": "It came through your firm's own AP portal, matches a renewal contract a partner signed, uses normal net-30 terms, and pays the vendor's long-standing account on file.",
+    "tip": "Software renewals are real bills too. Match them to a signed contract and the vendor account already on file."
+  },
+  {
+    "id": "title-funding-wire-change-northgate",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "mortgage_title",
+    "scamType": "wire_change",
+    "difficulty": 5,
+    "verdict": "scam",
+    "sender": {
+      "name": "Amy Chen – Northgate Title & Escrow",
+      "address": "achen@nortgatetitle.example"
+    },
+    "subject": "RE: Lee / 418 Birch St – funding for 2 PM closing",
+    "body": "Hi Devon,\n\nWe're all set for 2:00 PM. One update before you send funding: our escrow account moved to a new bank this week as part of a compliance change, so please use the instructions below and disregard the ones in the closing package.\n\nBank: Summit Ridge Bank\nAccount name: Northgate Settlement Services\nRouting: 091000555\nAccount: 6620913874\n\nPlease send the wire before noon so we can disburse on time, and reply here with the Fed reference number.\n\nThanks!\nAmy Chen\nEscrow Officer\n\n> On Wed, Oct 22, Amy Chen <achen@northgatetitle.example> wrote:\n> The closing package for Lee / 418 Birch is attached. Wire instructions are on page 2. Call me with any questions.",
+    "redFlags": [
+      {
+        "id": "lookalike",
+        "label": "Lookalike domain",
+        "explanation": "The sender's domain is missing the \"h\". Amy's real address, in the quoted message, is on northgatetitle.example.",
+        "target": "nortgatetitle.example"
+      },
+      {
+        "id": "reason",
+        "label": "Vague reason for a change",
+        "explanation": "\"Compliance\" is a made-up reason to send closing funds somewhere new.",
+        "target": "our escrow account moved to a new bank this week as part of a compliance change"
+      },
+      {
+        "id": "disregard",
+        "label": "Ignore the original instructions",
+        "explanation": "Title companies don't replace wire instructions by email on closing day.",
+        "target": "please use the instructions below and disregard the ones in the closing package"
+      },
+      {
+        "id": "deadline",
+        "label": "Rush to wire",
+        "explanation": "A closing-day deadline leaves no time to call and verify.",
+        "target": "send the wire before noon"
+      }
+    ],
+    "tip": "Before funding, confirm title's wire instructions by calling the number on your approved settlement agent list, never one in the email."
+  },
+  {
+    "id": "seller-proceeds-redirect",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "mortgage_title",
+    "scamType": "proceeds_redirect",
+    "difficulty": 4,
+    "verdict": "scam",
+    "sender": {
+      "name": "Karen Whitlock",
+      "address": "karen.whitlok@quickmail.example"
+    },
+    "subject": "RE: Closing Friday – seller proceeds",
+    "body": "Hi Maria,\n\nSmall change for Friday. My husband and I just opened an account at a different bank because of the move, so please wire our proceeds there instead of sending a check:\n\nBank: Lone Pine Credit Union\nAccount name: K. Whitlock\nRouting: 302075555\nAccount: 10048827316\n\nI can't sign anything new before closing since I'm already on the road, so please just use this email as my authorization. We'd really appreciate it going out the same day.\n\nThanks so much,\nKaren\n\n> On Tue, Oct 21, Karen Whitlock <karen.whitlock@quickmail.example> wrote:\n> Thanks Maria! Friday at 10 works for us. We'll bring our IDs.",
+    "redFlags": [
+      {
+        "id": "address",
+        "label": "Lookalike email address",
+        "explanation": "One letter is missing from Karen's address; her real one, in the quoted message, is karen.whitlock@quickmail.example.",
+        "target": "karen.whitlok@quickmail.example"
+      },
+      {
+        "id": "change",
+        "label": "Proceeds sent somewhere new",
+        "explanation": "Changing how and where sale proceeds go right before closing is the classic setup for proceeds fraud.",
+        "target": "please wire our proceeds there instead of sending a check"
+      },
+      {
+        "id": "no-signature",
+        "label": "Email as authorization",
+        "explanation": "Disbursement changes need a signed authorization and a call to the seller at a known number.",
+        "target": "please just use this email as my authorization"
+      }
+    ],
+    "tip": "Verify any change to seller proceeds by calling the seller at the number in the file, and get it signed on your own form."
+  },
+  {
+    "id": "earnest-money-redirect-text",
+    "locale": "en-US",
+    "channel": "sms",
+    "industry": "mortgage_title",
+    "scamType": "earnest_money_redirect",
+    "difficulty": 4,
+    "verdict": "scam",
+    "sender": {
+      "name": "(555) 016-4092",
+      "address": "(555) 016-4092"
+    },
+    "body": "Hi Maria, it's Rachel Kim with Brightpath Realty, this is my new cell. The Lee earnest money ($10,000) for 418 Birch was sent to you by mistake. Our office was supposed to hold it in our brokerage trust account. Can you wire it to our trust account today? I'll email you the details. The buyers already approved it, so no need to bother them.",
+    "redFlags": [
+      {
+        "id": "new-cell",
+        "label": "\"New\" number",
+        "explanation": "A new number for someone you know is the first thing to verify, using the number you already have.",
+        "target": "this is my new cell"
+      },
+      {
+        "id": "move-escrow",
+        "label": "Moving escrowed money by text",
+        "explanation": "Earnest money in escrow only moves under the contract, with written instructions signed by both sides.",
+        "target": "Can you wire it to our trust account today?"
+      },
+      {
+        "id": "skip-buyers",
+        "label": "Cuts out the buyers",
+        "explanation": "Keeping the buyers out of it removes the people who would say no.",
+        "target": "no need to bother them"
+      }
+    ],
+    "tip": "Escrowed money never moves because of a text. Get signed instructions and confirm with each party at the number in the file."
+  },
+  {
+    "id": "recorder-fee-voicemail",
+    "locale": "en-US",
+    "channel": "voicemail",
+    "industry": "mortgage_title",
+    "scamType": "gov_fee",
+    "difficulty": 2,
+    "verdict": "scam",
+    "sender": {
+      "name": "Pine County Recorder",
+      "address": "(555) 018-2234"
+    },
+    "body": "Hi, this is Linda calling from the Pine County Recorder's office about the deed you submitted for 418 Birch Street. It was rejected this morning for an unpaid recording fee of eighty-five dollars. If we don't receive payment by 3 PM today, it goes to the back of the queue and your closing could be delayed. You can pay by debit or credit card over the phone, just call me back directly at 555-018-2234. Thanks.",
+    "redFlags": [
+      {
+        "id": "card-by-phone",
+        "label": "Card payment over the phone",
+        "explanation": "Recording fees are paid through your e-recording account or by the county's normal process, not read out to a caller.",
+        "target": "pay by debit or credit card over the phone"
+      },
+      {
+        "id": "deadline",
+        "label": "Same-day deadline",
+        "explanation": "Threatening your closing date is meant to rush you.",
+        "target": "by 3 PM today"
+      },
+      {
+        "id": "callback",
+        "label": "Direct callback number",
+        "explanation": "Call the recorder's office using the number on the county's website, not one left in a message.",
+        "target": "call me back directly at 555-018-2234"
+      }
+    ],
+    "tip": "Check rejected documents in your e-recording account, or call the county at a number you look up yourself."
+  },
+  {
+    "id": "legit-title-funds-received",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "mortgage_title",
+    "scamType": "none",
+    "difficulty": 3,
+    "verdict": "legit",
+    "sender": {
+      "name": "Amy Chen – Northgate Title & Escrow",
+      "address": "achen@northgatetitle.example"
+    },
+    "subject": "Funds received – Lee / 418 Birch St",
+    "body": "Hi Devon,\n\nConfirming we received your funding wire of $312,450.00 at 11:42 AM. We're on track for the 2:00 PM signing, and the file is updated in our closing portal.\n\nReminder: our wire instructions never change by email. If you ever get a message saying they have, call our office at the number on our website before sending anything.\n\nThanks,\nAmy Chen\nEscrow Officer, Northgate Title & Escrow",
+    "links": [
+      {
+        "text": "closing portal",
+        "url": "https://portal.northgatetitle.example/files/NT-24-0418"
+      }
+    ],
+    "redFlags": [],
+    "legitReason": "It's on Northgate's real domain (with the \"h\"), confirms a wire already sent through the normal process, asks for nothing, and reminds you to verify changes by phone.",
+    "tip": "Confirmations that ask for nothing are normal. Messages that change where money goes are not."
+  },
+  {
+    "id": "legit-remote-closing-invite",
+    "locale": "en-US",
+    "channel": "calendar_invite",
+    "industry": "mortgage_title",
+    "scamType": "none",
+    "difficulty": 3,
+    "verdict": "legit",
+    "sender": {
+      "name": "Northgate Closings",
+      "address": "closings@northgatetitle.example"
+    },
+    "subject": "Remote closing: Lee / 418 Birch St",
+    "body": "When: Fri, Oct 24 · 2:00 – 3:00 PM CT\nWhere: Online signing room\nGuests: Jason Lee, Mia Lee, Devon Price (Meridian Home Loans), Amy Chen\n\nRemote online closing for the Lee purchase. The notary will check IDs on camera at the start.\n\nJoin signing room\n\nNo funds or wire details will be discussed or shared in this meeting.",
+    "links": [
+      {
+        "text": "Join signing room",
+        "url": "https://portal.northgatetitle.example/ron/NT-24-0418"
+      }
+    ],
+    "redFlags": [],
+    "legitReason": "It comes from the title company's real domain for a closing already on the schedule, the guest list matches the file, the link goes to Northgate's own portal, and it promises no money details.",
+    "tip": "A closing invite should come from your known title contact and link to their real portal. Check where the link goes before joining."
+  },
+  {
+    "id": "commission-hold-text-pinnacle",
+    "locale": "en-US",
+    "channel": "sms",
+    "industry": "insurance",
+    "scamType": "commission_phish",
+    "difficulty": 3,
+    "verdict": "scam",
+    "sender": {
+      "name": "(555) 017-9045",
+      "address": "(555) 017-9045"
+    },
+    "body": "Pinnacle Mutual Agent Services: Your October commission of $8,412.77 is ON HOLD due to a banking verification error. Verify your agency's deposit account within 24 hrs to release payment: pinnaclemutual-agentpay.example/v",
+    "links": [
+      {
+        "text": "pinnaclemutual-agentpay.example/v",
+        "url": "https://pinnaclemutual-agentpay.example/v?agency=HC2201"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "number",
+        "label": "Ordinary phone number",
+        "explanation": "Carriers post commission notices in the agent portal, not in texts from a random number.",
+        "target": "(555) 017-9045"
+      },
+      {
+        "id": "hold",
+        "label": "Commission \"on hold\"",
+        "explanation": "Holding money you're owed is bait to get you to hand over banking details.",
+        "target": "is ON HOLD due to a banking verification error"
+      },
+      {
+        "id": "deadline",
+        "label": "24-hour deadline",
+        "explanation": "The short window is meant to rush you.",
+        "target": "within 24 hrs"
+      },
+      {
+        "id": "link",
+        "label": "Banking link in a text",
+        "explanation": "Commission banking is managed inside the agent portal; a texted link asking for your deposit account is phishing.",
+        "target": "pinnaclemutual-agentpay.example/v"
+      }
+    ],
+    "tip": "Check commission status by signing in to the carrier's agent portal yourself. Never update banking from a text."
+  },
+  {
+    "id": "overpayment-refund-text",
+    "locale": "en-US",
+    "channel": "sms",
+    "industry": "insurance",
+    "scamType": "overpayment_refund",
+    "difficulty": 2,
+    "verdict": "scam",
+    "sender": {
+      "name": "(555) 019-4410",
+      "address": "(555) 019-4410"
+    },
+    "body": "Hi, this is Brian Toller, I just started an auto policy with your agency. I mailed a check for $2,850 but my premium was only $1,140, my assistant wrote the wrong amount. Can you send back the $1,710 difference today? Please send it by PayQuick to my business partner at @TJ-Holdings-77, he's covering my expenses while I'm overseas. Thanks for understanding!",
+    "redFlags": [
+      {
+        "id": "overpay",
+        "label": "Overpayment",
+        "explanation": "Overpaying on purpose is the setup: the check bounces after you've sent real money back.",
+        "target": "I mailed a check for $2,850 but my premium was only $1,140"
+      },
+      {
+        "id": "today",
+        "label": "Refund before the check clears",
+        "explanation": "A same-day refund means you pay before you know the check is good.",
+        "target": "Can you send back the $1,710 difference today?"
+      },
+      {
+        "id": "third-party",
+        "label": "Refund to someone else",
+        "explanation": "Refunds go back to the person who paid, by the original method, never to a third party's app handle.",
+        "target": "send it by PayQuick to my business partner"
+      }
+    ],
+    "tip": "Refund overpayments only after the payment clears, and only to the original payer by the original method."
+  },
+  {
+    "id": "qr-mfa-reenroll-invite",
+    "locale": "en-US",
+    "channel": "calendar_invite",
+    "industry": "insurance",
+    "scamType": "qr_phish",
+    "difficulty": 3,
+    "verdict": "scam",
+    "sender": {
+      "name": "Pinnacle Mutual Agency Security",
+      "address": "agent-security@pinnaclemutual-mfa.example"
+    },
+    "subject": "Action required: re-enroll agent portal MFA by Friday",
+    "body": "When: Fri, Oct 31 · 8:00 – 8:15 AM CT\nWhere: Online\n\nPinnacle Mutual is moving all agency users to a new sign-in method. Before this session, scan the code below with your phone camera and sign in with your agent portal ID and password to re-enroll.\n\n[QR code]\n\nUsers who don't re-enroll by Friday will lose quoting and commission access.\n\nAgent portal: agents.pinnaclemutual.example",
+    "links": [
+      {
+        "text": "[QR code]",
+        "url": "https://pinnaclemutual-mfa.example/enroll?a=HC2201"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "organizer",
+        "label": "Outside organizer",
+        "explanation": "Pinnacle's agent portal is agents.pinnaclemutual.example, listed at the bottom; this invite came from a different domain.",
+        "target": "pinnaclemutual-mfa.example"
+      },
+      {
+        "id": "qr",
+        "label": "QR code hides the link",
+        "explanation": "The code leads to pinnaclemutual-mfa.example, and scanning it moves the attack to your phone, outside your work security.",
+        "target": "[QR code]"
+      },
+      {
+        "id": "creds",
+        "label": "Asks for your login",
+        "explanation": "The page behind the code collects your portal login.",
+        "target": "sign in with your agent portal ID and password"
+      },
+      {
+        "id": "threat",
+        "label": "Access threat",
+        "explanation": "Threatening your ability to quote is meant to rush you.",
+        "target": "will lose quoting and commission access"
+      }
+    ],
+    "tip": "Treat QR codes like links. Change MFA settings only from inside the portal you normally use, or ask IT."
+  },
+  {
+    "id": "mfa-fatigue-helpdesk-chat",
+    "locale": "en-US",
+    "channel": "chat",
+    "industry": "insurance",
+    "scamType": "mfa_fatigue",
+    "difficulty": 4,
+    "verdict": "scam",
+    "sender": {
+      "name": "IT Help Desk",
+      "address": "@helpdesk.support · External"
+    },
+    "body": "Hi, this is the help desk. We're moving Harper & Cole accounts to the new security server today. You'll get several sign-in approval requests on your phone in the next few minutes. Please tap Approve on each one so your mailbox doesn't get locked during the move. If you already denied some, that's why they keep coming, just approve the next one. Thanks!",
+    "redFlags": [
+      {
+        "id": "external",
+        "label": "External account",
+        "explanation": "Your IT team chats from inside your company workspace; this account is from outside your organization.",
+        "target": "External"
+      },
+      {
+        "id": "approve",
+        "label": "Asks you to approve prompts",
+        "explanation": "A sign-in prompt you didn't start means someone else has your password. Approving lets them in.",
+        "target": "Please tap Approve on each one"
+      },
+      {
+        "id": "keep-coming",
+        "label": "Repeated prompts",
+        "explanation": "A flood of prompts is the attack itself, called MFA fatigue. Deny them and report it.",
+        "target": "that's why they keep coming, just approve the next one"
+      }
+    ],
+    "tip": "Never approve a sign-in prompt you didn't start. Deny it and call IT at a number you know, because your password needs changing."
+  },
+  {
+    "id": "legit-commission-statement",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "insurance",
+    "scamType": "none",
+    "difficulty": 4,
+    "verdict": "legit",
+    "sender": {
+      "name": "Pinnacle Mutual Agency Services",
+      "address": "agencyservices@pinnaclemutual.example"
+    },
+    "subject": "Your October commission statement is ready",
+    "body": "Hello Harper & Cole Insurance,\n\nYour October commission statement is now available in the Agent Portal.\n\nStatement period: Oct 1 – Oct 31\nNet commission: $8,412.77\nDeposit: ACH to the account ending 3301 on Nov 5\n\nTo view it, sign in as you normally do. We will never ask you to verify banking details by email or text.\n\nPinnacle Mutual Agency Services",
+    "links": [
+      {
+        "text": "Agent Portal",
+        "url": "https://agents.pinnaclemutual.example/statements/2025-10"
+      }
+    ],
+    "redFlags": [],
+    "legitReason": "It comes from the carrier's real domain, the link goes to agents.pinnaclemutual.example, the deposit goes to the account already on file, and it asks you to change or confirm nothing.",
+    "tip": "Real commission notices point you to the portal and leave banking alone. A request to \"verify\" deposit details is the warning sign."
+  },
+  {
+    "id": "legit-return-premium-refund",
+    "locale": "en-US",
+    "channel": "payment_request",
+    "industry": "insurance",
+    "scamType": "none",
+    "difficulty": 3,
+    "verdict": "legit",
+    "sender": {
+      "name": "Grace Liu – return premium",
+      "address": "Harper & Cole billing · Policy PAU-4471920"
+    },
+    "subject": "Refund request · $412.18",
+    "body": "Refund to Grace Liu: $412.18\n\nFor: Return premium after removing a vehicle (endorsement processed by Pinnacle Mutual on 10/17)\nPay to: Grace Liu, by check to the mailing address on the policy\nOriginal payment: card ending 2209, cleared 9/02\nRequested by: Sam Patel, Account Manager\n\nApprove or return this request in agency billing.",
+    "links": [
+      {
+        "text": "agency billing",
+        "url": "https://billing.harpercole.example/refunds/PAU-4471920"
+      }
+    ],
+    "redFlags": [],
+    "legitReason": "The refund comes from a carrier endorsement you can look up, goes to the policyholder herself at the address on the policy, the original payment cleared weeks ago, and it runs through your normal approval step.",
+    "tip": "Real refunds go back to the person who paid, by a normal method, after the payment clears."
+  },
+  {
+    "id": "payroll-direct-deposit-change",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "general",
+    "scamType": "payroll_diversion",
+    "difficulty": 3,
+    "verdict": "scam",
+    "sender": {
+      "name": "Kevin Marsh",
+      "address": "kevin.marsh.lakeside@quickmail.example"
+    },
+    "subject": "Direct deposit update",
+    "body": "Hi Payroll,\n\nI recently changed banks and need my direct deposit updated before this Friday's payroll. New account details are below:\n\nBank: Horizon Digital Bank\nRouting: 124303555\nAccount: 8801265530\nType: Checking\n\nI'm at a customer site all week and can't get into PeoplePoint from here, so can you make the change on your end? Please confirm by email once it's done.\n\nThanks,\nKevin Marsh\nService Advisor | Lakeside Group\nkmarsh@lakesidegroup.example",
+    "redFlags": [
+      {
+        "id": "personal-email",
+        "label": "Personal email account",
+        "explanation": "It's from a personal account, not Kevin's work address in the signature, kmarsh@lakesidegroup.example.",
+        "target": "kevin.marsh.lakeside@quickmail.example"
+      },
+      {
+        "id": "deadline",
+        "label": "Before-payroll deadline",
+        "explanation": "Timing the change for the next payroll leaves no time to check.",
+        "target": "before this Friday's payroll"
+      },
+      {
+        "id": "bypass-portal",
+        "label": "Skips the HR portal",
+        "explanation": "Employees change their own deposit details in the HR portal; asking payroll to do it skips the security checks.",
+        "target": "can you make the change on your end?"
+      },
+      {
+        "id": "email-confirm",
+        "label": "Confirm by email only",
+        "explanation": "Keeping it in email keeps you from talking to the real Kevin.",
+        "target": "Please confirm by email once it's done."
+      }
+    ],
+    "tip": "Make direct-deposit changes only through the HR portal, and confirm with the employee in person or at their known extension."
+  },
+  {
+    "id": "deepfake-meeting-followup-chat",
+    "locale": "en-US",
+    "channel": "chat",
+    "industry": "general",
+    "scamType": "deepfake_meeting",
+    "difficulty": 5,
+    "verdict": "scam",
+    "sender": {
+      "name": "Paul Whitaker",
+      "address": "@paul.whitaker.ceo · External"
+    },
+    "body": "Thanks for jumping on the video call with me and our outside counsel this morning. As we discussed, please send the $96,000 escrow deposit for the acquisition to the account counsel shared on screen. It needs to go out before 2 PM Eastern or we lose exclusivity. This deal is under NDA, so please don't discuss it with anyone in finance until it's announced. Just send me the confirmation here when it's done.",
+    "redFlags": [
+      {
+        "id": "video",
+        "label": "A video call isn't proof",
+        "explanation": "Faces and voices can be faked with AI, so a video call alone doesn't prove who you were talking to.",
+        "target": "the video call with me and our outside counsel"
+      },
+      {
+        "id": "external",
+        "label": "External account",
+        "explanation": "Your CEO would message you from your company workspace, not an outside account.",
+        "target": "External"
+      },
+      {
+        "id": "on-screen",
+        "label": "Bank details from a call",
+        "explanation": "Payment details shown on a call skip your normal vendor setup and verification.",
+        "target": "the account counsel shared on screen"
+      },
+      {
+        "id": "deadline",
+        "label": "Hard deadline",
+        "explanation": "A deadline on a big wire is meant to rush you past your approval steps.",
+        "target": "before 2 PM Eastern or we lose exclusivity"
+      },
+      {
+        "id": "secrecy",
+        "label": "Secrecy from finance",
+        "explanation": "Keeping finance out removes the people who would catch it.",
+        "target": "please don't discuss it with anyone in finance"
+      }
+    ],
+    "tip": "A video call can be a deepfake. Verify unusual payment requests by calling the executive on their known number, and keep dual approval."
+  },
+  {
+    "id": "vendor-bank-change-coastline",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "general",
+    "scamType": "vendor_bank_change",
+    "difficulty": 4,
+    "verdict": "scam",
+    "sender": {
+      "name": "Luis Ferreira – Coastline Copier Co.",
+      "address": "billing@coastlinecopeir.example"
+    },
+    "subject": "Updated remittance details – please update vendor record",
+    "body": "Hi Accounts Payable,\n\nWe've moved our banking to a new institution. Effective immediately, please send all ACH payments, including the open balance on invoice 10422, to our new account. The signed bank letter is here:\n\nCoastline_Remittance_Update.pdf\n\nPlease update your vendor record today so November's payment isn't delayed. Our office is moving this week, so email is the best way to reach me.\n\nThanks,\nLuis Ferreira\nAccounts Receivable, Coastline Copier Co.\ncoastlinecopier.example",
+    "links": [
+      {
+        "text": "Coastline_Remittance_Update.pdf",
+        "url": "https://docs-share.example/v/coastline-remit"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "lookalike",
+        "label": "Lookalike domain",
+        "explanation": "\"copeir\" is misspelled; Coastline's real domain, in the signature, is coastlinecopier.example.",
+        "target": "coastlinecopeir.example"
+      },
+      {
+        "id": "bank-change",
+        "label": "New bank account",
+        "explanation": "A vendor bank change by email is the most common way businesses lose payments to fraud.",
+        "target": "please send all ACH payments, including the open balance on invoice 10422, to our new account"
+      },
+      {
+        "id": "file-link",
+        "label": "The \"PDF\" is a link",
+        "explanation": "It looks like an attachment but opens a file-sharing site, a common route to a fake sign-in page.",
+        "target": "Coastline_Remittance_Update.pdf"
+      },
+      {
+        "id": "email-only",
+        "label": "Email only",
+        "explanation": "Steering you away from the phone keeps you from reaching the real Luis.",
+        "target": "email is the best way to reach me"
+      }
+    ],
+    "tip": "Verify every vendor bank change by calling the vendor at the number already in your vendor record, never one in the email."
+  },
+  {
+    "id": "fleet-rental-invoice",
+    "locale": "en-US",
+    "channel": "payment_request",
+    "industry": "general",
+    "scamType": "fake_invoice",
+    "difficulty": 2,
+    "verdict": "scam",
+    "sender": {
+      "name": "Metro Fleet Rentals",
+      "address": "@MetroFleet-Billing"
+    },
+    "subject": "Payment request · $3,980.00",
+    "body": "Metro Fleet Rentals requested $3,980.00\nDue: Today\n\nFor: Fleet vehicle rental, October (4 units), contract #MF-20931\n\nYour company card on file was declined. To keep your vehicles on contract and avoid repossession fees, pay now by bank transfer or card:\n\nPAY NOW\n\nQuestions? Reply to this request. Our phone lines are down for system maintenance.",
+    "links": [
+      {
+        "text": "PAY NOW",
+        "url": "https://metrofleet-billing.example/pay/MF-20931"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "no-po",
+        "label": "Nothing to match it to",
+        "explanation": "There's no PO and no name of who rented the vehicles, only a contract number you can't find.",
+        "target": "Fleet vehicle rental, October (4 units), contract #MF-20931"
+      },
+      {
+        "id": "declined",
+        "label": "\"Card declined\" story",
+        "explanation": "A declined-card claim is a reason to get a new payment out of you.",
+        "target": "Your company card on file was declined."
+      },
+      {
+        "id": "threat",
+        "label": "Repossession threat",
+        "explanation": "Fees and threats are meant to make you pay before you check.",
+        "target": "avoid repossession fees"
+      },
+      {
+        "id": "no-phone",
+        "label": "Can't call them",
+        "explanation": "A vendor you can't phone is a vendor you can't verify.",
+        "target": "Our phone lines are down for system maintenance."
+      }
+    ],
+    "tip": "Pay only invoices you can match to a PO or contract, and call the vendor at a number you look up yourself."
+  },
+  {
+    "id": "legit-payroll-change-chat",
+    "locale": "en-US",
+    "channel": "chat",
+    "industry": "general",
+    "scamType": "none",
+    "difficulty": 3,
+    "verdict": "legit",
+    "sender": {
+      "name": "Rosa Delgado (HR)",
+      "address": "@rosa.delgado · Lakeside Group"
+    },
+    "body": "Hi! Heads up for Friday's payroll: Kevin Marsh changed his direct deposit in PeoplePoint this morning. It flagged as a bank change, so I called him at his desk extension and he confirmed it's his. Can you make sure it shows up in the payroll preview? Change log: PeoplePoint change #5521",
+    "links": [
+      {
+        "text": "PeoplePoint change #5521",
+        "url": "https://lakesidegroup.peoplepoint.example/changes/5521"
+      }
+    ],
+    "redFlags": [],
+    "legitReason": "A known HR coworker is in your internal chat, the employee made the change himself in the HR portal, HR verified it by calling his known extension, and the link goes to your company's PeoplePoint site.",
+    "tip": "A real deposit change is made by the employee in the HR portal and confirmed with a callback. A request to change it for them is the red flag."
+  },
+  {
+    "id": "legit-password-reset-chat",
+    "locale": "en-US",
+    "channel": "chat",
+    "industry": "general",
+    "scamType": "none",
+    "difficulty": 1,
+    "verdict": "legit",
+    "sender": {
+      "name": "Priya Shah (IT)",
+      "address": "@priya.shah · Lakeside Group"
+    },
+    "body": "Hi! Got your help desk ticket about being locked out. I've unlocked your account, so you can sign in as usual at your desk. I'll never ask you for your password or a code, so if anyone does, report it. Details are in the ticket: View ticket #4471",
+    "links": [
+      {
+        "text": "View ticket #4471",
+        "url": "https://helpdesk.lakesidegroup.example/tickets/4471"
+      }
+    ],
+    "redFlags": [],
+    "legitReason": "It's from a known IT coworker in your internal chat, it answers a ticket you opened, it asks for nothing, and the link goes to your company's own help desk.",
+    "tip": "Real IT help answers your ticket and never asks for your password or MFA code."
+  },
+  {
+    "id": "legit-shared-file-cloudsuite",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "general",
+    "scamType": "none",
+    "difficulty": 4,
+    "verdict": "legit",
+    "sender": {
+      "name": "Alicia Moreno (via CloudSuite Files)",
+      "address": "files-noreply@cloudsuite365.example"
+    },
+    "subject": "Alicia Moreno shared \"Q3_Reconciliation.xlsx\" with you",
+    "body": "Alicia Moreno (alicia.moreno@lakesidegroup.example) shared a file with you.\n\nQ3_Reconciliation.xlsx\n\n\"Here's the rec for Friday's month-end check-in. Can you fill in the AP tab?\"\n\nOpen\n\nYou're receiving this because Alicia shared a file with you in CloudSuite 365.",
+    "links": [
+      {
+        "text": "Open",
+        "url": "https://files.cloudsuite365.example/s/lakesidegroup/q3-reconciliation"
+      }
+    ],
+    "redFlags": [],
+    "legitReason": "It comes from CloudSuite's real domain, the file is from a coworker on your company domain and fits the month-end meeting on your calendar, and the link goes to files.cloudsuite365.example.",
+    "tip": "Before opening a shared file, check who shared it, whether you expected it, and where the link really goes."
+  },
+  {
+    "id": "legit-bank-fraud-alert-voicemail",
+    "locale": "en-US",
+    "channel": "voicemail",
+    "industry": "general",
+    "scamType": "none",
+    "difficulty": 4,
+    "verdict": "legit",
+    "sender": {
+      "name": "Cedar Valley Bank",
+      "address": "(555) 014-6100"
+    },
+    "body": "Hello, this is the fraud prevention team at Cedar Valley Bank with a message for Lakeside Group. We declined a card purchase of $1,284.00 at an online electronics store on your business card ending 7712. If you don't recognize it, please call us using the number on the back of your card, or sign in to online banking. We will never ask for your PIN, full card number, or a verification code by phone. Thank you.",
+    "redFlags": [],
+    "legitReason": "It tells you what happened, sends you to the number on the back of your card instead of leaving its own callback number, and says up front it won't ask for your PIN, card number, or codes.",
+    "tip": "Real bank fraud alerts send you to a number you already trust. Call the one on the back of your card."
   }
 ]

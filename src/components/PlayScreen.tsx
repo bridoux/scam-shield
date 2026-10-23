@@ -3,8 +3,10 @@
 import { m } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { format, type UiStrings } from "@/lib/content";
+import type { PlayErrorCode } from "@/lib/play/types";
 import type { AnswerResult } from "@/lib/round";
-import type { Scenario, Verdict } from "@/lib/types";
+import type { PublicCard, Scenario, Verdict } from "@/lib/types";
+import { AnswerButtons, BottomBar } from "./AnswerButtons";
 import { CardView } from "./cards/CardView";
 import { FeedbackPanel } from "./FeedbackPanel";
 import { ArrowRightIcon, CheckIcon, FlameIcon, ShieldIcon, XIcon } from "./icons";
@@ -12,20 +14,26 @@ import { SwipeCard } from "./SwipeCard";
 
 interface PlayScreenProps {
   strings: UiStrings;
-  round: Scenario[];
+  cards: PublicCard[];
+  /** Full scenario for each card the server has revealed, else null. */
+  revealed: (Scenario | null)[];
   index: number;
   answers: AnswerResult[];
+  /** An answer or the finish request is in flight. */
+  pending: boolean;
+  error: PlayErrorCode | null;
   onAnswer: (choice: Verdict) => void;
   onNext: () => void;
 }
 
 const INTERACTIVE = "button, a, input, textarea, select, [contenteditable]";
 
-export function PlayScreen({ strings, round, index, answers, onAnswer, onNext }: PlayScreenProps) {
+export function PlayScreen({ strings, cards, revealed, index, answers, pending, error, onAnswer, onNext }: PlayScreenProps) {
   const p = strings.play;
-  const scenario = round[index];
+  const card = cards[index];
+  const scenario = revealed[index] ?? null;
   const result = answers[index] ?? null;
-  const isLast = index === round.length - 1;
+  const isLast = index === cards.length - 1;
   const points = answers.reduce((sum, a) => sum + a.basePoints + a.bonusPoints, 0);
   const streak = answers.at(-1)?.streak ?? 0;
   const feedbackHeading = useRef<HTMLHeadingElement>(null);
@@ -33,7 +41,9 @@ export function PlayScreen({ strings, round, index, answers, onAnswer, onNext }:
   // Keyboard: ← scam, → legit, Enter or N for the next card.
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
-      if (event.altKey || event.ctrlKey || event.metaKey || event.repeat) return;
+      if (event.altKey || event.ctrlKey || event.metaKey || event.repeat || pending) return;
+      // Keys belong to the link preview while it is open.
+      if (document.querySelector("dialog[open]")) return;
       const onControl = event.target instanceof Element && event.target.closest(INTERACTIVE);
       if (!result) {
         if (event.key === "ArrowLeft") onAnswer("scam");
@@ -48,7 +58,7 @@ export function PlayScreen({ strings, round, index, answers, onAnswer, onNext }:
     }
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [result, onAnswer, onNext]);
+  }, [result, pending, onAnswer, onNext]);
 
   // Move focus to the result so screen readers announce it, without jumping the page.
   useEffect(() => {
@@ -67,19 +77,19 @@ export function PlayScreen({ strings, round, index, answers, onAnswer, onNext }:
           <ShieldIcon className="size-6 shrink-0 text-accent" />
           <div className="min-w-0 flex-1">
             <h1 className="text-sm font-semibold text-slate-800" data-testid="progress">
-              {format(p.progress, { current: index + 1, total: round.length })}
+              {format(p.progress, { current: index + 1, total: cards.length })}
             </h1>
             <div
               role="progressbar"
-              aria-label={format(p.progress, { current: index + 1, total: round.length })}
+              aria-label={format(p.progress, { current: index + 1, total: cards.length })}
               aria-valuemin={0}
-              aria-valuemax={round.length}
+              aria-valuemax={cards.length}
               aria-valuenow={answers.length}
               className="mt-1 h-1.5 overflow-hidden rounded-full bg-slate-200"
             >
               <div
                 className="h-full rounded-full bg-accent transition-[width] duration-300"
-                style={{ width: `${(answers.length / round.length) * 100}%` }}
+                style={{ width: `${(answers.length / cards.length) * 100}%` }}
               />
             </div>
           </div>
@@ -95,7 +105,7 @@ export function PlayScreen({ strings, round, index, answers, onAnswer, onNext }:
         </header>
 
         <m.div
-          key={scenario.id}
+          key={index}
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
@@ -104,83 +114,64 @@ export function PlayScreen({ strings, round, index, answers, onAnswer, onNext }:
           <SwipeCard
             answer={result?.choice ?? null}
             correct={result?.correct ?? null}
+            locked={pending}
             onSwipe={onAnswer}
             labels={{ scam: p.scam, legit: p.legit }}
           >
-            <CardView scenario={scenario} strings={strings} revealed={result !== null} />
+            <CardView card={card} strings={strings} redFlags={scenario?.redFlags ?? null} />
           </SwipeCard>
         </m.div>
 
-        {result ? (
+        {error ? (
+          <p role="alert" className="mt-3 rounded-xl bg-danger-soft p-3 text-center text-sm font-medium text-danger">
+            {strings.errors[error]}
+          </p>
+        ) : null}
+
+        {result && scenario ? (
           <FeedbackPanel scenario={scenario} result={result} strings={strings} headingRef={feedbackHeading} />
         ) : (
-          <p className="mt-3 text-center text-sm text-slate-600">
-            {p.swipeHint} <span className="hidden sm:inline">{p.keyHint}</span>
+          <p className="mt-3 text-center text-sm text-slate-600" aria-live="polite">
+            {pending ? p.checking : p.swipeHint} {pending ? null : <span className="hidden sm:inline">{p.keyHint}</span>}
           </p>
         )}
       </main>
 
-      <div className="fixed inset-x-0 bottom-0 border-t border-slate-200 bg-white/95 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-md gap-3 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
-          {result ? (
-            <>
-              <div
-                aria-hidden
-                className={`flex min-w-0 items-center gap-2 ${result.correct ? "text-safe" : "text-danger"}`}
+      <BottomBar>
+        {result && scenario ? (
+          <>
+            <div
+              aria-hidden
+              className={`flex min-w-0 items-center gap-2 ${result.correct ? "text-safe" : "text-danger"}`}
+            >
+              <span
+                className={`inline-flex size-8 shrink-0 items-center justify-center rounded-full text-white ${result.correct ? "bg-safe" : "bg-danger"}`}
               >
-                <span
-                  className={`inline-flex size-8 shrink-0 items-center justify-center rounded-full text-white ${result.correct ? "bg-safe" : "bg-danger"}`}
-                >
-                  {result.correct ? <CheckIcon className="size-5" /> : <XIcon className="size-5" />}
+                {result.correct ? <CheckIcon className="size-5" /> : <XIcon className="size-5" />}
+              </span>
+              <span className="leading-tight">
+                <span className="block font-bold">
+                  {result.correct ? strings.feedback.correct : strings.feedback.incorrect}
                 </span>
-                <span className="leading-tight">
-                  <span className="block font-bold">
-                    {result.correct ? strings.feedback.correct : strings.feedback.incorrect}
-                  </span>
-                  <span className="block text-xs text-slate-600">
-                    {scenario.redFlags.length > 0 ? p.seeBelow : p.seeWhy}
-                  </span>
+                <span className="block text-xs text-slate-600">
+                  {scenario.redFlags.length > 0 ? p.seeBelow : p.seeWhy}
                 </span>
-              </div>
-              <button
-                type="button"
-                onClick={onNext}
-                className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-accent px-5 py-3.5 text-lg font-semibold text-white transition-colors hover:bg-accent-strong focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-accent"
-              >
-                {isLast ? p.finish : p.next}
-                <ArrowRightIcon className="size-5" />
-              </button>
-            </>
-          ) : (
-            <>
-              <button
-                type="button"
-                onClick={() => onAnswer("scam")}
-                aria-keyshortcuts="ArrowLeft"
-                className="flex flex-1 items-center justify-center gap-2 rounded-xl border-2 border-danger bg-white px-4 py-3 text-lg font-semibold text-danger transition-colors hover:bg-danger-soft focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-danger"
-              >
-                <XIcon className="size-5" />
-                {p.scam}
-                <kbd aria-hidden className="hidden text-xs font-normal text-danger/80 sm:inline">
-                  ←
-                </kbd>
-              </button>
-              <button
-                type="button"
-                onClick={() => onAnswer("legit")}
-                aria-keyshortcuts="ArrowRight"
-                className="flex flex-1 items-center justify-center gap-2 rounded-xl border-2 border-safe bg-white px-4 py-3 text-lg font-semibold text-safe transition-colors hover:bg-safe-soft focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-safe"
-              >
-                <CheckIcon className="size-5" />
-                {p.legit}
-                <kbd aria-hidden className="hidden text-xs font-normal text-safe/80 sm:inline">
-                  →
-                </kbd>
-              </button>
-            </>
-          )}
-        </div>
-      </div>
+              </span>
+            </div>
+            <button
+              type="button"
+              onClick={onNext}
+              disabled={pending}
+              className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-accent px-5 py-3.5 text-lg font-semibold text-white transition-colors hover:bg-accent-strong focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-60"
+            >
+              {pending ? p.checking : isLast ? p.finish : p.next}
+              <ArrowRightIcon className="size-5" />
+            </button>
+          </>
+        ) : (
+          <AnswerButtons strings={strings} disabled={pending} onAnswer={onAnswer} />
+        )}
+      </BottomBar>
     </>
   );
 }

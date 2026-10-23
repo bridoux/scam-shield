@@ -14,7 +14,108 @@
     "keyboardHint": "Keyboard: ← Scam · → Legit · Enter for the next card",
     "cta": "Start today's round",
     "duration": "About 3 minutes",
-    "demoNote": "Demo round. No sign-in, and nothing is saved."
+    "demoNote": "Demo round. No sign-in, and nothing is saved.",
+    "recordNote": "Counts toward your training record.",
+    "practiceNote": "You've done today's round. Extra rounds are practice and don't change your record.",
+    "resumeCta": "Continue today's round"
+  },
+  "links": {
+    "linkLabel": "Link: {text}. Shows where it really goes.",
+    "previewTitle": "Link preview",
+    "opensSite": "This link opens",
+    "fullAddress": "Full address",
+    "habit": "Before you tap a link at work, press and hold it on your phone (or hover over it on a computer) to see where it really goes.",
+    "close": "Close preview"
+  },
+  "errors": {
+    "not_signed_in": "Your session ended. Please sign in again.",
+    "no_membership": "You're not part of a company yet.",
+    "no_scenarios": "There are no cards available yet. Please try again later.",
+    "not_found": "We couldn't find that round. Please start again.",
+    "round_closed": "This round is already finished.",
+    "out_of_order": "Please answer the cards in order.",
+    "incomplete": "Answer every card before finishing.",
+    "invalid_input": "Something didn't look right. Please try again.",
+    "server_error": "Something went wrong on our side. Please try again.",
+    "retry": "Try again"
+  },
+  "home": {
+    "eyebrow": "Daily scam training for your team",
+    "title": "Spot the scam before it costs you",
+    "intro": "Three minutes a day. Real-looking emails, texts, voicemails and payment requests. Your team learns the red flags, and you get a training record.",
+    "signIn": "Sign in",
+    "tryDemo": "Try a demo round",
+    "signOut": "Sign out",
+    "team": "Team & invites",
+    "todayDone": "Today's round is done: {score} of {total} correct, {points} pts."
+  },
+  "auth": {
+    "title": "Sign in to Scam Shield",
+    "intro": "Enter your work email and we'll send you a sign-in link. No password needed.",
+    "email": "Work email",
+    "submit": "Email me a sign-in link",
+    "sending": "Sending…",
+    "sentTitle": "Check your email",
+    "sent": "We sent a sign-in link to {email}. Open it on this device to continue.",
+    "invalidEmail": "Enter a valid email address.",
+    "failed": "We couldn't send the link. Please wait a minute and try again.",
+    "linkFailed": "That sign-in link didn't work or has expired. Please request a new one."
+  },
+  "onboarding": {
+    "title": "Set up your company",
+    "intro": "You'll be the owner. You can invite your team on the next screen.",
+    "company": "Company name",
+    "industry": "Industry",
+    "industries": {
+      "general": "Other / general office",
+      "auto_dealer": "Auto dealership",
+      "tax_cpa": "Tax / CPA firm",
+      "mortgage_title": "Mortgage or title",
+      "insurance": "Insurance agency"
+    },
+    "team": "First team name",
+    "teamPlaceholder": "e.g. Front office",
+    "yourName": "Your name (shown to your team)",
+    "submit": "Create company",
+    "creating": "Creating…",
+    "invalid": "Please fill in every field.",
+    "alreadyMember": "You already belong to a company.",
+    "failed": "We couldn't create your company. Please try again."
+  },
+  "team": {
+    "title": "Team & invites",
+    "back": "Back to today's round",
+    "members": "Members",
+    "roles": {
+      "owner": "Owner",
+      "admin": "Admin",
+      "player": "Player"
+    },
+    "teamsHeading": "Teams",
+    "inviteHeading": "Invite link",
+    "inviteIntro": "Share this link with your staff. Anyone who opens it signs in with their email and joins {company} as a player. Links expire after 14 days.",
+    "inviteTeam": "Team",
+    "createInvite": "Create invite link",
+    "creating": "Creating…",
+    "copy": "Copy link",
+    "copied": "Copied",
+    "expires": "Expires {date}",
+    "activeInvites": "Active invite links",
+    "noInvites": "No active invite links yet.",
+    "revoke": "Revoke",
+    "ownersOnly": "Only owners and admins can manage invites.",
+    "failed": "That didn't work. Please try again."
+  },
+  "join": {
+    "title": "Join {company}",
+    "intro": "{company} uses Scam Shield for a quick daily scam-spotting round.",
+    "yourName": "Your name (shown to your team)",
+    "submit": "Join {company}",
+    "joining": "Joining…",
+    "signInFirst": "Sign in to join",
+    "invalid": "This invite link is invalid or has expired. Ask your manager for a new one.",
+    "alreadyMember": "You already belong to another company, so you can't join this one.",
+    "failed": "We couldn't add you. Please try again."
   },
   "play": {
     "progress": "Card {current} of {total}",
@@ -29,7 +130,9 @@
     "next": "Next card",
     "seeBelow": "Red flags below",
     "seeWhy": "Why it's safe, below",
-    "finish": "See my results"
+    "finish": "See my results",
+    "checking": "Checking…",
+    "loadingRound": "Loading the round…"
   },
   "feedback": {
     "correct": "Correct!",
@@ -60,6 +163,9 @@
     "recapCorrect": "Correct",
     "recapWrong": "Wrong",
     "playAgain": "Play again",
+    "practiceAgain": "Play a practice round",
+    "savedRecord": "Saved to your training record.",
+    "savedPractice": "Practice round saved. Today's record is unchanged.",
     "verdicts": {
       "great": "Sharp eyes. You'd be hard to fool.",
       "good": "Solid. A few tricks still slipped through.",
@@ -81,7 +187,11 @@
     "transcript": "Transcript",
     "organizer": "Organizer",
     "from": "From",
-    "rsvp": ["Yes", "Maybe", "No"]
+    "rsvp": [
+      "Yes",
+      "Maybe",
+      "No"
+    ]
   },
   "scamTypes": {
     "wire_change": "Changed wire instructions",
@@ -97,6 +207,23 @@
     "mfa_callback": "MFA code callback",
     "refund_redirect": "Refund redirect",
     "calendar_phish": "Calendar invite phishing",
-    "advance_fee": "Fee to release funds"
+    "advance_fee": "Fee to release funds",
+    "floorplan_fraud": "Floor plan payment fraud",
+    "funding_phish": "Fake lender funding notice",
+    "chargeback_phish": "Fake chargeback alert",
+    "gov_fee": "Fake government fee",
+    "remote_access": "Fake tech support call",
+    "irs_impersonation": "Fake IRS notice",
+    "efax_phish": "Fake e-fax notice",
+    "shared_file_phish": "Fake shared-file link",
+    "proceeds_redirect": "Redirected sale proceeds",
+    "earnest_money_redirect": "Earnest money redirect",
+    "commission_phish": "Fake commission notice",
+    "overpayment_refund": "Overpayment refund scam",
+    "qr_phish": "QR code phishing",
+    "mfa_fatigue": "MFA push fatigue",
+    "payroll_diversion": "Payroll direct-deposit change",
+    "deepfake_meeting": "Deepfake meeting follow-up",
+    "vendor_bank_change": "Vendor bank account change"
   }
 }

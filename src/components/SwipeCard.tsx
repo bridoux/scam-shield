@@ -10,11 +10,13 @@ interface SwipeCardProps {
   /** The player's answer once given; locks dragging and colors the card edge. */
   answer: Verdict | null;
   correct: boolean | null;
+  /** Temporarily disables dragging, e.g. while an answer is being checked. */
+  locked?: boolean;
   onSwipe: (verdict: Verdict) => void;
   labels: Record<Verdict, string>;
 }
 
-export function SwipeCard({ children, answer, correct, onSwipe, labels }: SwipeCardProps) {
+export function SwipeCard({ children, answer, correct, locked = false, onSwipe, labels }: SwipeCardProps) {
   const x = useMotionValue(0);
   const rotate = useTransform(x, [-260, 0, 260], [-9, 0, 9]);
   const legitOpacity = useTransform(x, [16, SWIPE_THRESHOLD], [0, 1]);
@@ -46,13 +48,13 @@ export function SwipeCard({ children, answer, correct, onSwipe, labels }: SwipeC
 
   return (
     <m.div
-      drag={answer ? false : "x"}
+      drag={answer || locked ? false : "x"}
       dragSnapToOrigin
       dragElastic={0.7}
       onDragEnd={handleDragEnd}
       style={{ x, rotate }}
       whileDrag={{ cursor: "grabbing" }}
-      className={`relative overflow-hidden rounded-2xl bg-white shadow-[0_6px_24px_-8px_rgba(15,23,42,0.25)] ring-1 ${ring} ${answer ? "" : "cursor-grab touch-pan-y"}`}
+      className={`relative overflow-hidden rounded-2xl bg-white shadow-[0_6px_24px_-8px_rgba(15,23,42,0.25)] ring-1 ${ring} ${answer || locked ? "" : "cursor-grab touch-pan-y"}`}
       data-testid="swipe-card"
     >
       {children}

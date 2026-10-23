@@ -42,7 +42,7 @@ export function VoicemailCard(props: CardProps) {
             <PlayIcon className="size-4" />
           </span>
           <span className="flex h-8 flex-1 items-center gap-[3px] overflow-hidden">
-            {bars(scenario.id).map((h, i) => (
+            {bars(scenario.sender.address + scenario.body.slice(0, 40)).map((h, i) => (
               <span key={i} className="w-[3px] shrink-0 rounded-full bg-slate-400" style={{ height: `${h}%` }} />
             ))}
           </span>
