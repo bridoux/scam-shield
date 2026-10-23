@@ -1,0 +1,102 @@
+{
+  "locale": "en-US",
+  "appName": "Scam Shield",
+  "metaDescription": "A 3-minute daily round that trains your team to spot scams.",
+  "start": {
+    "eyebrow": "Today's round",
+    "title": "Can you spot the scam?",
+    "intro": "10 real-looking messages: emails, texts, voicemails and payment requests. Mark each one Legit or Scam, then see exactly what gave it away.",
+    "steps": [
+      "Read the message like you would at work.",
+      "Swipe right or tap Legit if it's safe. Swipe left or tap Scam if it isn't.",
+      "Learn the red flags and earn points. Get 3 in a row for a streak bonus."
+    ],
+    "keyboardHint": "Keyboard: ← Scam · → Legit · Enter for the next card",
+    "cta": "Start today's round",
+    "duration": "About 3 minutes",
+    "demoNote": "Demo round. No sign-in, and nothing is saved."
+  },
+  "play": {
+    "progress": "Card {current} of {total}",
+    "points": "{points} pts",
+    "streak": "{streak} in a row",
+    "scam": "Scam",
+    "legit": "Legit",
+    "scamAction": "Mark as scam",
+    "legitAction": "Mark as legit",
+    "swipeHint": "Swipe left for Scam, right for Legit",
+    "keyHint": "or press ← / →",
+    "next": "Next card",
+    "seeBelow": "Red flags below",
+    "seeWhy": "Why it's safe, below",
+    "finish": "See my results"
+  },
+  "feedback": {
+    "correct": "Correct!",
+    "incorrect": "Not quite.",
+    "wasScam": "This message was a scam.",
+    "wasLegit": "This message was legit.",
+    "redFlags": "Red flags",
+    "redFlag": "Red flag {number}",
+    "whySafe": "Why it's safe",
+    "tip": "Takeaway",
+    "pointsEarned": "+{points} pts",
+    "streakBonus": "+{bonus} streak bonus",
+    "noPoints": "No points this time"
+  },
+  "end": {
+    "title": "Round complete",
+    "scoreLine": "{correct} of {total} correct",
+    "accuracy": "Accuracy",
+    "points": "Points",
+    "pointsDetail": "{base} + {bonus} streak bonus",
+    "bestStreak": "Best streak",
+    "missedHeading": "What got past you",
+    "missedNone": "Nothing got past you. Every scam was caught.",
+    "missedCount": "{count} missed",
+    "falseAlarms": "Legit messages flagged as scams: {count}",
+    "falseAlarmsNote": "Being careful is good, but false alarms slow real work. Look for the absence of red flags too.",
+    "recapHeading": "Your answers",
+    "recapCorrect": "Correct",
+    "recapWrong": "Wrong",
+    "playAgain": "Play again",
+    "verdicts": {
+      "great": "Sharp eyes. You'd be hard to fool.",
+      "good": "Solid. A few tricks still slipped through.",
+      "learning": "Good practice. These scams fool smart people every day."
+    }
+  },
+  "channels": {
+    "email": "Inbox",
+    "sms": "Messages",
+    "voicemail": "Voicemail",
+    "chat": "Chat",
+    "payment_request": "Payment request",
+    "calendar_invite": "Calendar invite"
+  },
+  "cards": {
+    "toMe": "to me",
+    "today": "Today",
+    "textMessage": "Text message",
+    "transcript": "Transcript",
+    "organizer": "Organizer",
+    "from": "From",
+    "rsvp": ["Yes", "Maybe", "No"]
+  },
+  "scamTypes": {
+    "wire_change": "Changed wire instructions",
+    "payoff_change": "Changed payoff instructions",
+    "gift_card": "Gift card request",
+    "fake_invoice": "Fake vendor invoice",
+    "credential_phish": "Login phishing",
+    "esign_phish": "E-signature phishing",
+    "toll_smishing": "Unpaid toll text",
+    "delivery_smishing": "Package delivery text",
+    "w2_request": "W-2 data request",
+    "voice_clone": "Voice-clone call",
+    "mfa_callback": "MFA code callback",
+    "refund_redirect": "Refund redirect",
+    "calendar_phish": "Calendar invite phishing",
+    "advance_fee": "Fee to release funds"
+  }
+}
