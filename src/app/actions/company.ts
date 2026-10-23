@@ -1,0 +1,95 @@
+"use server";
+
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { getSession } from "@/lib/auth";
+import { isTimeZone } from "@/lib/play/dates";
+import { createClient } from "@/lib/supabase/server";
+import type { Industry } from "@/lib/types";
+import { cleanText } from "@/lib/urls";
+
+const INDUSTRIES: readonly Industry[] = ["general", "auto_dealer", "tax_cpa", "mortgage_title", "insurance"];
+/** Invite tokens are two UUIDs without dashes. */
+const INVITE_TOKEN = /^[0-9a-f]{64}$/;
+
+export type FormState = { status: "idle" } | { status: "error"; error: string };
+
+/** Postgres raises these hints from create_organization / accept_invite. */
+function hintOf(error: { hint?: string | null } | null): string | null {
+  return error?.hint ?? null;
+}
+
+export async function createCompany(_prev: FormState, formData: FormData): Promise<FormState> {
+  const name = cleanText(formData.get("company"), 120);
+  const team = cleanText(formData.get("team"), 80);
+  const displayName = cleanText(formData.get("displayName"), 80);
+  const industry = String(formData.get("industry") ?? "") as Industry;
+  const zone = String(formData.get("timeZone") ?? "");
+  if (!name || name.length < 2 || !team || !displayName || !INDUSTRIES.includes(industry)) {
+    return { status: "error", error: "invalid" };
+  }
+
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("create_organization", {
+    org_name: name,
+    org_industry: industry,
+    team_name: team,
+    member_display_name: displayName,
+    org_time_zone: isTimeZone(zone) ? zone : "UTC",
+  });
+  if (error) {
+    if (hintOf(error) === "already_member") return { status: "error", error: "alreadyMember" };
+    console.error("[company] create_organization failed", error.code, error.message);
+    return { status: "error", error: "failed" };
+  }
+  redirect("/team");
+}
+
+export async function acceptInvite(_prev: FormState, formData: FormData): Promise<FormState> {
+  const token = String(formData.get("token") ?? "");
+  const displayName = cleanText(formData.get("displayName"), 80);
+  if (!INVITE_TOKEN.test(token)) return { status: "error", error: "invalid" };
+  if (!displayName) return { status: "error", error: "failed" };
+
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("accept_invite", { invite_token: token, member_display_name: displayName });
+  if (error) {
+    const hint = hintOf(error);
+    if (hint === "invalid_invite") return { status: "error", error: "invalid" };
+    if (hint === "already_member") return { status: "error", error: "alreadyMember" };
+    console.error("[company] accept_invite failed", error.code, error.message);
+    return { status: "error", error: "failed" };
+  }
+  redirect("/");
+}
+
+export async function createInvite(_prev: FormState, formData: FormData): Promise<FormState> {
+  const session = await getSession();
+  const member = session?.member;
+  if (!member || member.role === "player") return { status: "error", error: "ownersOnly" };
+
+  const teamId = String(formData.get("teamId") ?? "") || null;
+  const supabase = await createClient();
+  // RLS checks the caller is an owner/admin of this organization; the FK checks the team belongs to it.
+  const { error } = await supabase.from("invites").insert({
+    organization_id: member.organizationId,
+    team_id: teamId,
+    created_by: member.userId,
+  });
+  if (error) {
+    console.error("[company] create invite failed", error.code, error.message);
+    return { status: "error", error: "failed" };
+  }
+  revalidatePath("/team");
+  return { status: "idle" };
+}
+
+export async function revokeInvite(formData: FormData): Promise<void> {
+  const token = String(formData.get("token") ?? "");
+  if (!INVITE_TOKEN.test(token)) return;
+  const supabase = await createClient();
+  // RLS limits deletes to owners/admins of the invite's organization.
+  const { error } = await supabase.from("invites").delete().eq("token", token);
+  if (error) console.error("[company] revoke invite failed", error.code, error.message);
+  revalidatePath("/team");
+}

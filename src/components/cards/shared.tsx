@@ -1,30 +1,35 @@
 import type { ReactNode } from "react";
 import { format, type UiStrings } from "@/lib/content";
 import { fieldText, type CardField, type NumberedFlag } from "@/lib/highlight";
-import type { Channel, Scenario } from "@/lib/types";
+import type { CardLink, Channel, PublicCard } from "@/lib/types";
 import { Highlight } from "../Highlight";
 import { ChannelIcon } from "../icons";
 
 export interface CardProps {
-  scenario: Scenario;
+  scenario: PublicCard;
   /** Red flags to highlight per field; all empty until the player has answered. */
   flags: Record<CardField, NumberedFlag[]>;
   strings: UiStrings;
+  /** Opens the link preview for a link in the body. */
+  onLink: (link: CardLink) => void;
 }
 
-/** One field of the message, with any red flags in it highlighted. */
-export function Field({ field, scenario, flags, strings }: CardProps & { field: CardField }) {
+/** One field of the message, with any red flags (and, in the body, links) in it. */
+export function Field({ field, scenario, flags, strings, onLink }: CardProps & { field: CardField }) {
   return (
     <Highlight
       text={fieldText(scenario, field)}
       flags={flags[field]}
+      links={field === "body" ? scenario.links : undefined}
+      onLink={onLink}
       srLabel={(flag) => format(strings.feedback.redFlag, { number: flag.number })}
+      linkLabel={(link) => format(strings.links.linkLabel, { text: link.text })}
     />
   );
 }
 
 /** True when the sender has a separate address worth showing under the name. */
-export function hasDistinctAddress(scenario: Scenario): boolean {
+export function hasDistinctAddress(scenario: PublicCard): boolean {
   return scenario.sender.address !== scenario.sender.name;
 }
 

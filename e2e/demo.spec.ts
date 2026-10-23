@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 test("plays a full round with the buttons and reaches the end screen", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/demo");
   await page.getByRole("button", { name: "Start today's round" }).click();
 
   for (let i = 1; i <= 10; i++) {
@@ -21,7 +21,7 @@ test("plays a full round with the buttons and reaches the end screen", async ({ 
 });
 
 test("answers with the keyboard and highlights red flags on scams", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/demo");
   await page.getByRole("button", { name: "Start today's round" }).click();
 
   // Mark everything as a scam until a scam card shows its highlighted red flags.
@@ -37,4 +37,27 @@ test("answers with the keyboard and highlights red flags on scams", async ({ pag
     await page.keyboard.press("Enter");
   }
   throw new Error("No scam card in the round");
+});
+
+test("previews where a link really goes instead of opening it", async ({ page }) => {
+  await page.goto("/demo");
+  await page.getByRole("button", { name: "Start today's round" }).click();
+
+  for (let i = 1; i <= 10; i++) {
+    await expect(page.getByTestId("progress")).toHaveText(`Card ${i} of 10`);
+    const links = page.getByTestId("card-link");
+    if ((await links.count()) > 0) {
+      await links.first().click();
+      const preview = page.getByTestId("link-preview");
+      await expect(preview).toBeVisible();
+      await expect(preview.getByTestId("link-preview-host")).toHaveText(/\.example$/);
+      await expect(page).toHaveURL(/\/demo$/);
+      await preview.getByRole("button", { name: "Close preview" }).click();
+      await expect(preview).toBeHidden();
+      return;
+    }
+    await page.getByRole("button", { name: "Scam", exact: true }).click();
+    await page.getByRole("button", { name: i === 10 ? "See my results" : "Next card" }).click();
+  }
+  throw new Error("No card with a link in the round");
 });

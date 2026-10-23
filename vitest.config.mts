@@ -1,10 +1,31 @@
+import { loadEnv } from "vite";
 import { defineConfig } from "vitest/config";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  plugins: [tsconfigPaths()],
+  resolve: { tsconfigPaths: true },
   test: {
-    environment: "node",
-    include: ["src/**/*.test.ts"],
+    projects: [
+      {
+        extends: true,
+        test: {
+          name: "unit",
+          environment: "node",
+          include: ["src/**/*.test.ts"],
+        },
+      },
+      {
+        // Integration tests against the Supabase project in .env.local. They create and delete their own users.
+        extends: true,
+        test: {
+          name: "db",
+          environment: "node",
+          include: ["tests/db/**/*.test.ts"],
+          env: loadEnv("test", process.cwd(), ""),
+          testTimeout: 30_000,
+          hookTimeout: 60_000,
+          fileParallelism: false,
+        },
+      },
+    ],
   },
 });

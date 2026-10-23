@@ -8,6 +8,9 @@ interface EndScreenProps {
   summary: RoundSummary;
   round: Scenario[];
   answers: AnswerResult[];
+  /** Where the result went: the training record, practice, or nowhere (demo). */
+  saved: "record" | "practice" | null;
+  playAgainLabel: string;
   onPlayAgain: () => void;
 }
 
@@ -18,7 +21,7 @@ function verdictLine(strings: UiStrings, accuracy: number): string {
   return v.learning;
 }
 
-export function EndScreen({ strings, summary, round, answers, onPlayAgain }: EndScreenProps) {
+export function EndScreen({ strings, summary, round, answers, saved, playAgainLabel, onPlayAgain }: EndScreenProps) {
   const e = strings.end;
   const answerById = new Map(answers.map((a) => [a.scenarioId, a]));
 
@@ -34,6 +37,15 @@ export function EndScreen({ strings, summary, round, answers, onPlayAgain }: End
         {format(e.scoreLine, { correct: summary.correct, total: summary.total })}
       </p>
       <p className="mt-2 text-slate-700">{verdictLine(strings, summary.accuracy)}</p>
+      {saved ? (
+        <p
+          className={`mt-3 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-sm font-medium ${saved === "record" ? "bg-safe-soft text-safe" : "bg-slate-200 text-slate-700"}`}
+          data-testid="saved-note"
+        >
+          {saved === "record" ? <CheckIcon className="size-4" /> : null}
+          {saved === "record" ? e.savedRecord : e.savedPractice}
+        </p>
+      ) : null}
 
       <dl className="mt-6 grid grid-cols-3 gap-2">
         <Stat label={e.accuracy} value={`${summary.accuracy}%`} />
@@ -102,7 +114,7 @@ export function EndScreen({ strings, summary, round, answers, onPlayAgain }: End
         onClick={onPlayAgain}
         className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-6 py-4 text-lg font-semibold text-white shadow-sm transition-colors hover:bg-accent-strong focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-accent"
       >
-        {e.playAgain}
+        {playAgainLabel}
         <ArrowRightIcon className="size-5" />
       </button>
     </main>

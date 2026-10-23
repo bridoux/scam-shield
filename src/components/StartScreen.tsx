@@ -1,20 +1,29 @@
+import type { ReactNode } from "react";
 import type { UiStrings } from "@/lib/content";
+import type { PlayErrorCode } from "@/lib/play/types";
 import { ArrowRightIcon, ShieldIcon } from "./icons";
 
 interface StartScreenProps {
   strings: UiStrings;
+  /** Line under the button: demo notice, or whether this round counts. */
+  note: string;
+  cta?: string;
+  error: PlayErrorCode | null;
+  /** Shown at the right of the top bar, e.g. the account menu. */
+  accessory?: ReactNode;
   onStart: () => void;
   /** Called on hover, touch or key press over the start button, to preload the round. */
   onIntent?: () => void;
 }
 
-export function StartScreen({ strings, onStart, onIntent }: StartScreenProps) {
+export function StartScreen({ strings, note, cta, error, accessory, onStart, onIntent }: StartScreenProps) {
   const s = strings.start;
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-5 pt-8 pb-8">
       <div className="flex items-center gap-2 text-accent">
         <ShieldIcon className="size-7" />
         <span className="text-lg font-bold tracking-tight text-slate-900">{strings.appName}</span>
+        {accessory ? <div className="ml-auto">{accessory}</div> : null}
       </div>
 
       <div className="mt-10">
@@ -47,11 +56,16 @@ export function StartScreen({ strings, onStart, onIntent }: StartScreenProps) {
           autoFocus
           className="flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-6 py-4 text-lg font-semibold text-white shadow-sm transition-colors hover:bg-accent-strong focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-accent"
         >
-          {s.cta}
+          {cta ?? s.cta}
           <ArrowRightIcon className="size-5" />
         </button>
-        <p className="mt-3 text-center text-sm text-slate-600">
-          {s.duration} · {s.demoNote}
+        {error ? (
+          <p role="alert" className="mt-3 rounded-xl bg-danger-soft p-3 text-center text-sm font-medium text-danger">
+            {strings.errors[error]}
+          </p>
+        ) : null}
+        <p className="mt-3 text-center text-sm text-slate-600" data-testid="start-note">
+          {s.duration} · {note}
         </p>
         <p className="mt-1 hidden text-center text-xs text-slate-500 sm:block">{s.keyboardHint}</p>
       </div>
