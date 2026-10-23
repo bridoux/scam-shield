@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --color-accent: #2647b8;
+  --color-accent-strong: #1c3590;
+  --color-accent-soft: #e8edfb;
+  --color-safe: #0f7a43;
+  --color-safe-soft: #e3f4ea;
+  --color-danger: #b42318;
+  --color-danger-soft: #fdecea;
+  --color-flag: #fff1c2;
+  --color-flag-ring: #c98a00;
+}
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  background: #f4f5f7;
+  color: #0f172a;
+}
+
+/* Badge numbers that tie a highlight to its explanation. */
+.flag-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.15rem;
+  height: 1.15rem;
+  padding: 0 0.25rem;
+  border-radius: 999px;
+  background: var(--color-danger);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+  vertical-align: 0.1em;
+}

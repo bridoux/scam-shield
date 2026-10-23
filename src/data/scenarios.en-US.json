@@ -1,0 +1,772 @@
+[
+  {
+    "id": "mortgage-wire-change-meridian",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "mortgage_title",
+    "scamType": "wire_change",
+    "difficulty": 3,
+    "verdict": "scam",
+    "sender": {
+      "name": "Meridian Home Loans – Payoff Dept",
+      "address": "payoffs@meridianhome-loans.example"
+    },
+    "subject": "UPDATED payoff wire instructions – File #HT-24-1187",
+    "body": "Hello,\n\nPlease note our payoff wiring instructions for the above file have changed due to an internal audit. Do not use the instructions on the original payoff statement.\n\nNew beneficiary bank: Coastal Federal Credit Union\nRouting: 021000555\nAccount: 448812907\n\nThis change is effective immediately. Please confirm by reply email only, as our phone lines are being upgraded this week and calls cannot be returned.\n\nThe payoff must be received by 2:00 PM today to avoid a per-diem increase.\n\nRegards,\nPayoff Processing\nMeridian Home Loans | meridianhomeloans.example",
+    "redFlags": [
+      {
+        "id": "changed-instructions",
+        "label": "Changed wire instructions",
+        "explanation": "Lenders almost never change payoff accounts mid-file, and a change by email is the number one sign of wire fraud.",
+        "target": "our payoff wiring instructions for the above file have changed"
+      },
+      {
+        "id": "lookalike-domain",
+        "label": "Lookalike domain",
+        "explanation": "The sender's domain has an extra hyphen; the lender's real domain, shown in the signature, is meridianhomeloans.example.",
+        "target": "meridianhome-loans.example"
+      },
+      {
+        "id": "email-only",
+        "label": "Blocks phone verification",
+        "explanation": "Scammers ask you to reply by email because a phone call to the real lender would expose them.",
+        "target": "confirm by reply email only"
+      },
+      {
+        "id": "deadline",
+        "label": "Same-day deadline",
+        "explanation": "A tight deadline is meant to rush you past your verification steps.",
+        "target": "must be received by 2:00 PM today"
+      }
+    ],
+    "tip": "Never act on emailed wire changes. Call the lender at a number from the original file before sending a cent."
+  },
+  {
+    "id": "gift-card-ceo-text",
+    "locale": "en-US",
+    "channel": "sms",
+    "industry": "general",
+    "scamType": "gift_card",
+    "difficulty": 1,
+    "verdict": "scam",
+    "sender": {
+      "name": "(555) 014-2290",
+      "address": "(555) 014-2290"
+    },
+    "body": "Hi Dana, it's Mark. Texting from my personal phone, I'm in back-to-back meetings with the board and can't take calls. I need you to buy 6 ShopMax gift cards at $200 each for client appreciation gifts. Scratch off the backs and text me photos of the codes. I'll reimburse you today. Please keep this between us, I want it to be a surprise.",
+    "redFlags": [
+      {
+        "id": "new-number",
+        "label": "Unknown number claiming to be the boss",
+        "explanation": "A \"new\" or personal number for an executive should be verified through a channel you already trust.",
+        "target": "Texting from my personal phone"
+      },
+      {
+        "id": "no-calls",
+        "label": "Can't talk",
+        "explanation": "Scammers avoid calls because their voice would give them away.",
+        "target": "can't take calls"
+      },
+      {
+        "id": "gift-cards",
+        "label": "Gift card request",
+        "explanation": "Real businesses don't pay clients or vendors with gift card codes.",
+        "target": "buy 6 ShopMax gift cards"
+      },
+      {
+        "id": "send-codes",
+        "label": "Asks for the codes",
+        "explanation": "Once the codes are sent, the money is gone and can't be traced or refunded.",
+        "target": "text me photos of the codes"
+      },
+      {
+        "id": "secrecy",
+        "label": "Secrecy",
+        "explanation": "Asking you to keep it quiet stops coworkers from spotting the scam.",
+        "target": "keep this between us"
+      }
+    ],
+    "tip": "Gift cards + urgency + secrecy = scam. Call your boss on the number you already have."
+  },
+  {
+    "id": "fake-invoice-brightline",
+    "locale": "en-US",
+    "channel": "payment_request",
+    "industry": "general",
+    "scamType": "fake_invoice",
+    "difficulty": 3,
+    "verdict": "scam",
+    "sender": {
+      "name": "Brightline Office Supply",
+      "address": "billing@brightline-supplies.example"
+    },
+    "subject": "Invoice INV-20817 · $2,846.50",
+    "body": "Brightline Office Supply requested $2,846.50\nDue: Upon receipt\n\nMemo: Toner and printer maintenance, Q3.\n\nOur records show this invoice is 45 days past due. To avoid service suspension and a 15% late fee, pay today using the secure link below. We now accept payment by card or bank transfer only through this portal.\n\nPay securely: https://brightline-supplies.example/pay/INV-20817",
+    "redFlags": [
+      {
+        "id": "vague-memo",
+        "label": "No PO or account number",
+        "explanation": "A vague description with no PO or customer number is typical of invoices sent to thousands of businesses at once.",
+        "target": "Memo: Toner and printer maintenance, Q3."
+      },
+      {
+        "id": "past-due",
+        "label": "Surprise \"past due\" notice",
+        "explanation": "Claiming an invoice is long overdue when you've never seen it is a pressure tactic.",
+        "target": "45 days past due"
+      },
+      {
+        "id": "threats",
+        "label": "Threats and fees",
+        "explanation": "Penalties and service threats are meant to make you pay before you check.",
+        "target": "avoid service suspension and a 15% late fee"
+      },
+      {
+        "id": "new-channel",
+        "label": "New way to pay",
+        "explanation": "A vendor suddenly insisting on a new payment portal is a classic sign of a fake or hijacked invoice.",
+        "target": "We now accept payment by card or bank transfer only through this portal."
+      }
+    ],
+    "tip": "Match every invoice to a PO and a vendor you already pay. Check unexpected \"past due\" notices with AP before paying."
+  },
+  {
+    "id": "credential-phish-cloudsuite",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "general",
+    "scamType": "credential_phish",
+    "difficulty": 2,
+    "verdict": "scam",
+    "sender": {
+      "name": "CloudSuite 365 Admin",
+      "address": "no-reply@cloudsuite365-security.example"
+    },
+    "subject": "Action required: 3 messages held in quarantine",
+    "body": "CloudSuite 365\n\nYour mailbox has 3 incoming messages on hold due to a storage sync error.\n\nHeld messages:\n• Payment remittance – ACH confirmation\n• Updated W-9 – please review\n• Voicemail from (555) 014-7731\n\nYour messages will be deleted in 24 hours unless you verify your account.\n\nRelease messages: https://cloudsuite365-security.example/login?user=you\n\nThis is an automated message from your CloudSuite 365 administrator. Do not reply.",
+    "redFlags": [
+      {
+        "id": "sender-domain",
+        "label": "Not your IT team's domain",
+        "explanation": "Real account notices come from your own company or the service's real domain, not a lookalike \"security\" domain.",
+        "target": "cloudsuite365-security.example"
+      },
+      {
+        "id": "bait",
+        "label": "Tempting bait",
+        "explanation": "Fake \"held\" messages about payments are bait to make you click without thinking.",
+        "target": "Payment remittance – ACH confirmation"
+      },
+      {
+        "id": "deletion-threat",
+        "label": "Deletion threat",
+        "explanation": "A countdown pushes you to act before you think.",
+        "target": "will be deleted in 24 hours"
+      },
+      {
+        "id": "login-link",
+        "label": "Sign-in link in an email",
+        "explanation": "This page will look like the real sign-in screen and capture your password.",
+        "target": "https://cloudsuite365-security.example/login?user=you"
+      }
+    ],
+    "tip": "Never sign in from an email link. Open CloudSuite yourself, or ask IT whether mail is really on hold."
+  },
+  {
+    "id": "esign-phish-engagement-letter",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "tax_cpa",
+    "scamType": "esign_phish",
+    "difficulty": 3,
+    "verdict": "scam",
+    "sender": {
+      "name": "SignRight via Petra Novak",
+      "address": "dse_na4@signright-notice.example"
+    },
+    "subject": "Petra Novak sent you 2025_Engagement_Letter_FINAL.pdf to review and sign",
+    "body": "SignRight\n\nPetra Novak sent you a document to review and sign.\n\nDocument: 2025_Engagement_Letter_FINAL.pdf\nPages: 4\n\nREVIEW DOCUMENT\nhttps://signright-notice.example.app-docs.example/v/7731\n\nThis document will expire in 12 hours.\n\nTo view secure documents, sign in with your email password.\n\nDo not share this email. SignRight, Inc.",
+    "redFlags": [
+      {
+        "id": "unexpected-doc",
+        "label": "Unexpected document",
+        "explanation": "Your firm sends engagement letters to clients; receiving one from someone you don't know is backwards.",
+        "target": "2025_Engagement_Letter_FINAL.pdf"
+      },
+      {
+        "id": "link-domain",
+        "label": "Disguised link",
+        "explanation": "The real domain is the last part before the first slash: app-docs.example, not SignRight.",
+        "target": "https://signright-notice.example.app-docs.example/v/7731"
+      },
+      {
+        "id": "expiry",
+        "label": "Short expiry",
+        "explanation": "Real signing requests usually stay open for days, not hours.",
+        "target": "expire in 12 hours"
+      },
+      {
+        "id": "email-password",
+        "label": "Asks for your email password",
+        "explanation": "E-signature services never need your email password to show a document.",
+        "target": "sign in with your email password"
+      }
+    ],
+    "tip": "Unexpected e-sign request? Check with the sender by phone, and never enter your email password to view a document."
+  },
+  {
+    "id": "toll-smishing",
+    "locale": "en-US",
+    "channel": "sms",
+    "industry": "general",
+    "scamType": "toll_smishing",
+    "difficulty": 1,
+    "verdict": "scam",
+    "sender": {
+      "name": "toll.notice88@mailbox-sms.example",
+      "address": "toll.notice88@mailbox-sms.example"
+    },
+    "body": "Ridgeway Toll Authority: You have an unpaid toll balance of $6.85. To avoid a late fee of $50.00 and suspension of your vehicle registration, pay by 11:59 PM tonight: https://ridgewaytoll-pay.example/i\n\n(Reply Y, then reopen this message to activate the link.)",
+    "redFlags": [
+      {
+        "id": "email-sender",
+        "label": "Text from an email address",
+        "explanation": "Toll agencies text from official short codes, not random email addresses.",
+        "target": "toll.notice88@mailbox-sms.example"
+      },
+      {
+        "id": "big-threat",
+        "label": "Small balance, big threat",
+        "explanation": "Threatening your registration over a few dollars is meant to scare you into paying fast.",
+        "target": "late fee of $50.00 and suspension of your vehicle registration"
+      },
+      {
+        "id": "tonight",
+        "label": "Tonight-only deadline",
+        "explanation": "Deadlines measured in hours are a pressure tactic.",
+        "target": "pay by 11:59 PM tonight"
+      },
+      {
+        "id": "link",
+        "label": "Unofficial payment link",
+        "explanation": "The link goes to a lookalike site built to collect your card number.",
+        "target": "https://ridgewaytoll-pay.example/i"
+      },
+      {
+        "id": "reply-y",
+        "label": "\"Reply to activate the link\"",
+        "explanation": "Replying makes your phone enable the link and tells the scammer your number is live.",
+        "target": "Reply Y, then reopen this message to activate the link."
+      }
+    ],
+    "tip": "Toll agencies don't threaten your registration by text. Check your balance on the official site, typed in yourself."
+  },
+  {
+    "id": "delivery-smishing",
+    "locale": "en-US",
+    "channel": "sms",
+    "industry": "general",
+    "scamType": "delivery_smishing",
+    "difficulty": 2,
+    "verdict": "scam",
+    "sender": {
+      "name": "(555) 017-3308",
+      "address": "(555) 017-3308"
+    },
+    "body": "ParcelGo: Your package #PG4471902 could not be delivered due to an incomplete address. Update your address and pay a $1.99 redelivery fee within 24 hrs or it will be returned to sender: https://parcelgo-redelivery.example/us",
+    "redFlags": [
+      {
+        "id": "personal-number",
+        "label": "Personal phone number",
+        "explanation": "Carrier alerts come from short codes, not ordinary 10-digit numbers.",
+        "target": "(555) 017-3308"
+      },
+      {
+        "id": "vague",
+        "label": "Vague problem",
+        "explanation": "\"Incomplete address\" fits anyone, which is exactly why scammers use it.",
+        "target": "incomplete address"
+      },
+      {
+        "id": "fee",
+        "label": "Tiny fee",
+        "explanation": "Carriers don't collect small fees by text; the real goal is your card number.",
+        "target": "pay a $1.99 redelivery fee"
+      },
+      {
+        "id": "deadline",
+        "label": "Deadline",
+        "explanation": "The 24-hour window is there to rush you.",
+        "target": "within 24 hrs"
+      },
+      {
+        "id": "link",
+        "label": "Lookalike link",
+        "explanation": "The carrier's name is in the link, but the domain isn't the carrier's.",
+        "target": "https://parcelgo-redelivery.example/us"
+      }
+    ],
+    "tip": "Track packages on the store's order page or the carrier's site, typed in yourself. Never pay a \"redelivery fee\" from a text."
+  },
+  {
+    "id": "w2-request-partner",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "tax_cpa",
+    "scamType": "w2_request",
+    "difficulty": 4,
+    "verdict": "scam",
+    "sender": {
+      "name": "Robert Alder",
+      "address": "robert.alder@alderfinch-cpa.example"
+    },
+    "subject": "Quick request",
+    "body": "Hi Jenna,\n\nI need a copy of every employee's 2025 W-2 (PDF format) for a review with our outside auditors before Friday. Please send them all in one email to me directly as soon as you can.\n\nI'm in client meetings all afternoon so email is best. Please don't loop in anyone else on this yet, it's a sensitive matter.\n\nThanks,\nRobert\n\nSent from my mobile",
+    "redFlags": [
+      {
+        "id": "lookalike",
+        "label": "Lookalike domain",
+        "explanation": "The firm's domain is alderfinch.example; \"-cpa\" was added to look official.",
+        "target": "alderfinch-cpa.example"
+      },
+      {
+        "id": "bulk-w2",
+        "label": "Bulk W-2 request",
+        "explanation": "W-2s hold every employee's Social Security number; emailed bulk requests are the classic W-2 scam the IRS warns about.",
+        "target": "every employee's 2025 W-2"
+      },
+      {
+        "id": "email-best",
+        "label": "Avoids verification",
+        "explanation": "\"Email is best\" steers you away from a quick call that would expose the scam.",
+        "target": "email is best"
+      },
+      {
+        "id": "secrecy",
+        "label": "Secrecy",
+        "explanation": "Keeping others out of the loop removes the people who would catch it.",
+        "target": "don't loop in anyone else"
+      }
+    ],
+    "tip": "Treat any request for W-2s or payroll data as a scam until you verify it in person or on a known phone number."
+  },
+  {
+    "id": "voice-clone-gm-auction",
+    "locale": "en-US",
+    "channel": "voicemail",
+    "industry": "auto_dealer",
+    "scamType": "voice_clone",
+    "difficulty": 4,
+    "verdict": "scam",
+    "sender": {
+      "name": "Unknown caller",
+      "address": "(555) 016-8820"
+    },
+    "body": "Hey, it's Greg. Listen, I'm at the auction in Dallas and my phone's about to die, so I'm calling from a buddy's phone. We won two units but the transport guy needs a deposit wired in the next hour or we lose the slot. I'm texting you the account now. Send eighteen-five from the operating account and I'll sign off on it when I'm back Monday. Don't call the store, Sandra's out and I don't want this held up. Thanks, you're a lifesaver.",
+    "redFlags": [
+      {
+        "id": "other-phone",
+        "label": "Unfamiliar number",
+        "explanation": "A dead phone plus a borrowed one is the standard excuse for calling from a number you can't verify.",
+        "target": "calling from a buddy's phone"
+      },
+      {
+        "id": "urgent-wire",
+        "label": "Urgent wire",
+        "explanation": "A wire \"in the next hour\" leaves no time for normal checks.",
+        "target": "deposit wired in the next hour"
+      },
+      {
+        "id": "approve-later",
+        "label": "Skips approval",
+        "explanation": "Payments are approved before they're sent, never after.",
+        "target": "I'll sign off on it when I'm back Monday"
+      },
+      {
+        "id": "dont-call",
+        "label": "Blocks verification",
+        "explanation": "Telling you not to call the office keeps you from checking with anyone.",
+        "target": "Don't call the store"
+      }
+    ],
+    "tip": "Voices can be cloned from a few seconds of video. Hang up and call the person back on the number you already have."
+  },
+  {
+    "id": "mfa-callback-helpdesk",
+    "locale": "en-US",
+    "channel": "voicemail",
+    "industry": "insurance",
+    "scamType": "mfa_callback",
+    "difficulty": 3,
+    "verdict": "scam",
+    "sender": {
+      "name": "(555) 012-6604",
+      "address": "(555) 012-6604"
+    },
+    "body": "Hi, this is Jordan with Keystone IT, the agency's support team. We're seeing some suspicious sign-ins on your account and we need to reset your security. In a minute you'll get a text with a six-digit verification code. Please call me back at 555-012-6604 and read me that code so I can lock down your account. Please do this before end of day, or your access will be suspended.",
+    "redFlags": [
+      {
+        "id": "alert",
+        "label": "Out-of-the-blue security alert",
+        "explanation": "Fake alerts create fear so you'll follow instructions without checking.",
+        "target": "suspicious sign-ins on your account"
+      },
+      {
+        "id": "callback",
+        "label": "Callback number they control",
+        "explanation": "Call your help desk on the number you already know, never one left in a message.",
+        "target": "call me back at 555-012-6604"
+      },
+      {
+        "id": "read-code",
+        "label": "Asks you to read back a code",
+        "explanation": "A verification code proves it's you. Anyone who asks for it is trying to sign in as you.",
+        "target": "read me that code"
+      },
+      {
+        "id": "suspension",
+        "label": "Suspension threat",
+        "explanation": "Threats to cut off access are meant to rush you.",
+        "target": "your access will be suspended"
+      }
+    ],
+    "tip": "Never share an MFA code with anyone, not even IT. Report the call to your real help desk."
+  },
+  {
+    "id": "trade-payoff-change-lakeshore",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "auto_dealer",
+    "scamType": "payoff_change",
+    "difficulty": 5,
+    "verdict": "scam",
+    "sender": {
+      "name": "Melissa Ortega – Lakeshore Auto Credit",
+      "address": "payoffs@lakeshoreautocredit.example"
+    },
+    "subject": "RE: Payoff quote – 2021 Ridgeline LX – VIN ending 4471",
+    "body": "Hi Tasha,\n\nThanks for sending the deal. Payoff good through 10/30 is $21,488.36.\n\nPlease note: our usual lockbox account is under review for the quarter, so for this payoff please send by wire instead of check to our alternate account below.\n\nBank: First Prairie Bank, Tulsa OK\nAccount name: LSAC Holdings LLC\nRouting: 103100555\nAccount: 7720049183\n\nOnce funds are sent, please reply with the wire confirmation so we can release the title quickly.\n\nThanks,\nMelissa Ortega\nDealer Payoff Specialist\nLakeshore Auto Credit",
+    "redFlags": [
+      {
+        "id": "thread",
+        "label": "Hijacked thread",
+        "explanation": "Criminals who break into a mailbox reply inside real threads, so a familiar subject line proves nothing.",
+        "target": "RE: Payoff quote"
+      },
+      {
+        "id": "reason",
+        "label": "Odd reason for a change",
+        "explanation": "\"Account under review\" is a made-up reason to move money somewhere new.",
+        "target": "usual lockbox account is under review"
+      },
+      {
+        "id": "wire-not-check",
+        "label": "Payment method changed",
+        "explanation": "A lender switching from its normal lockbox to a wire is a red flag even when the address looks right.",
+        "target": "send by wire instead of check"
+      },
+      {
+        "id": "account-name",
+        "label": "Account name doesn't match",
+        "explanation": "The beneficiary isn't Lakeshore Auto Credit at all.",
+        "target": "Account name: LSAC Holdings LLC"
+      }
+    ],
+    "tip": "A correct sender address isn't proof. Confirm any change to payoff instructions by calling the lender's number from your lender list."
+  },
+  {
+    "id": "refund-redirect-portal",
+    "locale": "en-US",
+    "channel": "chat",
+    "industry": "tax_cpa",
+    "scamType": "refund_redirect",
+    "difficulty": 4,
+    "verdict": "scam",
+    "sender": {
+      "name": "Daniel Reyes",
+      "address": "Client portal · Reyes household"
+    },
+    "body": "Hi! Quick update before you file our return. We just switched banks, so please put the refund direct deposit into our new account instead: routing 026009555, account 5582910047.\n\nAlso please change the email on file to dreyes.home@quickmail.example, my old email was hacked. No need to call, I'm traveling and reception is bad. Thanks so much!",
+    "redFlags": [
+      {
+        "id": "bank-change",
+        "label": "Last-minute bank change",
+        "explanation": "Criminals who get into a client's email or portal account redirect the refund just before filing.",
+        "target": "put the refund direct deposit into our new account"
+      },
+      {
+        "id": "email-change",
+        "label": "Contact details changed at the same time",
+        "explanation": "Changing the email on file lets the scammer intercept your follow-up questions.",
+        "target": "change the email on file"
+      },
+      {
+        "id": "no-call",
+        "label": "Discourages a call",
+        "explanation": "A real client won't mind a quick call to confirm bank details.",
+        "target": "No need to call"
+      }
+    ],
+    "tip": "Verify any change to refund bank details by calling the client at the number already in their file, and note it in the file."
+  },
+  {
+    "id": "calendar-phish-comp-review",
+    "locale": "en-US",
+    "channel": "calendar_invite",
+    "industry": "general",
+    "scamType": "calendar_phish",
+    "difficulty": 3,
+    "verdict": "scam",
+    "sender": {
+      "name": "HR Benefits Team",
+      "address": "hr-benefits@peoplehub-portal.example"
+    },
+    "subject": "Mandatory: 2026 Compensation Adjustment Review",
+    "body": "When: Thu, Oct 30 · 9:00 – 9:15 AM CT\nWhere: Online\n\nAll staff must review and acknowledge their updated compensation letter before this session. Your adjusted salary details are in the secure portal:\nhttps://peoplehub-portal.example/comp-review\n\nSign in with your work email and password. Employees who do not acknowledge by Thursday may see a delay in their next paycheck.",
+    "redFlags": [
+      {
+        "id": "external",
+        "label": "Outside organizer",
+        "explanation": "Real HR invites come from your company's own calendar, not an outside domain.",
+        "target": "peoplehub-portal.example"
+      },
+      {
+        "id": "salary-bait",
+        "label": "Salary bait",
+        "explanation": "Pay changes are irresistible bait, which is why scammers use them.",
+        "target": "Your adjusted salary details"
+      },
+      {
+        "id": "password",
+        "label": "Asks for your password",
+        "explanation": "The link leads to a fake sign-in page that captures your work password.",
+        "target": "Sign in with your work email and password"
+      },
+      {
+        "id": "paycheck-threat",
+        "label": "Paycheck threat",
+        "explanation": "Threatening your pay is a pressure tactic.",
+        "target": "may see a delay in their next paycheck"
+      }
+    ],
+    "tip": "Calendar invites can carry phishing links too. Check unexpected HR requests with HR directly."
+  },
+  {
+    "id": "claim-release-fee",
+    "locale": "en-US",
+    "channel": "payment_request",
+    "industry": "insurance",
+    "scamType": "advance_fee",
+    "difficulty": 2,
+    "verdict": "scam",
+    "sender": {
+      "name": "Summit Claim Services",
+      "address": "@SummitClaimSvc-Pay"
+    },
+    "subject": "Payment request · $389.00",
+    "body": "Summit Claim Services requested $389.00\n\nFor: Release processing fee – Claim #SC-55102 (insured: Hollis, Margaret)\n\nNote: A settlement check of $14,250.00 is ready for your insured. Per carrier policy, the release fee must be paid by the agency before funds are issued. Requests not paid within 48 hours are closed and the claim must be refiled.",
+    "redFlags": [
+      {
+        "id": "handle",
+        "label": "Payment app handle",
+        "explanation": "Claim payments run through the carrier's own systems, not a payment app handle.",
+        "target": "@SummitClaimSvc-Pay"
+      },
+      {
+        "id": "payout",
+        "label": "Big payout as bait",
+        "explanation": "A large check \"ready to go\" makes a small fee feel harmless.",
+        "target": "A settlement check of $14,250.00 is ready"
+      },
+      {
+        "id": "upfront-fee",
+        "label": "Fee to release money",
+        "explanation": "Carriers deduct real costs from settlements; they never ask the agency to pay a fee first.",
+        "target": "the release fee must be paid by the agency before funds are issued"
+      },
+      {
+        "id": "deadline",
+        "label": "Closing deadline",
+        "explanation": "The threat of a closed claim is there to rush you.",
+        "target": "not paid within 48 hours are closed"
+      }
+    ],
+    "tip": "Any \"fee to release funds\" is a scam pattern. Check claim status in the carrier's portal or with your carrier rep."
+  },
+  {
+    "id": "legit-vendor-invoice-coastline",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "general",
+    "scamType": "none",
+    "difficulty": 3,
+    "verdict": "legit",
+    "sender": {
+      "name": "Luis Ferreira – Coastline Copier Co.",
+      "address": "billing@coastlinecopier.example"
+    },
+    "subject": "Invoice 10422 for PO 7781 – October service",
+    "body": "Hi Accounts Payable,\n\nInvoice 10422 for October copier service under PO 7781 is now in your AP portal.\n\nAmount: $612.40\nTerms: Net 30 (due November 22)\nPayment: same as always, check or ACH to the account on file.\n\nIf anything looks off, call me at the number on your vendor record.\n\nThanks,\nLuis Ferreira\nAccounts Receivable, Coastline Copier Co.",
+    "redFlags": [],
+    "legitReason": "It references a PO you issued, uses normal net-30 terms, keeps payment on the account already on file, and invites you to verify by phone.",
+    "tip": "A real invoice matches a PO, keeps the usual payment method, and holds up to a phone check."
+  },
+  {
+    "id": "legit-it-maintenance",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "general",
+    "scamType": "none",
+    "difficulty": 2,
+    "verdict": "legit",
+    "sender": {
+      "name": "Priya Shah (IT)",
+      "address": "priya.shah@lakesidegroup.example"
+    },
+    "subject": "Scheduled maintenance Saturday 8–10 AM: email may be slow",
+    "body": "Hi all,\n\nThis Saturday from 8 to 10 AM Central we'll be applying security updates to our email servers. You may see delays sending or receiving mail during that window. There's nothing you need to do.\n\nYou will NOT be asked to sign in, reset your password, or click any links because of this maintenance. If you get a message like that, report it with the Report Phish button.\n\nQuestions? Stop by or call the help desk at ext. 4100.\n\nPriya Shah\nIT Manager",
+    "redFlags": [],
+    "legitReason": "It comes from a coworker on your company domain, asks you to do nothing, contains no links or sign-in requests, and points you to the help desk extension you already know.",
+    "tip": "Real IT notices tell you what's happening; they don't ask for your password."
+  },
+  {
+    "id": "legit-month-end-invite",
+    "locale": "en-US",
+    "channel": "calendar_invite",
+    "industry": "general",
+    "scamType": "none",
+    "difficulty": 2,
+    "verdict": "legit",
+    "sender": {
+      "name": "Alicia Moreno",
+      "address": "alicia.moreno@lakesidegroup.example"
+    },
+    "subject": "Month-end close check-in",
+    "body": "When: Fri, Oct 31 · 10:00 – 10:30 AM CT\nWhere: Conference Room B\nGuests: Accounting team (6)\n\nQuick check-in on open items before month-end close. Bring your reconciliation status. No prep needed beyond that.",
+    "redFlags": [],
+    "legitReason": "The organizer is a coworker on your company domain, it's a routine meeting with your own team in a real room, and there are no links asking you to sign in or download anything.",
+    "tip": "Routine invites from coworkers, with no links or sign-in requests, are normal. Unexpected ones with links deserve a second look."
+  },
+  {
+    "id": "legit-deal-jacket-chat",
+    "locale": "en-US",
+    "channel": "chat",
+    "industry": "auto_dealer",
+    "scamType": "none",
+    "difficulty": 1,
+    "verdict": "legit",
+    "sender": {
+      "name": "Marcus Bell (Sales Manager)",
+      "address": "@marcus.bell · Lakeview Motors"
+    },
+    "body": "Morning! Can you pull the deal jacket for stock #L24-118 (the gray Ridgeline) and drop it on my desk before the 10 AM delivery? Customer's coming in to sign. Also double check the trade title is in there. Thanks!",
+    "redFlags": [],
+    "legitReason": "It's from a known coworker in your internal workspace, asks for a normal task you'd do anyway, and involves no money, passwords, or secrecy.",
+    "tip": "Everyday requests from coworkers are fine. Scams usually involve money, credentials, urgency, or secrecy."
+  },
+  {
+    "id": "legit-car-haul-ap",
+    "locale": "en-US",
+    "channel": "payment_request",
+    "industry": "auto_dealer",
+    "scamType": "none",
+    "difficulty": 3,
+    "verdict": "legit",
+    "sender": {
+      "name": "Interstate Car Haul",
+      "address": "Lakeview Motors AP portal · Vendor #2208"
+    },
+    "subject": "Payment request · $1,150.00",
+    "body": "Interstate Car Haul requested $1,150.00\n\nFor: Transport of 2 units from Riverside Auto Auction (BOL #77310)\nMatched to: PO 5520, approved by Greg Tolliver on 10/20\nPay to: ACH account on file (unchanged since 2023)\n\nApprove or flag this request in the AP portal as usual.",
+    "redFlags": [],
+    "legitReason": "It came through your own AP portal, matches an approved PO and a bill of lading, and pays the vendor's long-standing account on file.",
+    "tip": "Real payment requests flow through your normal approval system and match paperwork you can check."
+  },
+  {
+    "id": "legit-client-callback",
+    "locale": "en-US",
+    "channel": "voicemail",
+    "industry": "tax_cpa",
+    "scamType": "none",
+    "difficulty": 3,
+    "verdict": "legit",
+    "sender": {
+      "name": "Helen Park",
+      "address": "(555) 013-2219"
+    },
+    "body": "Hi, this is Helen Park returning your call about our quarterly estimates. I found the 1099 from the brokerage you asked about, and I'll upload it to the portal tonight. No rush on calling back, but if you need anything else I'm at the usual number, the one in our file. Thanks, bye.",
+    "redFlags": [],
+    "legitReason": "She's returning a call you made, uploads documents through your own portal, and asks for nothing: no money, codes, or changes to account details.",
+    "tip": "Real callers don't pressure you or ask for codes, payments, or bank changes."
+  },
+  {
+    "id": "legit-booked-planning-meeting",
+    "locale": "en-US",
+    "channel": "calendar_invite",
+    "industry": "tax_cpa",
+    "scamType": "none",
+    "difficulty": 2,
+    "verdict": "legit",
+    "sender": {
+      "name": "Alder & Finch Scheduling",
+      "address": "scheduling@alderfinch.example"
+    },
+    "subject": "Booked: Tax planning meeting with Omar Haddad",
+    "body": "When: Tue, Nov 4 · 2:00 – 2:45 PM CT\nWhere: Alder & Finch office, Suite 210\n\nOmar Haddad booked a year-end tax planning meeting with you through the firm's online booking page.\nClient notes: \"Want to talk about the sale of our rental property.\"\n\nThis event was added to your calendar automatically.",
+    "redFlags": [],
+    "legitReason": "It comes from your firm's own scheduling address, it's an in-office meeting, and it contains no links, attachments, or requests.",
+    "tip": "Booking confirmations from your own systems are normal. Be wary of invites that push you to sign in somewhere."
+  },
+  {
+    "id": "legit-review-request-chat",
+    "locale": "en-US",
+    "channel": "chat",
+    "industry": "tax_cpa",
+    "scamType": "none",
+    "difficulty": 3,
+    "verdict": "legit",
+    "sender": {
+      "name": "Nina Okafor",
+      "address": "@nina.okafor · Alder & Finch"
+    },
+    "body": "Hey, when you get a sec can you review the Whitfield return? It's in the review queue in the tax software. I flagged two items on Schedule E. Not urgent, end of day tomorrow is fine. I'll be at my desk if you want to walk through it.",
+    "redFlags": [],
+    "legitReason": "A coworker is asking for a normal review inside your firm's software, with a relaxed deadline and an offer to talk in person.",
+    "tip": "Real work requests stay inside your systems and welcome a quick conversation."
+  },
+  {
+    "id": "legit-clear-to-close",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "mortgage_title",
+    "scamType": "none",
+    "difficulty": 4,
+    "verdict": "legit",
+    "sender": {
+      "name": "Devon Price – Meridian Home Loans",
+      "address": "dprice@meridianhomeloans.example"
+    },
+    "subject": "Clear to close – Oakes file #HT-24-1203",
+    "body": "Hi team,\n\nThe Oakes loan is clear to close for Thursday at 3:00 PM. The final CD is balanced and uploaded to the closing portal.\n\nFunding will come from our warehouse bank the same way as on previous files. Nothing has changed with our wire process. If you see anything different, call me at the number in your lender contacts before you do anything.\n\nThanks,\nDevon Price\nLoan Officer, Meridian Home Loans",
+    "redFlags": [],
+    "legitReason": "The sender is on the lender's real domain (no extra hyphen), shares status through the closing portal, changes nothing about payments, and encourages a phone check.",
+    "tip": "Real lender emails keep the payment process unchanged and welcome a call to your known contact."
+  },
+  {
+    "id": "legit-delivery-text",
+    "locale": "en-US",
+    "channel": "sms",
+    "industry": "general",
+    "scamType": "none",
+    "difficulty": 2,
+    "verdict": "legit",
+    "sender": {
+      "name": "72745",
+      "address": "72745"
+    },
+    "body": "ParcelGo: Your package from Lakeview Office Furniture is out for delivery today by 8 PM. Track: https://parcelgo.example/t/PG5520183\nReply STOP to opt out.",
+    "redFlags": [],
+    "legitReason": "It comes from the carrier's short code, links to the carrier's real domain, names an order you'd expect, and asks for nothing: no fee, no login, no deadline.",
+    "tip": "Real delivery texts inform you; they don't ask for money or personal details."
+  }
+]
