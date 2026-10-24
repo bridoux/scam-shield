@@ -22,6 +22,16 @@ test.describe("signed-in play", () => {
     await page.getByRole("button", { name: "Create company" }).click();
 
     await expect(page).toHaveURL(/\/team$/);
+
+    // The owner makes Saturday a training day (dealership hours).
+    const days = page.getByTestId("play-days");
+    await days.getByText("Sat", { exact: true }).click();
+    await page.getByRole("button", { name: "Save training days" }).click();
+    await expect(days.getByText("Saved.")).toBeVisible();
+    await page.reload();
+    await expect(page.getByLabel("Saturday")).toBeChecked();
+    await expect(page.getByLabel("Sunday")).not.toBeChecked();
+
     await page.getByRole("button", { name: "Create invite link" }).click();
     const inviteUrl = await page.getByTestId("invite-url").first().textContent();
     expect(inviteUrl).toMatch(/\/join\/[0-9a-f]{64}$/);
@@ -63,6 +73,8 @@ test.describe("signed-in play", () => {
     const end = page.getByTestId("end-screen");
     await expect(end).toBeVisible();
     await expect(end.getByTestId("saved-note")).toHaveText("Saved to your training record.");
+    await expect(end.getByTestId("level")).toHaveText(/^Level \d · /);
+    await expect(end.getByTestId("league-rank")).toHaveText("#1 of 1 this week");
 
     const { data: rounds } = await admin
       .from("rounds")
@@ -75,5 +87,13 @@ test.describe("signed-in play", () => {
     await page.goto("/");
     await expect(page.getByTestId("start-note")).toContainText("Today's round is done");
     await expect(page.getByRole("button", { name: "Play a practice round" })).toBeVisible();
+    // Weekends aren't training days for a new (Mon–Fri) company, so either is right depending on the day.
+    await expect(page.getByTestId("streak")).toHaveText(/1-day streak|No streak yet/);
+
+    await page.goto("/league");
+    const me = page.getByTestId("league-players").locator("li[aria-current]");
+    await expect(me).toContainText("(You)");
+    await expect(me).toContainText("1 played");
+    await expect(page.getByTestId("league-teams")).toContainText("Prep team");
   });
 });

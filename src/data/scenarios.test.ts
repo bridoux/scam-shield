@@ -11,8 +11,8 @@ const LINK_CHANNELS = ["email", "sms", "chat", "calendar_invite", "payment_reque
 const MAX_RAW_URL = 40;
 
 describe("scenario content (en-US)", () => {
-  it("has 60 scenarios with unique ids", () => {
-    expect(scenarios).toHaveLength(60);
+  it("has 100 scenarios with unique ids", () => {
+    expect(scenarios).toHaveLength(100);
     expect(new Set(scenarios.map((s) => s.id)).size).toBe(scenarios.length);
   });
 
@@ -23,7 +23,7 @@ describe("scenario content (en-US)", () => {
   });
 
   it("has enough cards for each target industry", () => {
-    const minimums: Record<string, number> = { auto_dealer: 12, tax_cpa: 14, mortgage_title: 8, insurance: 8 };
+    const minimums: Record<string, number> = { auto_dealer: 18, tax_cpa: 20, mortgage_title: 14, insurance: 14 };
     for (const [industry, min] of Object.entries(minimums)) {
       expect(scenarios.filter((s) => s.industry === industry).length, industry).toBeGreaterThanOrEqual(min);
     }

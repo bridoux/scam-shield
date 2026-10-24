@@ -51,6 +51,7 @@ export default function Round({ strings, variant, phase, round, pending, error, 
             summary={round.summary}
             saved={variant === "live" ? (round.isPractice ? "practice" : "record") : null}
             playAgainLabel={variant === "live" ? strings.end.practiceAgain : strings.end.playAgain}
+            progress={round.progress}
             onPlayAgain={onPlayAgain}
           />
         )}

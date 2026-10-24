@@ -31,6 +31,11 @@ US offices of 10-250 staff that move money or hold customer financial data: auto
 - `.env.local` needs `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` and `SUPABASE_SERVICE_ROLE_KEY`. Production also sets `NEXT_PUBLIC_SITE_URL` (used for magic-link and invite URLs). The service role key is server-only (`src/lib/supabase/admin.ts`); never import it into client code.
 - Development uses the hosted project (Docker isn't installed for the local Supabase stack). Migrations live in `supabase/migrations/`; apply them to the project, then run `npm run db:types` to regenerate `src/lib/supabase/database.types.ts`.
 - Access model: clients only read, through RLS. Company creation and invite acceptance are security-definer functions (`create_organization`, `accept_invite`). Rounds and answers are written only by server code with the service role (`src/lib/play/core.ts`). `scenarios` has no client policies at all.
+- Sprint 3 functions:
+  - `set_play_days` is owner-only.
+  - `weekly_league(week_start)` returns only the caller's own company. It answers only for Mondays, so it can't be used to piece together colleagues' daily activity.
+  - Practice rounds never count toward level, streak or league. Any future reporting must filter `is_practice = false` too.
+- Every Supabase client uses a fetch with a deadline (`src/lib/supabase/fetch.ts`): 10 s for data, 30 s in the proxy. A stalled request then fails visibly instead of leaving a player stuck on "Checking…".
 - `npm run test:db` creates throwaway users (`ss-test-…@scam-shield.example`) and deletes them afterwards. The Playwright signed-in tests do the same (`ss-e2e-…`). If the bundled Playwright browser can't be downloaded, set `PLAYWRIGHT_CHANNEL=msedge` to use the installed Edge.
 
 ## Scenario card schema

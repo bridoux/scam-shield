@@ -1,6 +1,10 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { publicSupabaseEnv } from "@/lib/supabase/env";
+import { createTimeoutFetch } from "@/lib/supabase/fetch";
+
+// Longer than the 10 s data timeout: aborting a token refresh mid-flight could sign a slow user out.
+const proxyFetch = createTimeoutFetch(30_000);
 
 /** Refreshes the Supabase session cookie so Server Components always see a valid session. */
 export async function proxy(request: NextRequest) {
@@ -8,6 +12,7 @@ export async function proxy(request: NextRequest) {
   const { url, anonKey } = publicSupabaseEnv();
 
   const supabase = createServerClient(url, anonKey, {
+    global: { fetch: proxyFetch },
     cookies: {
       getAll: () => request.cookies.getAll(),
       setAll(cookiesToSet, headers) {

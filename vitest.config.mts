@@ -21,7 +21,8 @@ export default defineConfig({
           environment: "node",
           include: ["tests/db/**/*.test.ts"],
           env: loadEnv("test", process.cwd(), ""),
-          testTimeout: 30_000,
+          // Every call crosses the network to the hosted project, so allow for latency.
+          testTimeout: 90_000,
           hookTimeout: 60_000,
           fileParallelism: false,
         },

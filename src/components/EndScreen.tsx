@@ -1,6 +1,8 @@
 import { format, scamTypeLabel, type UiStrings } from "@/lib/content";
+import type { PlayerProgress } from "@/lib/play/types";
 import type { AnswerResult, RoundSummary } from "@/lib/round";
 import type { Scenario } from "@/lib/types";
+import { ProgressCard } from "./ProgressCard";
 import { ArrowRightIcon, CheckIcon, ChannelIcon, ShieldIcon, XIcon } from "./icons";
 
 interface EndScreenProps {
@@ -11,6 +13,8 @@ interface EndScreenProps {
   /** Where the result went: the training record, practice, or nowhere (demo). */
   saved: "record" | "practice" | null;
   playAgainLabel: string;
+  /** Level, streak and league after this round (signed-in play only). */
+  progress?: PlayerProgress | null;
   onPlayAgain: () => void;
 }
 
@@ -21,7 +25,7 @@ function verdictLine(strings: UiStrings, accuracy: number): string {
   return v.learning;
 }
 
-export function EndScreen({ strings, summary, round, answers, saved, playAgainLabel, onPlayAgain }: EndScreenProps) {
+export function EndScreen({ strings, summary, round, answers, saved, playAgainLabel, progress, onPlayAgain }: EndScreenProps) {
   const e = strings.end;
   const answerById = new Map(answers.map((a) => [a.scenarioId, a]));
 
@@ -55,6 +59,13 @@ export function EndScreen({ strings, summary, round, answers, saved, playAgainLa
       <p className="mt-2 text-center text-xs text-slate-600">
         {e.points}: {format(e.pointsDetail, { base: summary.basePoints, bonus: summary.bonusPoints })}
       </p>
+
+      {progress ? (
+        <div className="mt-6">
+          <ProgressCard strings={strings} progress={progress} earned={saved === "record" ? summary.points : undefined} />
+          {saved === "practice" ? <p className="mt-2 text-xs text-slate-600">{strings.progress.practiceNoProgress}</p> : null}
+        </div>
+      ) : null}
 
       <section className="mt-8" aria-labelledby="missed-heading">
         <h2 id="missed-heading" className="text-lg font-semibold text-slate-900">

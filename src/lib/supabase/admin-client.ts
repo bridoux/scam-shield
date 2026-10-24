@@ -1,6 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "./database.types";
 import { publicSupabaseEnv } from "./env";
+import { fetchWithTimeout } from "./fetch";
 
 export type AdminClient = ReturnType<typeof createAdminClient>;
 
@@ -12,6 +13,7 @@ export function createAdminClient() {
   const { url } = publicSupabaseEnv();
   return createClient<Database>(url, serviceRoleKey(), {
     auth: { persistSession: false, autoRefreshToken: false },
+    global: { fetch: fetchWithTimeout },
   });
 }
 

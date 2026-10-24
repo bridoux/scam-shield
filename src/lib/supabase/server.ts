@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { connection } from "next/server";
 import type { Database } from "./database.types";
 import { publicSupabaseEnv } from "./env";
+import { fetchWithTimeout } from "./fetch";
 
 /** Supabase client acting as the signed-in user (RLS applies). For Server Components, actions and routes. */
 export async function createClient() {
@@ -12,6 +13,7 @@ export async function createClient() {
   const cookieStore = await cookies();
   const { url, anonKey } = publicSupabaseEnv();
   return createServerClient<Database>(url, anonKey, {
+    global: { fetch: fetchWithTimeout },
     cookies: {
       getAll: () => cookieStore.getAll(),
       setAll(cookiesToSet) {

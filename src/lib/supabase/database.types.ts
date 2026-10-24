@@ -107,6 +107,7 @@ export type Database = {
           id: string
           industry: string
           name: string
+          play_days: number[]
           time_zone: string
         }
         Insert: {
@@ -114,6 +115,7 @@ export type Database = {
           id?: string
           industry?: string
           name: string
+          play_days?: number[]
           time_zone?: string
         }
         Update: {
@@ -121,6 +123,7 @@ export type Database = {
           id?: string
           industry?: string
           name?: string
+          play_days?: number[]
           time_zone?: string
         }
         Relationships: []
@@ -333,6 +336,18 @@ export type Database = {
           team_name: string
         }
         Returns: string
+      }
+      set_play_days: { Args: { days: number[] }; Returns: number[] }
+      weekly_league: {
+        Args: { week_start: string }
+        Returns: {
+          display_name: string
+          points: number
+          rounds: number
+          team_id: string
+          team_name: string
+          user_id: string
+        }[]
       }
     }
     Enums: {

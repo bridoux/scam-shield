@@ -2,15 +2,20 @@
  * Server-checked play. Every function takes a service-role client and the
  * already-authenticated user id; callers must never pass a user id from the client.
  */
-import { pickRound, scoreAnswer, summarizeRound, POINTS_PER_CORRECT, type AnswerResult, type Rng } from "../round";
+import { addDays } from "../progress/calendar";
+import { buildProfile, pickAdaptiveRound, type PastAnswer } from "../progress/adaptive";
+import { scoreAnswer, summarizeRound, POINTS_PER_CORRECT, type AnswerResult, type Rng } from "../round";
 import { rowToScenario, type ScenarioRow } from "../scenario-rows";
 import type { AdminClient } from "../supabase/admin-client";
-import { toPublicCard, toReveal, type Locale, type Scenario, type Verdict } from "../types";
+import { toPublicCard, toReveal, type Industry, type Locale, type Scenario, type Verdict } from "../types";
 import { localDate } from "./dates";
 import type { AnsweredCard, FinishedRound, PlayErrorCode, StartedRound } from "./types";
 
 const LOCALE: Locale = "en-US";
 const UNIQUE_VIOLATION = "23505";
+/** History used for the skill profile: long enough for the no-repeat rule and miss rates. */
+const PROFILE_DAYS = 90;
+const PROFILE_MAX_ANSWERS = 1000;
 
 export class PlayError extends Error {
   constructor(
@@ -58,7 +63,7 @@ export async function startRound(db: AdminClient, userId: string, options: Start
     }
 
     const isPractice = today.some((r) => !r.is_practice);
-    const created = await createRound(db, userId, membership.organizationId, roundDate, isPractice, rng);
+    const created = await createRound(db, userId, membership, roundDate, isPractice, rng);
     if (created) return created;
     // Another tab created today's record round at the same moment; loop to resume it.
   }
@@ -114,8 +119,9 @@ export async function submitAnswer(
 }
 
 export async function finishRound(db: AdminClient, userId: string, roundId: string): Promise<FinishedRound> {
-  const round = await getOwnRound(db, userId, roundId);
-  const rows = await answerRowsWithScenarios(db, roundId);
+  if (!isRoundId(roundId)) throw new PlayError("invalid_input");
+  // Fetched together to save a round trip; the rows are only used once ownership is confirmed.
+  const [round, rows] = await Promise.all([getOwnRound(db, userId, roundId), answerRowsWithScenarios(db, roundId)]);
   if (rows.length === 0 || rows.some((r) => r.answer === null)) throw new PlayError("incomplete");
 
   const scenarios = rows.map((r) => rowToScenario(requireScenario(r)));
@@ -143,12 +149,16 @@ export async function finishRound(db: AdminClient, userId: string, roundId: stri
 async function getMembership(db: AdminClient, userId: string) {
   const { data, error } = await db
     .from("memberships")
-    .select("organization_id, organizations(time_zone)")
+    .select("organization_id, organizations(time_zone, industry)")
     .eq("user_id", userId)
     .maybeSingle();
   if (error) throw new PlayError("server_error", error.message);
   if (!data) throw new PlayError("no_membership");
-  return { organizationId: data.organization_id, timeZone: data.organizations?.time_zone ?? "UTC" };
+  return {
+    organizationId: data.organization_id,
+    timeZone: data.organizations?.time_zone ?? "UTC",
+    industry: (data.organizations?.industry ?? "general") as Industry,
+  };
 }
 
 async function roundsOn(db: AdminClient, userId: string, roundDate: string) {
@@ -178,18 +188,22 @@ async function getOwnRound(db: AdminClient, userId: string, roundId: string) {
 async function createRound(
   db: AdminClient,
   userId: string,
-  organizationId: string,
+  membership: { organizationId: string; industry: Industry },
   roundDate: string,
   isPractice: boolean,
   rng: Rng,
 ): Promise<StartedRound | null> {
-  const { data: pool, error: poolError } = await db
-    .from("scenarios")
-    .select("*")
-    .eq("locale", LOCALE)
-    .eq("status", "approved");
+  const organizationId = membership.organizationId;
+  const [{ data: pool, error: poolError }, history] = await Promise.all([
+    db.from("scenarios").select("*").eq("locale", LOCALE).eq("status", "approved"),
+    pastAnswers(db, userId, addDays(roundDate, -PROFILE_DAYS)),
+  ]);
   if (poolError) throw new PlayError("server_error", poolError.message);
-  const picked = pickRound(pool.map(rowToScenario), { rng });
+  const picked = pickAdaptiveRound(pool.map(rowToScenario), buildProfile(history), {
+    today: roundDate,
+    industry: membership.industry,
+    rng,
+  });
   if (picked.length === 0) throw new PlayError("no_scenarios");
 
   const { data: round, error } = await db
@@ -214,6 +228,26 @@ async function createRound(
     throw new PlayError("server_error", cardsError.message);
   }
   return { roundId: round.id, isPractice, cards: picked.map(toPublicCard), answered: [] };
+}
+
+/** The player's answered cards since `sinceDay` (practice included: every answer teaches us something). */
+async function pastAnswers(db: AdminClient, userId: string, sinceDay: string): Promise<PastAnswer[]> {
+  const { data, error } = await db
+    .from("round_answers")
+    .select("scenario_id, is_correct, rounds!inner(user_id, round_date), scenarios(scam_type)")
+    .eq("rounds.user_id", userId)
+    .gte("rounds.round_date", sinceDay)
+    .not("answered_at", "is", null)
+    // Newest first, so the row cap (PostgREST returns at most 1000) only ever drops the oldest answers.
+    .order("answered_at", { ascending: false })
+    .limit(PROFILE_MAX_ANSWERS);
+  if (error) throw new PlayError("server_error", error.message);
+  return data.map((r) => ({
+    scenarioId: r.scenario_id,
+    scamType: r.scenarios?.scam_type ?? "none",
+    correct: r.is_correct === true,
+    day: r.rounds.round_date,
+  }));
 }
 
 async function resumeRound(db: AdminClient, roundId: string, isPractice: boolean): Promise<StartedRound> {

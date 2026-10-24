@@ -8,6 +8,7 @@ import { Shell } from "@/components/ui/Shell";
 import { getSession, type Member } from "@/lib/auth";
 import { format, getStrings } from "@/lib/content";
 import { localDate } from "@/lib/play/dates";
+import { loadProgress } from "@/lib/progress/load";
 import { createClient } from "@/lib/supabase/server";
 
 const strings = getStrings("en-US");
@@ -25,7 +26,8 @@ async function HomeContent() {
   if (!session) return <Welcome />;
   if (!session.member) redirect("/onboarding");
   const member = session.member;
-  const today = await todaysRecord(member);
+  const client = await createClient();
+  const [today, progress] = await Promise.all([todaysRecord(member), loadProgress(client, member)]);
 
   const s = strings.start;
   let note = s.recordNote;
@@ -44,6 +46,7 @@ async function HomeContent() {
       startNote={note}
       startCta={cta}
       accessory={<AccountMenu member={member} strings={strings} />}
+      progress={progress}
     />
   );
 }

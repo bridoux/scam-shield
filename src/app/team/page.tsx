@@ -10,6 +10,7 @@ import { format, getStrings } from "@/lib/content";
 import { requestOrigin } from "@/lib/origin";
 import { createClient } from "@/lib/supabase/server";
 import { CopyLinkButton, CreateInviteForm } from "./InviteControls";
+import { PlayDaysForm } from "./PlayDaysForm";
 
 const strings = getStrings("en-US");
 const t = strings.team;
@@ -44,6 +45,11 @@ async function TeamContent() {
       ) : (
         <Invites member={member} />
       )}
+      <Panel className="mt-6">
+        <h2 className="text-lg font-semibold text-slate-900">{t.playDaysHeading}</h2>
+        <p className="mt-1 text-sm text-slate-700">{member.role === "owner" ? t.playDaysIntro : t.playDaysReadOnly}</p>
+        <PlayDaysForm strings={strings} playDays={member.playDays} canEdit={member.role === "owner"} />
+      </Panel>
       <Members organizationId={member.organizationId} />
     </Shell>
   );
