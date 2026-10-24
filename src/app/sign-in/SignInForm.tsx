@@ -12,6 +12,12 @@ interface SignInFormProps {
   linkFailed: boolean;
 }
 
+function errorMessage(strings: UiStrings, state: Extract<SignInState, { status: "error" }>): string {
+  const a = strings.auth;
+  if (state.error !== "cooldown") return a[state.error];
+  return state.seconds ? format(a.cooldown, { seconds: state.seconds }) : a.cooldownShort;
+}
+
 export function SignInForm({ strings, next, linkFailed }: SignInFormProps) {
   const a = strings.auth;
   const [state, action] = useActionState<SignInState, FormData>(sendMagicLink, { status: "idle" });
@@ -28,7 +34,7 @@ export function SignInForm({ strings, next, linkFailed }: SignInFormProps) {
   return (
     <form action={action} className="mt-8 space-y-4" noValidate>
       {linkFailed && state.status === "idle" ? <Notice tone="error">{a.linkFailed}</Notice> : null}
-      {state.status === "error" ? <Notice tone="error">{a[state.error]}</Notice> : null}
+      {state.status === "error" ? <Notice tone="error">{errorMessage(strings, state)}</Notice> : null}
       <input type="hidden" name="next" value={next} />
       <TextField label={a.email} name="email" type="email" autoComplete="email" inputMode="email" required autoFocus />
       <SubmitButton pendingLabel={a.sending}>{a.submit}</SubmitButton>

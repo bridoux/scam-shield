@@ -101,7 +101,10 @@
     "sentTitle": "Check your email",
     "sent": "We sent a sign-in link to {email}. Open it on this device to continue.",
     "invalidEmail": "Enter a valid email address.",
-    "failed": "We couldn't send the link. Please wait a minute and try again.",
+    "failed": "We couldn't send the link. Please try again.",
+    "cooldown": "We just sent a link to this address. Please wait {seconds} seconds before asking for another one.",
+    "cooldownShort": "Too many requests just now. Please wait a minute, then try again.",
+    "hourlyLimit": "Too many sign-in emails were sent recently. Use the most recent link in your inbox, or try again in about an hour.",
     "linkFailed": "That sign-in link didn't work or has expired. Please request a new one."
   },
   "onboarding": {
