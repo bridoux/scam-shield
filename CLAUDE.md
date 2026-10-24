@@ -19,10 +19,19 @@ US offices of 10-250 staff that move money or hold customer financial data: auto
 - Mobile-first. Design at 375px wide, then scale up.
 - Every swipe action also has a visible button and a keyboard shortcut (accessibility).
 - All user-facing strings and scenario content carry a `locale` (start with `en-US`). No hard-coded country assumptions in logic.
-- Scenario content lives as data (JSON now, Supabase later), never inside components.
+- Scenario content lives as data (`src/data/scenarios.<locale>.json` is the source of truth; `npm run db:seed` loads it into Supabase), never inside components.
+- No real brand names, logos or trademarks in scenario content. Use invented brands ("CloudSuite 365", "SignRight") and `.example` domains only.
+- The client never sees an answer before the player commits: cards go out as `PublicCard` (no `id`, `scamType`, `verdict`, `redFlags`, `legitReason`, `tip`), and verdicts come back from the server per answer.
 - No third-party analytics or tracking SDKs. Store the minimum personal data.
 - Small, focused components. Server components by default; client components only where interaction needs it.
-- Run `npm run lint`, `npm run typecheck` and `npm test` before calling a task done.
+- Run `npm run lint`, `npm run typecheck` and `npm test` before calling a task done. Run `npm run test:db` after any migration or RLS change.
+
+## Local development (Supabase)
+- The public `/demo` follows the same rule: the server deals public cards with an encrypted round token (`src/lib/play/demo.ts`), and nothing is saved.
+- `.env.local` needs `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` and `SUPABASE_SERVICE_ROLE_KEY`. Production also sets `NEXT_PUBLIC_SITE_URL` (used for magic-link and invite URLs). The service role key is server-only (`src/lib/supabase/admin.ts`); never import it into client code.
+- Development uses the hosted project (Docker isn't installed for the local Supabase stack). Migrations live in `supabase/migrations/`; apply them to the project, then run `npm run db:types` to regenerate `src/lib/supabase/database.types.ts`.
+- Access model: clients only read, through RLS. Company creation and invite acceptance are security-definer functions (`create_organization`, `accept_invite`). Rounds and answers are written only by server code with the service role (`src/lib/play/core.ts`). `scenarios` has no client policies at all.
+- `npm run test:db` creates throwaway users (`ss-test-…@scam-shield.example`) and deletes them afterwards. The Playwright signed-in tests do the same (`ss-e2e-…`). If the bundled Playwright browser can't be downloaded, set `PLAYWRIGHT_CHANNEL=msedge` to use the installed Edge.
 
 ## Scenario card schema
 ```ts
@@ -47,6 +56,7 @@ interface Scenario {
   sender: { name: string; address: string };  // email address, phone number, or handle
   subject?: string;
   body: string;
+  links?: { text: string; url: string }[]; // text: exact substring of body; url: real destination shown in the link preview
   redFlags: RedFlag[];  // empty for legit cards
   legitReason?: string; // for legit cards: why it's safe
   tip: string;          // one-line takeaway
