@@ -8,6 +8,8 @@ export interface Member {
   organizationName: string;
   /** IANA zone that decides which day a round counts for. */
   timeZone: string;
+  /** ISO weekdays (1 = Monday) on which a round is expected; decides streaks. */
+  playDays: number[];
   teamId: string | null;
   role: "owner" | "admin" | "player";
   displayName: string;
@@ -30,7 +32,7 @@ export async function getSession(): Promise<{ user: { id: string; email: string 
 
   const { data: row, error: memberError } = await supabase
     .from("memberships")
-    .select("organization_id, team_id, role, display_name, organizations(name, time_zone)")
+    .select("organization_id, team_id, role, display_name, organizations(name, time_zone, play_days)")
     .eq("user_id", user.id)
     .maybeSingle();
   if (memberError) throw new Error(`Loading membership failed: ${memberError.message}`);
@@ -44,6 +46,7 @@ export async function getSession(): Promise<{ user: { id: string; email: string 
       organizationId: row.organization_id,
       organizationName: row.organizations?.name ?? "",
       timeZone: row.organizations?.time_zone ?? "UTC",
+      playDays: row.organizations?.play_days ?? [1, 2, 3, 4, 5],
       teamId: row.team_id,
       role: row.role as Member["role"],
       displayName: row.display_name,

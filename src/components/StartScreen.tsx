@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import type { UiStrings } from "@/lib/content";
-import type { PlayErrorCode } from "@/lib/play/types";
+import type { PlayErrorCode, PlayerProgress } from "@/lib/play/types";
+import { ProgressCard } from "./ProgressCard";
 import { ArrowRightIcon, ShieldIcon } from "./icons";
 
 interface StartScreenProps {
@@ -11,12 +12,14 @@ interface StartScreenProps {
   error: PlayErrorCode | null;
   /** Shown at the right of the top bar, e.g. the account menu. */
   accessory?: ReactNode;
+  /** Signed-in players see their level, streak and league instead of the how-to steps. */
+  progress?: PlayerProgress | null;
   onStart: () => void;
   /** Called on hover, touch or key press over the start button, to preload the round. */
   onIntent?: () => void;
 }
 
-export function StartScreen({ strings, note, cta, error, accessory, onStart, onIntent }: StartScreenProps) {
+export function StartScreen({ strings, note, cta, error, accessory, progress, onStart, onIntent }: StartScreenProps) {
   const s = strings.start;
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-5 pt-8 pb-8">
@@ -32,19 +35,25 @@ export function StartScreen({ strings, note, cta, error, accessory, onStart, onI
         <p className="mt-3 text-base leading-relaxed text-slate-700">{s.intro}</p>
       </div>
 
-      <ol className="mt-8 space-y-3">
-        {s.steps.map((step, i) => (
-          <li key={i} className="flex gap-3 rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
-            <span
-              aria-hidden
-              className="inline-flex size-7 shrink-0 items-center justify-center rounded-full bg-accent-soft text-sm font-bold text-accent"
-            >
-              {i + 1}
-            </span>
-            <span className="text-[15px] leading-snug text-slate-800">{step}</span>
-          </li>
-        ))}
-      </ol>
+      {progress ? (
+        <div className="mt-8">
+          <ProgressCard strings={strings} progress={progress} />
+        </div>
+      ) : (
+        <ol className="mt-8 space-y-3">
+          {s.steps.map((step, i) => (
+            <li key={i} className="flex gap-3 rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
+              <span
+                aria-hidden
+                className="inline-flex size-7 shrink-0 items-center justify-center rounded-full bg-accent-soft text-sm font-bold text-accent"
+              >
+                {i + 1}
+              </span>
+              <span className="text-[15px] leading-snug text-slate-800">{step}</span>
+            </li>
+          ))}
+        </ol>
+      )}
 
       <div className="mt-auto pt-10">
         <button

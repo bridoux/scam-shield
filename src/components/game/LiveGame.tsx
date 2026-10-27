@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { finishRoundAction, startRoundAction, submitAnswerAction } from "@/app/actions/play";
 import type { UiStrings } from "@/lib/content";
+import type { PlayerProgress } from "@/lib/play/types";
 import { Game } from "../Game";
 import type { RoundSource } from "./source";
 
@@ -17,10 +18,11 @@ interface LiveGameProps {
   startNote: string;
   startCta?: string;
   accessory?: ReactNode;
+  progress?: PlayerProgress | null;
 }
 
 /** Signed-in play: cards come from the server and every answer is checked there. */
-export function LiveGame({ strings, startNote, startCta, accessory }: LiveGameProps) {
+export function LiveGame({ strings, startNote, startCta, accessory, progress }: LiveGameProps) {
   return (
     <Game
       source={serverSource}
@@ -29,6 +31,7 @@ export function LiveGame({ strings, startNote, startCta, accessory }: LiveGamePr
       startNote={startNote}
       startCta={startCta}
       accessory={accessory}
+      progress={progress}
     />
   );
 }

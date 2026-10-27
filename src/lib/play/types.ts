@@ -1,3 +1,5 @@
+import type { LevelInfo } from "../progress/levels";
+import type { StreakInfo } from "../progress/streak";
 import type { AnswerResult, RoundSummary } from "../round";
 import type { CardReveal, PublicCard } from "../types";
 
@@ -17,9 +19,20 @@ export interface StartedRound {
   answered: AnsweredCard[];
 }
 
+export interface PlayerProgress {
+  /** Lifetime points from record rounds (practice excluded). */
+  lifetimePoints: number;
+  level: LevelInfo;
+  streak: StreakInfo;
+  /** This week's league position, or null if it couldn't be loaded. */
+  league: { rank: number; players: number; weekPoints: number } | null;
+}
+
 export interface FinishedRound {
   isPractice: boolean;
   summary: RoundSummary;
+  /** Signed-in play only: progress after this round. */
+  progress?: PlayerProgress;
 }
 
 export type PlayErrorCode =

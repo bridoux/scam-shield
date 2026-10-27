@@ -93,3 +93,26 @@ export async function revokeInvite(formData: FormData): Promise<void> {
   if (error) console.error("[company] revoke invite failed", error.code, error.message);
   revalidatePath("/team");
 }
+
+export type PlayDaysState = { status: "idle" | "saved" } | { status: "error"; error: "noDays" | "notOwner" | "failed" };
+
+/** Owner-only (enforced by the set_play_days function): which weekdays count for streaks. */
+export async function savePlayDays(_prev: PlayDaysState, formData: FormData): Promise<PlayDaysState> {
+  const days = formData
+    .getAll("day")
+    .map((d) => Number(d))
+    .filter((d) => Number.isInteger(d) && d >= 1 && d <= 7);
+  if (days.length === 0) return { status: "error", error: "noDays" };
+
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("set_play_days", { days });
+  if (error) {
+    const hint = hintOf(error);
+    if (hint === "not_owner") return { status: "error", error: "notOwner" };
+    if (hint === "no_days") return { status: "error", error: "noDays" };
+    console.error("[company] set_play_days failed", error.code, error.message);
+    return { status: "error", error: "failed" };
+  }
+  revalidatePath("/team");
+  return { status: "saved" };
+}

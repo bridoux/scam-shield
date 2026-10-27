@@ -12,7 +12,7 @@
       "address": "payoffs@meridianhome-loans.example"
     },
     "subject": "UPDATED payoff wire instructions – File #HT-24-1187",
-    "body": "Hello,\n\nPlease note our payoff wiring instructions for the above file have changed due to an internal audit. Do not use the instructions on the original payoff statement.\n\nNew beneficiary bank: Coastal Federal Credit Union\nRouting: 021000555\nAccount: 448812907\n\nThis change is effective immediately. Please confirm by reply email only, as our phone lines are being upgraded this week and calls cannot be returned.\n\nThe payoff must be received by 2:00 PM today to avoid a per-diem increase.\n\nRegards,\nPayoff Processing\nMeridian Home Loans | meridianhomeloans.example",
+    "body": "Hello,\n\nPlease note our payoff wiring instructions for the above file have changed due to an internal audit. Do not use the instructions on the original payoff statement.\n\nNew beneficiary bank: Tidewell Federal Credit Union\nRouting: 021000556\nAccount: 448812907\n\nThis change is effective immediately. Please confirm by reply email only, as our phone lines are being upgraded this week and calls cannot be returned.\n\nThe payoff must be received by 2:00 PM today to avoid a per-diem increase.\n\nRegards,\nPayoff Processing\nMeridian Home Loans | meridianhomeloans.example",
     "redFlags": [
       {
         "id": "changed-instructions",
@@ -819,8 +819,8 @@
     "difficulty": 2,
     "verdict": "legit",
     "sender": {
-      "name": "72745",
-      "address": "72745"
+      "name": "07274",
+      "address": "07274"
     },
     "body": "ParcelGo: Your package from Lakeview Office Furniture is out for delivery today by 8 PM. Track: https://parcelgo.example/t/PG5520183\nReply STOP to opt out.",
     "links": [
@@ -1061,8 +1061,8 @@
     "difficulty": 3,
     "verdict": "legit",
     "sender": {
-      "name": "46873",
-      "address": "46873"
+      "name": "04687",
+      "address": "04687"
     },
     "body": "Riverstate DMV Dealer Services: Title application T-55190 (VIN ending 0932) was approved 10/22. The title will be mailed to Lakeview Motors in 7-10 business days. No action needed. Status: dmv.riverstate.example/s/T55190\nReply STOP to end alerts.",
     "links": [
@@ -1463,7 +1463,7 @@
       "address": "karen.whitlok@quickmail.example"
     },
     "subject": "RE: Closing Friday – seller proceeds",
-    "body": "Hi Maria,\n\nSmall change for Friday. My husband and I just opened an account at a different bank because of the move, so please wire our proceeds there instead of sending a check:\n\nBank: Lone Pine Credit Union\nAccount name: K. Whitlock\nRouting: 302075555\nAccount: 10048827316\n\nI can't sign anything new before closing since I'm already on the road, so please just use this email as my authorization. We'd really appreciate it going out the same day.\n\nThanks so much,\nKaren\n\n> On Tue, Oct 21, Karen Whitlock <karen.whitlock@quickmail.example> wrote:\n> Thanks Maria! Friday at 10 works for us. We'll bring our IDs.",
+    "body": "Hi Maria,\n\nSmall change for Friday. My husband and I just opened an account at a different bank because of the move, so please wire our proceeds there instead of sending a check:\n\nBank: Lone Pine Credit Union\nAccount name: K. Whitlock\nRouting: 302075556\nAccount: 10048827316\n\nI can't sign anything new before closing since I'm already on the road, so please just use this email as my authorization. We'd really appreciate it going out the same day.\n\nThanks so much,\nKaren\n\n> On Tue, Oct 21, Karen Whitlock <karen.whitlock@quickmail.example> wrote:\n> Thanks Maria! Friday at 10 works for us. We'll bring our IDs.",
     "redFlags": [
       {
         "id": "address",
@@ -2088,5 +2088,1358 @@
     "redFlags": [],
     "legitReason": "It tells you what happened, sends you to the number on the back of your card instead of leaving its own callback number, and says up front it won't ask for your PIN, card number, or codes.",
     "tip": "Real bank fraud alerts send you to a number you already trust. Call the one on the back of your card."
+  },
+  {
+    "id": "auto-transport-deposit-request",
+    "locale": "en-US",
+    "channel": "payment_request",
+    "industry": "auto_dealer",
+    "scamType": "transport_deposit",
+    "difficulty": 3,
+    "verdict": "scam",
+    "sender": {
+      "name": "Swiftline Auto Transport",
+      "address": "@SwiftlineAutoShip · Fennel Pay"
+    },
+    "subject": "Payment request · $675.00",
+    "body": "Swiftline Auto Transport requested $675.00\nDue: Today\n\nFor: Pickup deposit – 2021 crew-cab pickup, stock #L4471, Lakeview Motors to Columbus, OH\nNote: Your buyer, Dale Purcell, booked us and paid the balance. We need the dealer's deposit today to hold the 7:00 AM truck. It's fully refundable at delivery.\n\nWe're a new carrier for you, so this one can't go through your AP portal. Pay with Fennel Pay and send a screenshot to dispatch.\n\nPAY DEPOSIT",
+    "links": [
+      {
+        "text": "PAY DEPOSIT",
+        "url": "https://fennelpay.example/r/swiftline-autoship"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "buyer-shipper",
+        "label": "Buyer picked the shipper",
+        "explanation": "When an out-of-state buyer brings their own transport company and it wants money from you, the \"carrier\" is usually part of the scam.",
+        "target": "Your buyer, Dale Purcell, booked us"
+      },
+      {
+        "id": "deposit",
+        "label": "Deposit from the dealer",
+        "explanation": "Carriers bill whoever booked them, at delivery. A \"refundable\" deposit sent by app is money you won't see again.",
+        "target": "We need the dealer's deposit today"
+      },
+      {
+        "id": "skip-ap",
+        "label": "Skips your AP portal",
+        "explanation": "Paying outside your normal approval system removes the checks that would catch this.",
+        "target": "this one can't go through your AP portal"
+      },
+      {
+        "id": "app",
+        "label": "Payment app, no invoice",
+        "explanation": "App payments are instant and hard to reverse, and a screenshot isn't a record.",
+        "target": "Pay with Fennel Pay"
+      }
+    ],
+    "tip": "Pay carriers only through your AP process, after you've booked or approved them. A buyer's own shipper asking you for a deposit is a scam."
+  },
+  {
+    "id": "auto-fleet-rfq-w9-harvest",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "auto_dealer",
+    "scamType": "w9_harvesting",
+    "difficulty": 4,
+    "verdict": "scam",
+    "sender": {
+      "name": "Procurement – Pine County Fleet Services",
+      "address": "vendor.setup@pinecounty-procurement.example"
+    },
+    "subject": "Vendor registration required – RFQ 25-118, 12 utility pickups",
+    "body": "Good afternoon,\n\nLakeview Motors has been shortlisted for RFQ 25-118 (12 crew-cab utility pickups, delivery by Dec 15). Before we can issue the purchase order, every awarded vendor must complete registration in our supplier portal by 5:00 PM tomorrow.\n\nPlease upload:\n• Signed W-9\n• Voided check for ACH setup\n• Owner's SSN and date of birth for the background check\n• Online banking user ID so our treasury team can confirm the account\n\nSUPPLIER PORTAL\n\nThank you,\nGail Whitfield, Procurement Officer\nPine County Government | pinecounty.example",
+    "links": [
+      {
+        "text": "SUPPLIER PORTAL",
+        "url": "https://pinecounty-procurement.example/vendors/register"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "domain",
+        "label": "Lookalike government domain",
+        "explanation": "The county's real domain, in the signature, is pinecounty.example. This came from pinecounty-procurement.example.",
+        "target": "pinecounty-procurement.example"
+      },
+      {
+        "id": "unsolicited",
+        "label": "Big order out of nowhere",
+        "explanation": "A 12-truck award on a bid nobody remembers submitting is bait to get your paperwork.",
+        "target": "has been shortlisted for RFQ 25-118"
+      },
+      {
+        "id": "ssn",
+        "label": "Owner's SSN",
+        "explanation": "A W-9 needs the business's EIN, never the owner's SSN and birth date for a \"background check\".",
+        "target": "Owner's SSN and date of birth"
+      },
+      {
+        "id": "bank-login",
+        "label": "Asks for banking login",
+        "explanation": "No customer needs your online banking user ID to pay you.",
+        "target": "Online banking user ID"
+      }
+    ],
+    "tip": "Send a W-9 only after you've confirmed the customer at a number you looked up yourself. Nobody paying you needs the owner's SSN or your banking login."
+  },
+  {
+    "id": "auto-carrier-pin-sim-swap",
+    "locale": "en-US",
+    "channel": "voicemail",
+    "industry": "auto_dealer",
+    "scamType": "sim_swap",
+    "difficulty": 4,
+    "verdict": "scam",
+    "sender": {
+      "name": "Voxline Business",
+      "address": "(555) 013-2290"
+    },
+    "body": "Hi, this is Tyler from Voxline Business Wireless, calling for the account manager at Lakeview Motors. We're upgrading all twelve of your sales lines to the new network tonight, and the line ending 4410 is flagged as incompatible. To keep it from going dead at midnight, I just need to verify the account. Please call me back with your account PIN, and read me the six-digit code we're texting to that line. Once that's done I'll move the number to the new SIM and you won't lose service. Thanks.",
+    "redFlags": [
+      {
+        "id": "deadline",
+        "label": "Midnight shutoff",
+        "explanation": "A \"line goes dead tonight\" threat is there to stop you calling the carrier yourself.",
+        "target": "going dead at midnight"
+      },
+      {
+        "id": "pin",
+        "label": "Asks for your account PIN",
+        "explanation": "Your carrier already knows your account. The PIN is exactly what a scammer needs to move your number.",
+        "target": "with your account PIN"
+      },
+      {
+        "id": "code",
+        "label": "Asks you to read a code",
+        "explanation": "The texted code authorizes the change. Reading it to a caller hands them your number.",
+        "target": "read me the six-digit code we're texting to that line"
+      },
+      {
+        "id": "new-sim",
+        "label": "Moves your number",
+        "explanation": "Once your number is on their SIM, they get every bank and DMS sign-in code sent to it.",
+        "target": "move the number to the new SIM"
+      }
+    ],
+    "tip": "Never give a caller your carrier PIN or a texted code. Call the carrier at the number on your bill or in your account."
+  },
+  {
+    "id": "auto-vin-report-buyer-chat",
+    "locale": "en-US",
+    "channel": "chat",
+    "industry": "auto_dealer",
+    "scamType": "vin_report_scam",
+    "difficulty": 2,
+    "verdict": "scam",
+    "sender": {
+      "name": "Kevin Hartley (website chat)",
+      "address": "Visitor · lakeviewmotors.example chat"
+    },
+    "body": "Hi, I'm very interested in the 2019 SUV, stock #L3982. I'm buying it for my daughter and I'm ready to pay full price today. Before I come in I need a full history report, but only from VinCheckPlus because the free ones miss things. It's $39.99 at vincheckplus-report.example. Can you run it with the dealership card and send me the PDF? I'll pay you back at the sale. If not I'll have to go with another dealer this afternoon.",
+    "links": [
+      {
+        "text": "vincheckplus-report.example",
+        "url": "https://vincheckplus-report.example/order?vin=L3982"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "site",
+        "label": "Buyer picks the report site",
+        "explanation": "Scammers send sellers to a report site they control. You already use your own history report provider.",
+        "target": "only from VinCheckPlus"
+      },
+      {
+        "id": "link",
+        "label": "Unknown website",
+        "explanation": "The site is run by the \"buyer\" and exists to collect card numbers.",
+        "target": "vincheckplus-report.example"
+      },
+      {
+        "id": "card",
+        "label": "Wants your company card",
+        "explanation": "Paying on an unknown site hands the dealership card number to the scammer.",
+        "target": "run it with the dealership card"
+      },
+      {
+        "id": "pressure",
+        "label": "Full-price pressure",
+        "explanation": "A buyer who'll pay full price but only if you act this afternoon is rushing you.",
+        "target": "I'll have to go with another dealer this afternoon"
+      }
+    ],
+    "tip": "Use the history report service your dealership already pays for. Never buy a report on a site a buyer chooses."
+  },
+  {
+    "id": "legit-carrier-sim-block-text",
+    "locale": "en-US",
+    "channel": "sms",
+    "industry": "auto_dealer",
+    "scamType": "none",
+    "difficulty": 4,
+    "verdict": "legit",
+    "sender": {
+      "name": "02863",
+      "address": "02863"
+    },
+    "body": "Voxline Business: A request to move the number ending 4410 to a new SIM was BLOCKED because it didn't include your account PIN. Your service hasn't changed and no action is needed. You can review account security in the Voxline Business app. We will never call or text asking for your PIN or a code.\nReply STOP to end alerts.",
+    "redFlags": [],
+    "legitReason": "It comes from the carrier's short code, reports that a change was blocked instead of demanding anything, sends you to the app you already use, and has no link, callback number or request for your PIN.",
+    "tip": "Real carrier security alerts point you to the app or account you already use and never ask for your PIN. Tell IT about the blocked request."
+  },
+  {
+    "id": "legit-shipping-plan-internal-chat",
+    "locale": "en-US",
+    "channel": "chat",
+    "industry": "auto_dealer",
+    "scamType": "none",
+    "difficulty": 2,
+    "verdict": "legit",
+    "sender": {
+      "name": "Greg Tolliver",
+      "address": "@greg.tolliver · Lakeview Motors"
+    },
+    "body": "Heads up: the Nguyen deal on stock #L4502 is going to Ohio. I booked transport with Interstate Car Haul in the AP portal, PO 5531, same as always. If anyone calls or texts saying they're the buyer's shipper and wants a deposit, send them to me, we don't pay that. Can you pull the keys and the title packet and leave them at the front desk by 3? Driver's name is on the PO.",
+    "redFlags": [],
+    "legitReason": "It's your sales manager in the company chat, the transport was booked through your AP portal with a PO, it asks only for keys and paperwork, and it even warns you about the shipper-deposit scam.",
+    "tip": "A real request fits your normal process: booked in your system, matched to a PO, and nothing to pay outside it."
+  },
+  {
+    "id": "legit-transport-dispatch-voicemail",
+    "locale": "en-US",
+    "channel": "voicemail",
+    "industry": "auto_dealer",
+    "scamType": "none",
+    "difficulty": 2,
+    "verdict": "legit",
+    "sender": {
+      "name": "Interstate Car Haul",
+      "address": "(555) 014-7730"
+    },
+    "body": "Hi, this is Marisol with dispatch at Interstate Car Haul, for Lakeview Motors. Our driver Ray is running about two hours late on PO 5531, so pickup will be around 5:00 instead of 3:00. Nothing changes on your end and there's nothing to pay, the bill goes through your AP portal like usual. If 5:00 doesn't work, call dispatch at the number on our rate sheet. Thanks.",
+    "redFlags": [],
+    "legitReason": "It's your regular carrier on a PO you booked. It only moves a pickup time, says there's nothing to pay outside your AP portal, and sends you to the number on their rate sheet, not a new one.",
+    "tip": "Schedule changes are normal; payment changes aren't. Check anything about money through your AP process."
+  },
+  {
+    "id": "tax-software-update-installer",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "tax_cpa",
+    "scamType": "fake_software_update",
+    "difficulty": 3,
+    "verdict": "scam",
+    "sender": {
+      "name": "Brightfile Pro Support",
+      "address": "updates@brightfile-pro-support.example"
+    },
+    "subject": "Critical update 26.1.4 required before e-file opens",
+    "body": "Brightfile Pro users,\n\nA critical security update (26.1.4) must be installed on every workstation before IRS e-file opens. Firms that don't update will have transmissions rejected.\n\nThe automatic updater can't deliver this patch, so please download and run the installer manually:\n\nDOWNLOAD BRIGHTFILE_UPDATE_26.1.4.exe\n\nIf your antivirus flags the file, temporarily disable it during setup. This is a known false positive.\n\nBrightfile Pro Support\nbrightfile.example",
+    "links": [
+      {
+        "text": "DOWNLOAD BRIGHTFILE_UPDATE_26.1.4.exe",
+        "url": "https://brightfile-pro-support.example/dl/update_26.1.4.exe"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "domain",
+        "label": "Lookalike support domain",
+        "explanation": "Brightfile's real domain, in the signature, is brightfile.example. This came from brightfile-pro-support.example.",
+        "target": "brightfile-pro-support.example"
+      },
+      {
+        "id": "threat",
+        "label": "Rejected e-file threat",
+        "explanation": "Fear of rejected returns before the season is meant to get you clicking fast.",
+        "target": "Firms that don't update will have transmissions rejected."
+      },
+      {
+        "id": "manual",
+        "label": "Manual installer",
+        "explanation": "Tax software updates come through the program's own updater, not an .exe link in an email.",
+        "target": "download and run the installer manually"
+      },
+      {
+        "id": "antivirus",
+        "label": "Turn off antivirus",
+        "explanation": "No real vendor asks you to disable security software. That's how malware gets in.",
+        "target": "temporarily disable it during setup"
+      }
+    ],
+    "tip": "Install updates only from inside your tax software or from the vendor site you type in yourself, and never turn off antivirus for an installer."
+  },
+  {
+    "id": "state-tax-levy-voicemail",
+    "locale": "en-US",
+    "channel": "voicemail",
+    "industry": "tax_cpa",
+    "scamType": "state_tax_impersonation",
+    "difficulty": 2,
+    "verdict": "scam",
+    "sender": {
+      "name": "Unknown caller",
+      "address": "(555) 018-3376"
+    },
+    "body": "This message is for Alder and Finch regarding your client Thomas Reyes. This is Officer Grant with the Riverstate Department of Revenue, collections division. A levy will be placed on Mr. Reyes's bank account at 4:00 PM today for an unpaid balance of $6,212. As his preparer, you can stop the levy by calling me back with his Social Security number and date of birth to verify the file, and arranging payment by prepaid card. Do not contact the client before calling me, this is a confidential enforcement matter.",
+    "redFlags": [
+      {
+        "id": "levy-today",
+        "label": "Same-day levy threat",
+        "explanation": "State tax agencies send written notices with appeal rights long before a levy, not a voicemail about 4:00 PM today.",
+        "target": "A levy will be placed on Mr. Reyes's bank account at 4:00 PM today"
+      },
+      {
+        "id": "ssn",
+        "label": "Asks for client SSN",
+        "explanation": "The state already has your client's SSN, and you shouldn't give it to an unverified caller.",
+        "target": "with his Social Security number and date of birth"
+      },
+      {
+        "id": "prepaid",
+        "label": "Prepaid card payment",
+        "explanation": "No tax agency takes prepaid cards. They're how scammers get untraceable money.",
+        "target": "payment by prepaid card"
+      },
+      {
+        "id": "secret",
+        "label": "Don't tell the client",
+        "explanation": "Keeping your client out of it stops the one person who'd know the debt isn't real.",
+        "target": "Do not contact the client before calling me"
+      }
+    ],
+    "tip": "Check any state tax claim through the department's practitioner line from its website, and talk to your client before sharing anything."
+  },
+  {
+    "id": "tax-research-invoice-invite",
+    "locale": "en-US",
+    "channel": "calendar_invite",
+    "industry": "tax_cpa",
+    "scamType": "calendar_invoice",
+    "difficulty": 3,
+    "verdict": "scam",
+    "sender": {
+      "name": "TaxLaw Insight Billing",
+      "address": "billing@taxlawinsight-accounts.example"
+    },
+    "subject": "Invoice #TLI-88214 due: annual research renewal $1,890.00",
+    "body": "When: Mon, Oct 27 · 9:00 – 9:15 AM ET\nWhere: Online\n\nThis invite is a payment reminder for your firm's annual TaxLaw Insight research subscription.\n\nInvoice: #TLI-88214\nAmount due: $1,890.00\nAuto-renewal was declined by your bank. Pay before this event to avoid losing access during busy season.\n\nVIEW & PAY INVOICE\n\nTo dispute this charge, call our billing team at (555) 012-4478 before the event ends.\n\nYou were added because your address is on file for this account.",
+    "links": [
+      {
+        "text": "VIEW & PAY INVOICE",
+        "url": "https://taxlawinsight-accounts.example/pay/TLI-88214"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "invite-invoice",
+        "label": "Invoice as a calendar event",
+        "explanation": "Vendors send invoices to AP, not as a meeting. Invites skip email filters and sit on your calendar looking official.",
+        "target": "This invite is a payment reminder"
+      },
+      {
+        "id": "declined",
+        "label": "\"Declined\" auto-renewal",
+        "explanation": "A declined-payment story is a reason to get a new card number out of you.",
+        "target": "Auto-renewal was declined by your bank."
+      },
+      {
+        "id": "dispute-number",
+        "label": "Call-to-dispute number",
+        "explanation": "The \"billing team\" is the scammer, ready to ask for your card or remote access.",
+        "target": "call our billing team at (555) 012-4478"
+      }
+    ],
+    "tip": "Never pay from a calendar invite. Check the vendor and invoice in your AP system, and delete invites you didn't expect."
+  },
+  {
+    "id": "tax-1099k-backup-withholding-text",
+    "locale": "en-US",
+    "channel": "sms",
+    "industry": "tax_cpa",
+    "scamType": "form_1099k_phish",
+    "difficulty": 3,
+    "verdict": "scam",
+    "sender": {
+      "name": "(555) 017-2058",
+      "address": "(555) 017-2058"
+    },
+    "body": "PayLane Merchant Tax: Your 2025 Form 1099-K for Alder & Finch is on hold due to a TIN mismatch. Verify your EIN and the owner's SSN within 48 hrs to avoid 24% backup withholding on all card deposits: paylane-taxcenter.example/1099k",
+    "links": [
+      {
+        "text": "paylane-taxcenter.example/1099k",
+        "url": "https://paylane-taxcenter.example/1099k/verify"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "number",
+        "label": "Ordinary phone number",
+        "explanation": "Payment processors post tax forms in your merchant dashboard or mail them, not by text from a random number.",
+        "target": "(555) 017-2058"
+      },
+      {
+        "id": "ssn",
+        "label": "Asks for the owner's SSN",
+        "explanation": "A business TIN check uses the EIN. Asking for the owner's SSN by text is identity theft.",
+        "target": "the owner's SSN"
+      },
+      {
+        "id": "threat",
+        "label": "Backup withholding threat",
+        "explanation": "Backup withholding follows written IRS notices with time to respond, not a 48-hour text.",
+        "target": "within 48 hrs to avoid 24% backup withholding"
+      },
+      {
+        "id": "link",
+        "label": "Lookalike link",
+        "explanation": "The link isn't PayLane's dashboard; it's a lookalike site built to collect your tax IDs.",
+        "target": "paylane-taxcenter.example/1099k"
+      }
+    ],
+    "tip": "Check tax forms and TIN notices by signing in to your processor's dashboard yourself, never through a text link."
+  },
+  {
+    "id": "legit-brightfile-update-notice",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "tax_cpa",
+    "scamType": "none",
+    "difficulty": 4,
+    "verdict": "legit",
+    "sender": {
+      "name": "Brightfile Pro",
+      "address": "news@brightfile.example"
+    },
+    "subject": "Version 26.1 is ready: update before e-file opens",
+    "body": "Hello Alder & Finch,\n\nBrightfile Pro 26.1 is now available. It includes this season's federal and state forms and is required to transmit returns once e-file opens.\n\nTo install it, open Brightfile Pro on each workstation and choose Help > Check for Updates. The updater verifies the download for you. There is nothing to download from this email.\n\nRelease notes are in the Help Center inside the program. Questions? Call support at the number in your license agreement.\n\nBrightfile Pro | brightfile.example",
+    "redFlags": [],
+    "legitReason": "It comes from Brightfile's real domain, has no attachment or download link, and tells you to update from inside the program the normal way, with support at the number in your license agreement.",
+    "tip": "A real update notice sends you to the program's built-in updater. If an email wants you to run a file, don't."
+  },
+  {
+    "id": "legit-dor-practitioner-callback",
+    "locale": "en-US",
+    "channel": "voicemail",
+    "industry": "tax_cpa",
+    "scamType": "none",
+    "difficulty": 4,
+    "verdict": "legit",
+    "sender": {
+      "name": "Riverstate Dept. of Revenue",
+      "address": "(555) 015-0900"
+    },
+    "body": "Hello, this is Denise Clark with the Riverstate Department of Revenue practitioner services line, returning a call from Ana at Alder and Finch about case number 2025-PR-44817 for your client Lorraine Park. I have the power of attorney on file. We've placed a 30-day hold on collection while you send the amended return, so nothing needs to be paid today. Please call the practitioner line listed on our website and give the case number, and any agent can help you. Thank you.",
+    "redFlags": [],
+    "legitReason": "It's a return call on a case your firm opened, the department already has your power of attorney, it asks for no client data or payment, and it sends you to the published practitioner line with a case number.",
+    "tip": "Real agencies return your calls and let you call back through their published line. No pressure, no payment, no personal data."
+  },
+  {
+    "id": "legit-partner-portal-chat",
+    "locale": "en-US",
+    "channel": "chat",
+    "industry": "tax_cpa",
+    "scamType": "none",
+    "difficulty": 3,
+    "verdict": "legit",
+    "sender": {
+      "name": "Ana Ruiz, CPA",
+      "address": "@ana.ruiz · Alder & Finch"
+    },
+    "body": "Late one, sorry! Mr. Gallo needs his draft return tonight for his lender's 9 AM meeting. Please don't email it. Post it to his folder in ClientVault and he'll get the usual notice to sign in. If he can't get in, have him call our main line, not your cell. I'll review it first thing at 7:30. Thanks!",
+    "redFlags": [],
+    "legitReason": "It's a partner in the firm's own chat, and instead of asking you to cut a corner it tells you to use the ClientVault portal and the main office line. There's no payment, no new account and no outside link.",
+    "tip": "Urgent and after-hours can still be legit when the request keeps you inside your normal secure process."
+  },
+  {
+    "id": "appraisal-release-fee-request",
+    "locale": "en-US",
+    "channel": "payment_request",
+    "industry": "mortgage_title",
+    "scamType": "appraisal_fee",
+    "difficulty": 3,
+    "verdict": "scam",
+    "sender": {
+      "name": "Corbelline Appraisal Mgmt",
+      "address": "@Corbelline-AMC · Payments"
+    },
+    "subject": "Payment request · $575.00",
+    "body": "Corbelline Appraisal Mgmt requested $575.00\nDue: Today by 3:00 PM\n\nFor: Appraisal balance + rush fee – 77 Willow Ct (borrower: Ortega)\nNote: The appraisal report is complete but will not be released to the lender until the balance is paid. Closing may be delayed.\n\nPay by card or bank transfer:\n\nPAY & RELEASE REPORT\n\nThis fee is separate from the amount on the Closing Disclosure.",
+    "links": [
+      {
+        "text": "PAY & RELEASE REPORT",
+        "url": "https://corbelline-amc-pay.example/release/77willow"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "rush",
+        "label": "Surprise rush fee",
+        "explanation": "A rush fee nobody ordered, due by 3 PM, is meant to make you pay before you check.",
+        "target": "Appraisal balance + rush fee"
+      },
+      {
+        "id": "held-report",
+        "label": "Report held for a fee",
+        "explanation": "Appraisal fees are collected by the lender up front or on the Closing Disclosure. An AMC doesn't hold the report for extra money.",
+        "target": "will not be released to the lender until the balance is paid"
+      },
+      {
+        "id": "outside-cd",
+        "label": "Outside the Closing Disclosure",
+        "explanation": "Every settlement charge belongs on the CD. A fee \"separate\" from it is one nobody approved.",
+        "target": "This fee is separate from the amount on the Closing Disclosure."
+      }
+    ],
+    "tip": "Check appraisal charges against the order and the CD with the loan officer. Pay AMCs only through the lender's normal process."
+  },
+  {
+    "id": "hoa-estoppel-payoff-change",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "mortgage_title",
+    "scamType": "hoa_payoff_redirect",
+    "difficulty": 5,
+    "verdict": "scam",
+    "sender": {
+      "name": "Lakemont HOA – Accounts",
+      "address": "estoppel@lakemont-hoa-mgmt.example"
+    },
+    "subject": "RE: Estoppel / payoff – 912 Lakemont Dr, closing Friday",
+    "body": "Hi Amy,\n\nAttached is the updated estoppel for 912 Lakemont Dr. The payoff of $2,418.60 (dues through 11/30 plus transfer fee) is unchanged, but please note our association has moved its operating account. Do not pay to the account on the original estoppel or by check.\n\nWire or ACH to:\nBank: Larkspur Trust Bank\nRouting: 061000555\nAccount: 778104231\n\nPlease send by Thursday so the seller's account shows paid at closing. Our office is closed for the move this week, so email is the best way to reach me.\n\nThanks,\nJanet Ruiz, Community Manager\nLakemont HOA · Managed by Crestview Community Mgmt | crestviewcm.example",
+    "redFlags": [
+      {
+        "id": "domain",
+        "label": "Sender doesn't match",
+        "explanation": "The HOA is managed by Crestview (crestviewcm.example, in the signature), but this came from lakemont-hoa-mgmt.example.",
+        "target": "lakemont-hoa-mgmt.example"
+      },
+      {
+        "id": "changed",
+        "label": "Changed payee account",
+        "explanation": "HOA accounts rarely change mid-file, and a change by email is the classic payoff fraud.",
+        "target": "our association has moved its operating account"
+      },
+      {
+        "id": "no-check",
+        "label": "Blocks the old way to pay",
+        "explanation": "Ruling out the original estoppel and checks pushes the money to the new account.",
+        "target": "Do not pay to the account on the original estoppel or by check."
+      },
+      {
+        "id": "email-only",
+        "label": "Email only",
+        "explanation": "A closed office and email-only contact keep you from calling to verify.",
+        "target": "email is the best way to reach me"
+      }
+    ],
+    "tip": "Treat HOA payoff changes like any wire change: call the management company at a number from its website or the original estoppel."
+  },
+  {
+    "id": "underwriter-escrow-audit-invite",
+    "locale": "en-US",
+    "channel": "calendar_invite",
+    "industry": "mortgage_title",
+    "scamType": "underwriter_audit_phish",
+    "difficulty": 4,
+    "verdict": "scam",
+    "sender": {
+      "name": "Bluestone National Title – Agency Audit",
+      "address": "audits@bluestone-titleaudit.example"
+    },
+    "subject": "Quarterly escrow account audit – Northgate Title & Escrow",
+    "body": "When: Wed, Oct 29 · 10:00 – 10:45 AM CT\nWhere: Online\nGuests: Amy Chen, Northgate Title & Escrow\n\nAs your title underwriter, Bluestone National is conducting its quarterly escrow review. Before the session, please upload to the audit portal:\n• Three-way reconciliations for July – September\n• Escrow bank statements\n• Online banking login for read-only verification\n\nUPLOAD AUDIT DOCUMENTS\n\nAgents who don't complete the audit may have their policy-issuing authority suspended.\n\nBluestone National Title | Agency Services: agents.bluestonetitle.example",
+    "links": [
+      {
+        "text": "UPLOAD AUDIT DOCUMENTS",
+        "url": "https://bluestone-titleaudit.example/upload?agent=NGT2201"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "organizer",
+        "label": "Outside organizer",
+        "explanation": "Bluestone's agency site, listed at the bottom, is agents.bluestonetitle.example. This invite came from bluestone-titleaudit.example.",
+        "target": "bluestone-titleaudit.example"
+      },
+      {
+        "id": "login",
+        "label": "Asks for banking login",
+        "explanation": "Underwriters review statements and reconciliations. No auditor needs your escrow banking login, \"read-only\" or not.",
+        "target": "Online banking login for read-only verification"
+      },
+      {
+        "id": "threat",
+        "label": "Authority threat",
+        "explanation": "Threatening your ability to issue policies is meant to get uploads before questions.",
+        "target": "may have their policy-issuing authority suspended"
+      }
+    ],
+    "tip": "Confirm any audit with your underwriter's agency rep at a number you already have, and never share escrow account logins."
+  },
+  {
+    "id": "escrow-bank-fraud-callback",
+    "locale": "en-US",
+    "channel": "voicemail",
+    "industry": "mortgage_title",
+    "scamType": "bank_impersonation",
+    "difficulty": 3,
+    "verdict": "scam",
+    "sender": {
+      "name": "Harborview Bank Fraud Dept",
+      "address": "(555) 019-7712"
+    },
+    "body": "Hi, this is Mark from the fraud department at Harborview Community Bank, calling for Amy Chen about the Northgate escrow account. We've stopped an outgoing wire of $286,400 that looks suspicious, and we need you to confirm it within the next 30 minutes or it will be released. Please call me directly at this number. I'll verify you with your online banking username and the passcode from your token, then we can cancel the wire and move the remaining balance to a protected account.",
+    "redFlags": [
+      {
+        "id": "timer",
+        "label": "30-minute deadline",
+        "explanation": "A countdown on a huge wire is meant to make you panic and skip your normal checks.",
+        "target": "within the next 30 minutes"
+      },
+      {
+        "id": "callback",
+        "label": "Callback to a direct line",
+        "explanation": "A real bank tells you to call the number on your statement or treasury agreement, not a rep's direct line.",
+        "target": "Please call me directly"
+      },
+      {
+        "id": "creds",
+        "label": "Asks for login and token code",
+        "explanation": "Your bank never needs your username or token passcode to talk to you.",
+        "target": "your online banking username and the passcode from your token"
+      },
+      {
+        "id": "protected",
+        "label": "\"Protected account\" transfer",
+        "explanation": "Moving money to a \"safe\" account is the scam itself. Banks don't do that.",
+        "target": "move the remaining balance to a protected account"
+      }
+    ],
+    "tip": "If a \"bank\" calls about fraud, hang up and call the number on your statement or treasury agreement."
+  },
+  {
+    "id": "legit-hoa-estoppel-ready",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "mortgage_title",
+    "scamType": "none",
+    "difficulty": 5,
+    "verdict": "legit",
+    "sender": {
+      "name": "Crestview Community Mgmt",
+      "address": "noreply@crestviewcm.example"
+    },
+    "subject": "Estoppel ready – 912 Lakemont Dr (Order #ES-30418)",
+    "body": "Hello Amy Chen,\n\nThe estoppel certificate you ordered for 912 Lakemont Dr (Lakemont HOA) is ready.\n\nOrder: #ES-30418 · Ordered 10/17 · Fee paid by card at order\nAmount due at closing: $2,418.60\nGood through: 11/30\n\nPayment instructions are printed on the certificate and have not changed. Questions? Call our closing desk at the number on the certificate.\n\nDOWNLOAD CERTIFICATE\n\nCrestview Community Mgmt | crestviewcm.example",
+    "links": [
+      {
+        "text": "DOWNLOAD CERTIFICATE",
+        "url": "https://estoppel.crestviewcm.example/orders/ES-30418"
+      }
+    ],
+    "redFlags": [],
+    "legitReason": "It comes from the management company's real domain, matches an estoppel you ordered and paid for, says the payment instructions haven't changed, and the link goes to crestviewcm.example.",
+    "tip": "A real estoppel notice matches your order and keeps the original payment instructions. Any change means a phone call first."
+  },
+  {
+    "id": "legit-appraisal-trip-fee-portal",
+    "locale": "en-US",
+    "channel": "payment_request",
+    "industry": "mortgage_title",
+    "scamType": "none",
+    "difficulty": 3,
+    "verdict": "legit",
+    "sender": {
+      "name": "Corbelline Appraisal Mgmt",
+      "address": "Meridian Home Loans vendor portal · AMC #114"
+    },
+    "subject": "Payment request · $150.00",
+    "body": "Corbelline Appraisal Mgmt requested $150.00\n\nFor: Final inspection fee – 77 Willow Ct (borrower: Ortega), order #VB-55821\nReason: Re-inspection after repairs, ordered by Devon Price on 10/21\nMatched to: Change of circumstance, disclosed to borrower 10/21\nPay to: AMC account on file\n\nApprove or flag this request in the vendor portal as usual.",
+    "links": [
+      {
+        "text": "vendor portal",
+        "url": "https://vendors.meridianhomeloans.example/requests/VB-55821"
+      }
+    ],
+    "redFlags": [],
+    "legitReason": "It arrived in your lender's own vendor portal, matches a re-inspection your loan officer ordered and disclosed to the borrower, and pays the AMC's account on file.",
+    "tip": "Real fees trace back to an order and a disclosure. If you can match it, pay it the normal way."
+  },
+  {
+    "id": "legit-underwriter-review-invite",
+    "locale": "en-US",
+    "channel": "calendar_invite",
+    "industry": "mortgage_title",
+    "scamType": "none",
+    "difficulty": 3,
+    "verdict": "legit",
+    "sender": {
+      "name": "Paul Okafor – Bluestone National Title",
+      "address": "pokafor@bluestonetitle.example"
+    },
+    "subject": "Annual agency review – Northgate Title & Escrow",
+    "body": "When: Tue, Nov 4 · 1:00 – 2:00 PM CT\nWhere: Northgate Title, 210 Main St (in person)\nGuests: Amy Chen, Rob Hale\n\nThanks for the call this morning, Amy. As discussed, I'll come by for the annual agency review. Please have the September three-way reconciliation and five closed files ready to look at together. No need to send anything ahead of time, and I won't need any system or bank logins.\n\nPaul Okafor, Agency Rep\nBluestone National Title | agents.bluestonetitle.example",
+    "redFlags": [],
+    "legitReason": "It's from your known agency rep at Bluestone's real domain, follows a phone call you had, takes place in person, and asks only to look at records together, with no uploads or logins.",
+    "tip": "Real audits are set up with people you know and never need your passwords. When in doubt, call your rep."
+  },
+  {
+    "id": "policy-cancellation-text",
+    "locale": "en-US",
+    "channel": "sms",
+    "industry": "insurance",
+    "scamType": "cancellation_smishing",
+    "difficulty": 1,
+    "verdict": "scam",
+    "sender": {
+      "name": "(555) 016-3381",
+      "address": "(555) 016-3381"
+    },
+    "body": "Granite Ridge Insurance: FINAL NOTICE. Your auto policy will be CANCELLED at 11:59 PM tonight for a missed payment of $87.40. Driving without coverage is illegal. Reinstate now: graniteridge-pay.example/r",
+    "links": [
+      {
+        "text": "graniteridge-pay.example/r",
+        "url": "https://graniteridge-pay.example/r/reinstate"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "number",
+        "label": "Ordinary phone number",
+        "explanation": "Carriers send billing texts from a registered short code, not a regular number.",
+        "target": "(555) 016-3381"
+      },
+      {
+        "id": "tonight",
+        "label": "Cancels tonight",
+        "explanation": "Policies can't be cancelled overnight for a missed payment; states require written notice well ahead.",
+        "target": "CANCELLED at 11:59 PM tonight"
+      },
+      {
+        "id": "link",
+        "label": "Lookalike pay link",
+        "explanation": "graniteridge-pay.example isn't the carrier. It's a page built to take card numbers.",
+        "target": "graniteridge-pay.example/r"
+      }
+    ],
+    "tip": "Check billing in the carrier's app or with your agent. Tell clients the same: real cancellation notices give weeks, not hours."
+  },
+  {
+    "id": "adjuster-reinspection-fee-request",
+    "locale": "en-US",
+    "channel": "payment_request",
+    "industry": "insurance",
+    "scamType": "inspection_fee",
+    "difficulty": 3,
+    "verdict": "scam",
+    "sender": {
+      "name": "Ridgeline Field Adjusters",
+      "address": "@RidgelineAdjust · Fennel Pay"
+    },
+    "subject": "Payment request · $185.00",
+    "body": "Ridgeline Field Adjusters requested $185.00\n\nFor: Re-inspection fee – Claim #GR-40917 (insured: Dana Ortiz, roof)\nNote: I'm the independent adjuster Granite Ridge assigned. The carrier requires the agency to cover the re-inspection fee before I can schedule. Your insured's claim stays on hold until it's paid, and the carrier reimburses you from the settlement.\n\nPAY FEE\n\nPlease don't call the claims line, they'll just send you back to me. – Rick",
+    "links": [
+      {
+        "text": "PAY FEE",
+        "url": "https://fennelpay.example/r/ridgelineadjust"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "app",
+        "label": "Paid through a payment app",
+        "explanation": "Real adjusting firms bill the carrier. They don't send agencies payment-app requests.",
+        "target": "Fennel Pay"
+      },
+      {
+        "id": "fee",
+        "label": "Fee to inspect",
+        "explanation": "Carriers pay their own adjusters. Nobody, agency or insured, pays to get an inspection scheduled.",
+        "target": "The carrier requires the agency to cover the re-inspection fee"
+      },
+      {
+        "id": "hold",
+        "label": "Claim held hostage",
+        "explanation": "Holding your client's claim over a small fee is pressure, not procedure.",
+        "target": "claim stays on hold until it's paid"
+      },
+      {
+        "id": "no-call",
+        "label": "Blocks verification",
+        "explanation": "Being told not to call the carrier's claims line is the clearest sign this isn't from the carrier.",
+        "target": "don't call the claims line"
+      }
+    ],
+    "tip": "Check any claim fee with the carrier's claims line at the number you already have. Real adjusters are paid by the carrier."
+  },
+  {
+    "id": "mga-portal-password-expiry",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "insurance",
+    "scamType": "carrier_portal_phish",
+    "difficulty": 3,
+    "verdict": "scam",
+    "sender": {
+      "name": "Bluewater Specialty MGA",
+      "address": "portal-security@bluewater-mga.example"
+    },
+    "subject": "Your binding authority login expires in 24 hours",
+    "body": "Hello Harper & Cole Insurance,\n\nAs part of our annual security review, all agency passwords for the Bluewater Agent Portal expire tomorrow at 9:00 AM ET. Agents who don't re-verify will lose binding authority and access to pending quotes.\n\nRe-verify now with your current portal username, password and agency banking details for commission deposits:\n\nRE-VERIFY ACCOUNT\n\nBluewater Specialty MGA\nAgent Portal: portal.bluewatermga.example",
+    "links": [
+      {
+        "text": "RE-VERIFY ACCOUNT",
+        "url": "https://bluewater-mga.example/agent/reverify"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "domain",
+        "label": "Lookalike domain",
+        "explanation": "Bluewater's portal, listed at the bottom, is portal.bluewatermga.example. This came from bluewater-mga.example, with a hyphen.",
+        "target": "bluewater-mga.example"
+      },
+      {
+        "id": "deadline",
+        "label": "24-hour deadline",
+        "explanation": "A tight expiry window is there to rush you past checking.",
+        "target": "expires in 24 hours"
+      },
+      {
+        "id": "threat",
+        "label": "Binding authority threat",
+        "explanation": "Losing the right to bind is scary for an agency, which is why scammers use it.",
+        "target": "will lose binding authority and access to pending quotes"
+      },
+      {
+        "id": "creds",
+        "label": "Asks for password and bank details",
+        "explanation": "A real password change happens on the portal itself and never asks for your banking details.",
+        "target": "your current portal username, password and agency banking details"
+      }
+    ],
+    "tip": "Sign in to carrier and MGA portals from your own bookmark. Password changes happen on the portal, not through an email button."
+  },
+  {
+    "id": "policyholder-impersonation-chat",
+    "locale": "en-US",
+    "channel": "chat",
+    "industry": "insurance",
+    "scamType": "policyholder_impersonation",
+    "difficulty": 4,
+    "verdict": "scam",
+    "sender": {
+      "name": "Linda Marsh (website chat)",
+      "address": "Visitor · harpercole.example chat"
+    },
+    "body": "Hi, this is Linda Marsh, I have the whole-life policy with you through Granite Ridge. I lost my phone and I'm traveling, so please update my email to linda.marsh.travel@quickmail.example and my phone to (555) 013-8806. Then I need a $9,500 loan against my cash value sent by direct deposit to my new account, I'll send the routing number here. Please don't call my old number, my husband has that phone and this is a surprise for him. I can verify with my date of birth.",
+    "redFlags": [
+      {
+        "id": "new-contact",
+        "label": "Changes contact details first",
+        "explanation": "Changing the email and phone before a payout means the real client never hears about it.",
+        "target": "please update my email to linda.marsh.travel@quickmail.example and my phone to (555) 013-8806"
+      },
+      {
+        "id": "payout",
+        "label": "Payout to a new account",
+        "explanation": "A policy loan sent to a brand-new account, requested by chat, is how cash value gets stolen.",
+        "target": "sent by direct deposit to my new account"
+      },
+      {
+        "id": "no-call",
+        "label": "Don't call the number on file",
+        "explanation": "Calling the number on file is the verification step. A reason to skip it is the warning.",
+        "target": "don't call my old number"
+      },
+      {
+        "id": "weak-id",
+        "label": "Weak verification",
+        "explanation": "A date of birth is easy to find online and doesn't prove who's typing.",
+        "target": "I can verify with my date of birth"
+      }
+    ],
+    "tip": "Verify contact and payout changes by calling the client at the number already on file, and follow the carrier's change procedure."
+  },
+  {
+    "id": "legit-carrier-past-due-text",
+    "locale": "en-US",
+    "channel": "sms",
+    "industry": "insurance",
+    "scamType": "none",
+    "difficulty": 3,
+    "verdict": "legit",
+    "sender": {
+      "name": "04739",
+      "address": "04739"
+    },
+    "body": "Granite Ridge Insurance: A payment of $87.40 for auto policy ending 2231 is past due. Your coverage is still active. To avoid cancellation on 11/14, pay in the Granite Ridge app or call your agent, Harper & Cole.\nReply STOP to end alerts.",
+    "redFlags": [],
+    "legitReason": "It comes from the carrier's short code, gives you three weeks instead of hours, has no link, and sends you to the carrier's app or your own agent.",
+    "tip": "Real billing reminders give you time and point you to the app or your agent. Pay through those, never a text link."
+  },
+  {
+    "id": "legit-staff-adjuster-voicemail",
+    "locale": "en-US",
+    "channel": "voicemail",
+    "industry": "insurance",
+    "scamType": "none",
+    "difficulty": 3,
+    "verdict": "legit",
+    "sender": {
+      "name": "Granite Ridge Claims",
+      "address": "(555) 015-2200"
+    },
+    "body": "Hi, this is Carla Nguyen, a staff adjuster with Granite Ridge Claims, calling for Harper and Cole. I've been assigned claim GR-41260 for your insured Paul Becker, the water damage claim. I've tried Mr. Becker twice and I'd like to book the inspection for Thursday morning. There's no cost to him or to the agency. Could you ask him to call me, or call the claims line on his claim acknowledgment letter and ask for me by name? Thanks.",
+    "redFlags": [],
+    "legitReason": "The adjuster works for the carrier, gives a claim number you can look up, says there's no cost to anyone, and points to the claims line printed on the insured's letter instead of a new number.",
+    "tip": "Real adjusters schedule inspections for free. Anyone charging a fee to inspect isn't working for the carrier."
+  },
+  {
+    "id": "legit-portal-migration-internal-chat",
+    "locale": "en-US",
+    "channel": "chat",
+    "industry": "insurance",
+    "scamType": "none",
+    "difficulty": 3,
+    "verdict": "legit",
+    "sender": {
+      "name": "Meg Harper",
+      "address": "@meg.harper · Harper & Cole"
+    },
+    "body": "Quick note for everyone: Bluewater's rep called me today. Their agent portal moves to a new sign-in on Monday, and you'll set a new password the first time you log in from your usual bookmark. If you get any email or text with a \"re-verify\" button about this, don't click it, forward it to me. I'll walk everyone through it at our 9:00 huddle Monday.",
+    "redFlags": [],
+    "legitReason": "It's your agency principal in the company chat, passing on news from a known rep, and it tells you to use your own bookmark and report emailed links. There's nothing to click, pay or send.",
+    "tip": "Real system changes are confirmed by people you know and happen on the site you already use."
+  },
+  {
+    "id": "ach-return-resubmit-phish",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "general",
+    "scamType": "ach_return_phish",
+    "difficulty": 3,
+    "verdict": "scam",
+    "sender": {
+      "name": "Cedar Valley Bank – Treasury Services",
+      "address": "ach-returns@cedarvalley-treasury.example"
+    },
+    "subject": "ACH Return Notice (R03) – Payment to Brightwater Supply",
+    "body": "Dear Lakeside Group,\n\nAn outgoing ACH payment of $3,420.00 to Brightwater Supply was returned today with reason code R03 (No account / unable to locate).\n\nTo avoid late fees with your vendor, resubmit the payment within 24 hours using our secure resubmission form. You will be asked to sign in and confirm your token code so we can attach the corrected account details provided by the payee.\n\nRESUBMIT PAYMENT\n\nCedar Valley Bank Treasury Services\nOnline banking: business.cedarvalleybank.example",
+    "links": [
+      {
+        "text": "RESUBMIT PAYMENT",
+        "url": "https://cedarvalley-treasury.example/ach/resubmit?id=R03-44812"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "domain",
+        "label": "Lookalike bank domain",
+        "explanation": "Your bank's online banking, in the signature, is business.cedarvalleybank.example. This came from cedarvalley-treasury.example.",
+        "target": "cedarvalley-treasury.example"
+      },
+      {
+        "id": "deadline",
+        "label": "24-hour deadline",
+        "explanation": "A rush to avoid late fees is meant to get you paying before you check.",
+        "target": "within 24 hours"
+      },
+      {
+        "id": "token",
+        "label": "Asks for your token code",
+        "explanation": "A sign-in page from an email link that wants your token code is collecting it.",
+        "target": "sign in and confirm your token code"
+      },
+      {
+        "id": "new-account",
+        "label": "\"Corrected\" account from the payee",
+        "explanation": "A returned payment is a reason to call your vendor, not to accept new bank details passed along by email.",
+        "target": "corrected account details provided by the payee"
+      }
+    ],
+    "tip": "When an ACH payment bounces, look it up in online banking yourself and confirm the vendor's details by phone before paying again."
+  },
+  {
+    "id": "ai-meeting-notes-phish",
+    "locale": "en-US",
+    "channel": "email",
+    "industry": "general",
+    "scamType": "meeting_notes_phish",
+    "difficulty": 5,
+    "verdict": "scam",
+    "sender": {
+      "name": "NoteCadence AI",
+      "address": "notes@notecadence-share.example"
+    },
+    "subject": "AI notes: Q4 vendor pricing call (Oct 23) – 3 action items for you",
+    "body": "Your meeting notes are ready.\n\nQ4 vendor pricing call · Thu, Oct 23 · 42 min\nAttendees: Jordan Ellis, you, +2 guests\n\nAction items assigned to you (3):\n• Send updated vendor banking form to Jordan\n• Approve revised pricing sheet\n• …\n\nVIEW FULL NOTES\n\nSign in with your CloudSuite 365 email and password to view notes shared from outside your organization.\n\nNoteCadence AI takes notes in meetings you're invited to.",
+    "links": [
+      {
+        "text": "VIEW FULL NOTES",
+        "url": "https://notecadence-share.example/n/q4-pricing?sso=cloudsuite365"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "domain",
+        "label": "Tool you don't use",
+        "explanation": "Your company's meetings are recorded in CloudSuite 365. Notes from an outside service at notecadence-share.example are a lure.",
+        "target": "notecadence-share.example"
+      },
+      {
+        "id": "banking-task",
+        "label": "Money task in the notes",
+        "explanation": "An \"action item\" to send a vendor banking form sets up a payment fraud next.",
+        "target": "Send updated vendor banking form to Jordan"
+      },
+      {
+        "id": "login",
+        "label": "Asks for your email password",
+        "explanation": "Real notes open in the meeting tool you're already signed in to. A page that wants your CloudSuite 365 password is collecting it.",
+        "target": "Sign in with your CloudSuite 365 email and password"
+      },
+      {
+        "id": "external",
+        "label": "Shared from outside",
+        "explanation": "Notes \"shared from outside your organization\" for a call you may not remember are a common phishing hook.",
+        "target": "shared from outside your organization"
+      }
+    ],
+    "tip": "Open meeting notes only inside the meeting tool your company uses. A notes link that asks for your password is phishing."
+  },
+  {
+    "id": "benefits-enrollment-invite-phish",
+    "locale": "en-US",
+    "channel": "calendar_invite",
+    "industry": "general",
+    "scamType": "benefits_phish",
+    "difficulty": 3,
+    "verdict": "scam",
+    "sender": {
+      "name": "Benefits Enrollment Team",
+      "address": "enroll@lakesidegroup-benefits.example"
+    },
+    "subject": "Open enrollment closes Friday: confirm your 2026 elections",
+    "body": "When: Fri, Oct 31 · 12:00 – 12:30 PM ET\nWhere: Online\n\nOpen enrollment for 2026 closes this Friday. Employees who don't confirm their elections will be moved to the basic plan with no dental or vision coverage.\n\nBefore this session, confirm your elections and dependents in the new enrollment portal. You'll need your work email password and the last four of your SSN.\n\nCONFIRM MY ELECTIONS\n\nQuestions? Reply to this invite.\nHR portal: lakesidegroup.peoplepoint.example",
+    "links": [
+      {
+        "text": "CONFIRM MY ELECTIONS",
+        "url": "https://lakesidegroup-benefits.example/enroll"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "organizer",
+        "label": "Outside organizer",
+        "explanation": "Your HR portal, listed at the bottom, is lakesidegroup.peoplepoint.example. This invite came from lakesidegroup-benefits.example.",
+        "target": "lakesidegroup-benefits.example"
+      },
+      {
+        "id": "threat",
+        "label": "Lose-coverage threat",
+        "explanation": "Most plans roll over if you do nothing. A threat to drop coverage is meant to rush you.",
+        "target": "will be moved to the basic plan with no dental or vision coverage"
+      },
+      {
+        "id": "creds",
+        "label": "Asks for password and SSN",
+        "explanation": "No enrollment portal needs your email password. Together with SSN digits it's an identity-theft kit.",
+        "target": "your work email password and the last four of your SSN"
+      }
+    ],
+    "tip": "Make benefits elections only in the HR portal you already use, and ask HR about any enrollment invite you don't recognize."
+  },
+  {
+    "id": "bank-fraud-alert-text-callback",
+    "locale": "en-US",
+    "channel": "sms",
+    "industry": "general",
+    "scamType": "bank_impersonation",
+    "difficulty": 2,
+    "verdict": "scam",
+    "sender": {
+      "name": "(555) 018-6627",
+      "address": "(555) 018-6627"
+    },
+    "body": "Cedar Valley Bank Fraud Alert: Did you attempt a $2,450.00 transfer to J. Morales? Reply YES or NO. If NO, a fraud specialist will call you shortly. To stop the transfer, you'll need to verify your identity with the code we send you.",
+    "redFlags": [
+      {
+        "id": "number",
+        "label": "Ordinary phone number",
+        "explanation": "Your bank's alerts come from the short code you signed up for, not a regular number.",
+        "target": "(555) 018-6627"
+      },
+      {
+        "id": "call",
+        "label": "Promised phone call",
+        "explanation": "Replying NO gets you a call from the scammer, who now knows you're worried.",
+        "target": "a fraud specialist will call you shortly"
+      },
+      {
+        "id": "code",
+        "label": "Code for the caller",
+        "explanation": "The code that arrives is really your bank's sign-in or payment code. Reading it to the caller lets them in.",
+        "target": "verify your identity with the code we send you"
+      }
+    ],
+    "tip": "Don't reply to fraud texts from regular numbers. Call the number on the back of your card or check your bank's app."
+  },
+  {
+    "id": "security-alert-callback-text",
+    "locale": "en-US",
+    "channel": "sms",
+    "industry": "general",
+    "scamType": "callback_phish",
+    "difficulty": 3,
+    "verdict": "scam",
+    "sender": {
+      "name": "(555) 012-9934",
+      "address": "(555) 012-9934"
+    },
+    "body": "CloudSuite 365 Security: We blocked a sign-in to your work account from an unknown device in another country at 2:14 AM. If this wasn't you, call Account Protection now at (555) 012-9934 to secure your mailbox. Do not reply to this message.",
+    "redFlags": [
+      {
+        "id": "number",
+        "label": "Ordinary phone number",
+        "explanation": "Account alerts don't come from a regular phone number, and this is the same number they want you to call.",
+        "target": "(555) 012-9934"
+      },
+      {
+        "id": "scare",
+        "label": "Middle-of-the-night scare",
+        "explanation": "A foreign sign-in at 2 AM is meant to make you call before you think.",
+        "target": "from an unknown device in another country at 2:14 AM"
+      },
+      {
+        "id": "callback",
+        "label": "Call-this-number trap",
+        "explanation": "Security alerts send you to your account settings, not a phone line. Whoever answers will ask for codes or remote access.",
+        "target": "call Account Protection now"
+      }
+    ],
+    "tip": "If a sign-in alert worries you, open your account security page yourself or call IT. Never call a number from the alert."
+  },
+  {
+    "id": "utility-shutoff-voicemail",
+    "locale": "en-US",
+    "channel": "voicemail",
+    "industry": "general",
+    "scamType": "utility_shutoff",
+    "difficulty": 1,
+    "verdict": "scam",
+    "sender": {
+      "name": "Tri-County Power",
+      "address": "(555) 017-5521"
+    },
+    "body": "This is an urgent message from Tri-County Power for the business account at 400 Lakeside Drive. Your account is past due and a technician has been dispatched to disconnect power within the hour. To avoid disconnection, call our billing department at (555) 017-5521 and pay $1,284 with a prepaid debit card or through the payment app we provide. Once paid, the disconnection will be cancelled.",
+    "redFlags": [
+      {
+        "id": "hour",
+        "label": "Shutoff within the hour",
+        "explanation": "Utilities send written disconnection notices days ahead. They don't phone an hour before a crew arrives.",
+        "target": "disconnect power within the hour"
+      },
+      {
+        "id": "callback",
+        "label": "Their own callback number",
+        "explanation": "Check the number on your bill or the utility's website, not the one in the message.",
+        "target": "call our billing department at (555) 017-5521"
+      },
+      {
+        "id": "prepaid",
+        "label": "Prepaid card or app",
+        "explanation": "No utility takes prepaid cards or payment-app transfers to stop a shutoff.",
+        "target": "with a prepaid debit card or through the payment app we provide"
+      }
+    ],
+    "tip": "Hang up and check your account on the utility's website or at the number on your bill. No utility takes prepaid cards."
+  },
+  {
+    "id": "recruiter-job-offer-chat",
+    "locale": "en-US",
+    "channel": "chat",
+    "industry": "general",
+    "scamType": "job_offer_phish",
+    "difficulty": 2,
+    "verdict": "scam",
+    "sender": {
+      "name": "Brooke Lin – Talent Partner",
+      "address": "@brooke.lin · Quillridge Staffing · External"
+    },
+    "body": "Hi! I came across your profile and think you'd be a great fit for a remote Office Administrator role at Ashgrove Logistics: $42/hr, flexible hours, start Monday. The hiring manager already approved you, no interview needed! To get you onboarded, please fill out the I-9 and direct deposit form here: onboard-quillridge.example/start. We'll also mail you a check to buy your home office equipment from our approved vendor.",
+    "links": [
+      {
+        "text": "onboard-quillridge.example/start",
+        "url": "https://onboard-quillridge.example/start?ref=bl22"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "external",
+        "label": "Outside account",
+        "explanation": "This message came from outside your organization, from someone you've never worked with.",
+        "target": "External"
+      },
+      {
+        "id": "no-interview",
+        "label": "No interview",
+        "explanation": "Real employers interview you. An instant offer is how fake recruiters skip straight to your data.",
+        "target": "no interview needed!"
+      },
+      {
+        "id": "forms",
+        "label": "Sensitive forms by link",
+        "explanation": "An I-9 and direct deposit form on a random site hands over your ID, SSN and bank account.",
+        "target": "fill out the I-9 and direct deposit form here"
+      },
+      {
+        "id": "check",
+        "label": "Equipment check",
+        "explanation": "The check bounces after you've spent the money at their \"vendor\", leaving you to cover it.",
+        "target": "mail you a check to buy your home office equipment"
+      }
+    ],
+    "tip": "Offers that skip the interview and ask for ID, bank details or a deposited check are scams. Don't share personal data through a recruiter's link."
+  },
+  {
+    "id": "domain-renewal-solicitation",
+    "locale": "en-US",
+    "channel": "payment_request",
+    "industry": "general",
+    "scamType": "domain_renewal",
+    "difficulty": 2,
+    "verdict": "scam",
+    "sender": {
+      "name": "Domain Registry Services",
+      "address": "@DRS-Renewals · Invoice"
+    },
+    "subject": "Payment request · $389.00",
+    "body": "Domain Registry Services requested $389.00\nDue: 10/27\n\nFor: 5-year renewal and search-engine listing – lakesidegroup.example\nNote: Your domain expires soon. If not renewed through us, your website and email may stop working and the name can be bought by a competitor.\n\nThis is not a bill. This is a solicitation. You are under no obligation to pay unless you accept this offer.\n\nRENEW NOW",
+    "links": [
+      {
+        "text": "RENEW NOW",
+        "url": "https://drs-renewals.example/renew/lakesidegroup"
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "add-on",
+        "label": "Extra \"listing\" fee",
+        "explanation": "A search-engine listing bundled with a renewal is padding you never asked for.",
+        "target": "search-engine listing"
+      },
+      {
+        "id": "not-registrar",
+        "label": "Not your registrar",
+        "explanation": "Your domain renews through the registrar IT already uses. Paying this company transfers it to them.",
+        "target": "If not renewed through us"
+      },
+      {
+        "id": "threat",
+        "label": "Email shutdown threat",
+        "explanation": "Fear of losing your website and email is meant to get you paying fast.",
+        "target": "your website and email may stop working"
+      },
+      {
+        "id": "fine-print",
+        "label": "\"Not a bill\" fine print",
+        "explanation": "The fine print admits it's a sales pitch dressed up as an invoice.",
+        "target": "This is not a bill. This is a solicitation."
+      }
+    ],
+    "tip": "Send domain renewal notices to IT. Your registrar renews from your existing account; lookalike \"registry\" bills are sales pitches."
+  },
+  {
+    "id": "legit-meeting-recap-internal",
+    "locale": "en-US",
+    "channel": "chat",
+    "industry": "general",
+    "scamType": "none",
+    "difficulty": 4,
+    "verdict": "legit",
+    "sender": {
+      "name": "CloudSuite 365 Meet",
+      "address": "Recap bot · Lakeside Group workspace"
+    },
+    "body": "Recap: Freight contract review (Thu, Oct 23 · 38 min)\nOrganizer: Alicia Moreno · Attendees: you, Mark Davies, Elena Ortiz\n\nAction items for you:\n• Pull last quarter's freight invoices for Alicia\n• Draft the carrier comparison by Tuesday\n\nOpen full recap\n\nThis recap is visible only to meeting attendees in your workspace.",
+    "links": [
+      {
+        "text": "Open full recap",
+        "url": "https://meet.cloudsuite365.example/lakesidegroup/recaps/freight-review"
+      }
+    ],
+    "redFlags": [],
+    "legitReason": "It's posted by your company's own meeting tool inside your workspace, for a meeting with coworkers you know. The link goes to meet.cloudsuite365.example, and the action items involve no money or logins.",
+    "tip": "Real AI notes come from the meeting tool your company already uses and open where you're already signed in."
+  },
+  {
+    "id": "legit-open-enrollment-invite",
+    "locale": "en-US",
+    "channel": "calendar_invite",
+    "industry": "general",
+    "scamType": "none",
+    "difficulty": 3,
+    "verdict": "legit",
+    "sender": {
+      "name": "Tasha Greene – HR",
+      "address": "tgreene@lakesidegroup.example"
+    },
+    "subject": "Open enrollment Q&A (optional) – closes Nov 7",
+    "body": "When: Thu, Oct 30 · 12:00 – 12:30 PM ET\nWhere: Conference Room B and CloudSuite 365 Meet\n\nOpen enrollment for 2026 benefits runs through Friday, Nov 7. If you don't make changes, your current elections roll over automatically.\n\nBring your questions to this optional Q&A. To review or change your elections, sign in to PeoplePoint the usual way.\n\nTasha Greene, HR Manager",
+    "links": [
+      {
+        "text": "PeoplePoint",
+        "url": "https://lakesidegroup.peoplepoint.example/benefits"
+      }
+    ],
+    "redFlags": [],
+    "legitReason": "It's from your HR manager's company address, your elections roll over if you do nothing, the session is optional, and the link goes to your usual HR portal at lakesidegroup.peoplepoint.example.",
+    "tip": "Real enrollment messages come from your own HR, give you time, and send you to the portal you already use."
+  },
+  {
+    "id": "legit-registrar-renewal-ap",
+    "locale": "en-US",
+    "channel": "payment_request",
+    "industry": "general",
+    "scamType": "none",
+    "difficulty": 3,
+    "verdict": "legit",
+    "sender": {
+      "name": "Hostwell Registrar",
+      "address": "Lakeside Group AP portal · Vendor #1047"
+    },
+    "subject": "Payment request · $64.00",
+    "body": "Hostwell Registrar requested $64.00\nDue: 11/02\n\nFor: Annual renewal – lakesidegroup.example (auto-renew, account #HW-22719)\nMatched to: IT subscriptions budget, approved by Priya Shah (IT) on 10/22\nPay to: Card on file (unchanged)\n\nApprove or flag this request in the AP portal as usual.",
+    "links": [
+      {
+        "text": "AP portal",
+        "url": "https://ap.lakesidegroup.example/requests/1047-22719"
+      }
+    ],
+    "redFlags": [],
+    "legitReason": "It came through your own AP portal from the registrar IT already uses, it's a normal yearly price, and IT approved it against the budget.",
+    "tip": "Domain renewals come from the registrar IT already uses, through your normal approvals."
+  },
+  {
+    "id": "legit-ach-return-bank-text",
+    "locale": "en-US",
+    "channel": "sms",
+    "industry": "general",
+    "scamType": "none",
+    "difficulty": 4,
+    "verdict": "legit",
+    "sender": {
+      "name": "07227",
+      "address": "07227"
+    },
+    "body": "Cedar Valley Bank: An ACH payment of $1,875.50 to Fairmont Paper Co. was returned (R03). The funds are back in your account. Review it in Business Online Banking. We never text links or ask for codes.\nReply STOP to end alerts.",
+    "redFlags": [],
+    "legitReason": "It comes from your bank's alert short code, says the money is back in your account, has no link or phone number, and tells you to check in online banking yourself.",
+    "tip": "A real return notice just tells you to look in online banking. Confirm the vendor's details by phone before you pay again."
   }
 ]

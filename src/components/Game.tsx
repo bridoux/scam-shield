@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useCallback, useRef, useState, type ReactNode } from "react";
 import type { UiStrings } from "@/lib/content";
 import type { AnswerResult, RoundSummary } from "@/lib/round";
-import type { PlayErrorCode } from "@/lib/play/types";
+import type { PlayErrorCode, PlayerProgress } from "@/lib/play/types";
 import type { CardReveal, PublicCard, Verdict } from "@/lib/types";
 import type { RoundSource } from "./game/source";
 import { RoundLoading } from "./RoundLoading";
@@ -23,6 +23,8 @@ export interface ActiveRound {
   answers: AnswerResult[];
   index: number;
   summary: RoundSummary | null;
+  /** Progress after the round (signed-in play only). */
+  progress: PlayerProgress | null;
 }
 
 type GameState = { phase: "start" } | { phase: "loading" } | ({ phase: "playing" | "end" } & ActiveRound);
@@ -37,9 +39,11 @@ interface GameProps {
   startCta?: string;
   /** Account menu shown on the start screen. */
   accessory?: ReactNode;
+  /** Level, streak and league for the start screen (signed-in play only). */
+  progress?: PlayerProgress | null;
 }
 
-export function Game({ source, strings, variant, startNote, startCta, accessory }: GameProps) {
+export function Game({ source, strings, variant, startNote, startCta, accessory, progress }: GameProps) {
   const [state, setState] = useState<GameState>({ phase: "start" });
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<PlayErrorCode | null>(null);
@@ -85,6 +89,7 @@ export function Game({ source, strings, variant, startNote, startCta, accessory 
       answers: answered.map((a) => a.result),
       index: Math.min(answered.length, started.cards.length - 1),
       summary: null,
+      progress: null,
     });
   }, [call, source]);
 
@@ -114,7 +119,7 @@ export function Game({ source, strings, variant, startNote, startCta, accessory 
     if (!finished) return;
     setState((s) =>
       s.phase === "playing" && s.roundId === roundId
-        ? { ...s, phase: "end", isPractice: finished.isPractice, summary: finished.summary }
+        ? { ...s, phase: "end", isPractice: finished.isPractice, summary: finished.summary, progress: finished.progress ?? null }
         : s,
     );
   }, [call, source, state]);
@@ -127,6 +132,7 @@ export function Game({ source, strings, variant, startNote, startCta, accessory 
         cta={startCta}
         error={error}
         accessory={accessory}
+        progress={progress}
         onStart={start}
         // Start fetching the round UI as soon as the player shows intent to play.
         onIntent={loadRound}

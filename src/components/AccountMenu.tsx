@@ -14,6 +14,9 @@ export function AccountMenu({ member, strings }: { member: Member; strings: UiSt
       </summary>
       <div className="absolute right-0 z-10 mt-2 w-60 rounded-xl bg-white p-2 shadow-lg ring-1 ring-slate-200">
         <p className="truncate px-2 py-1.5 text-xs text-slate-600">{member.displayName}</p>
+        <Link href="/league" className="block rounded-lg px-2 py-2 text-sm font-medium text-slate-900 hover:bg-slate-100">
+          {h.league}
+        </Link>
         <Link href="/team" className="block rounded-lg px-2 py-2 text-sm font-medium text-slate-900 hover:bg-slate-100">
           {h.team}
         </Link>
