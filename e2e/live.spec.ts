@@ -45,10 +45,39 @@ test.describe("signed-in play", () => {
     await teammatePage.getByLabel("Your name (shown to your team)").fill("Teammate E2E");
     await teammatePage.getByRole("button", { name: "Join Lakeshore Motors (e2e)" }).click();
     await expect(teammatePage.getByTestId("start-note")).toContainText("Counts toward your training record");
+
+    // A player can't see the dashboard or download the record.
+    await teammatePage.goto("/dashboard");
+    await expect(teammatePage.getByText("Only owners and admins can see the dashboard.")).toBeVisible();
+    const forbidden = await teammatePage.request.get("/dashboard/record.csv");
+    expect(forbidden.status()).toBe(403);
     await other.close();
 
     await page.reload();
     await expect(page.getByTestId("member-list")).toContainText("Teammate E2E");
+
+    // The owner sees everyone on the dashboard and downloads the training record.
+    await page.goto("/dashboard");
+    await expect(page.getByTestId("employee-list")).toContainText("Teammate E2E");
+    await expect(page.getByTestId("employee-list")).toContainText("Owner E2E");
+
+    const [csvDownload] = await Promise.all([
+      page.waitForEvent("download"),
+      page.getByRole("link", { name: "Download CSV" }).click(),
+    ]);
+    expect(csvDownload.suggestedFilename()).toMatch(/^scam-shield-training-record-lakeshore-motors-e2e-.*\.csv$/);
+    const csv = await (await csvDownload.createReadStream()).toArray();
+    const csvText = Buffer.concat(csv).toString("utf8");
+    expect(csvText).toContain("Name,Email,Team,Role");
+    expect(csvText).toContain(teammate.email);
+
+    // Headless browsers rename clicked PDF downloads, so check the link's response directly.
+    const pdfHref = await page.getByRole("link", { name: "Download PDF" }).getAttribute("href");
+    const pdf = await page.request.get(pdfHref!);
+    expect(pdf.status()).toBe(200);
+    expect(pdf.headers()["content-type"]).toBe("application/pdf");
+    expect(pdf.headers()["content-disposition"]).toMatch(/filename="scam-shield-training-record-lakeshore-motors-e2e-.*\.pdf"/);
+    expect((await pdf.body()).subarray(0, 5).toString()).toBe("%PDF-");
   });
 
   test("plays a full round checked by the server and saves the result", async ({ page }) => {
@@ -65,8 +94,19 @@ test.describe("signed-in play", () => {
     await page.getByRole("button", { name: "Start today's round" }).click();
     for (let i = 1; i <= 10; i++) {
       await expect(page.getByTestId("progress")).toHaveText(`Card ${i} of 10`);
-      await page.getByRole("button", { name: i % 2 ? "Scam" : "Legit", exact: true }).click();
-      await expect(page.getByTestId("feedback")).toBeVisible();
+      const answer = page.getByRole("button", { name: i % 2 ? "Scam" : "Legit", exact: true });
+      // A slow network can time a request out; the app then shows an error and the player taps again
+      // (answers are idempotent), so do the same rather than fail on network weather.
+      for (let attempt = 1; ; attempt++) {
+        await answer.click();
+        const outcome = await Promise.race([
+          page.getByTestId("feedback").waitFor().then(() => "answered" as const),
+          page.getByTestId("play-error").waitFor().then(() => "error" as const),
+        ]);
+        if (outcome === "answered") break;
+        if (attempt === 3) throw new Error(`Answer ${i} kept failing`);
+        await expect(answer).toBeEnabled();
+      }
       await page.getByRole("button", { name: i === 10 ? "See my results" : "Next card" }).click();
     }
 

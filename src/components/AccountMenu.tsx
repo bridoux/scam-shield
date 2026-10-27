@@ -17,6 +17,11 @@ export function AccountMenu({ member, strings }: { member: Member; strings: UiSt
         <Link href="/league" className="block rounded-lg px-2 py-2 text-sm font-medium text-slate-900 hover:bg-slate-100">
           {h.league}
         </Link>
+        {member.role === "owner" || member.role === "admin" ? (
+          <Link href="/dashboard" className="block rounded-lg px-2 py-2 text-sm font-medium text-slate-900 hover:bg-slate-100">
+            {h.dashboard}
+          </Link>
+        ) : null}
         <Link href="/team" className="block rounded-lg px-2 py-2 text-sm font-medium text-slate-900 hover:bg-slate-100">
           {h.team}
         </Link>

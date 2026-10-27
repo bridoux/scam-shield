@@ -123,7 +123,7 @@ export function PlayScreen({ strings, cards, revealed, index, answers, pending, 
         </m.div>
 
         {error ? (
-          <p role="alert" className="mt-3 rounded-xl bg-danger-soft p-3 text-center text-sm font-medium text-danger">
+          <p role="alert" data-testid="play-error" className="mt-3 rounded-xl bg-danger-soft p-3 text-center text-sm font-medium text-danger">
             {strings.errors[error]}
           </p>
         ) : null}

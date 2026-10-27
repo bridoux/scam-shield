@@ -2,11 +2,16 @@
 
 A 3-minute daily game that trains staff at small US businesses to spot scams. See `CLAUDE.md` for the product brief and `docs/sprints/` for the roadmap.
 
-## What's here (Sprint 3)
+## What's here (Sprint 4)
 
 - **`/demo`**: the public demo for buyer calls. No sign-in, nothing saved, same as Sprint 1.
 - **`/`**: signed-out visitors see a welcome page. Signed-in players see their level, streak and league position, then play today's round, served and checked by the server.
 - **`/league`**: this week's (or last week's) league inside the company. Players rank by points; teams rank by average points per member.
+- **`/dashboard`**, for owners and admins:
+  - who is on track (a round on at least 80% of training days since joining), behind or new;
+  - completion and accuracy per employee;
+  - the scam types the team gets wrong most often;
+  - downloads of the training record as PDF (`/dashboard/record.pdf`) or CSV (`/dashboard/record.csv`) for any period up to 366 days.
 - **`/sign-in`**: magic-link sign-in.
 - **`/onboarding`**: a first-time user creates their company and becomes its owner.
 - **`/team`**:
@@ -55,6 +60,7 @@ npm run db:types     # Regenerate src/lib/supabase/database.types.ts
 | `src/lib/round.ts` | Pure round engine: card selection, scoring, streaks, summary |
 | `src/lib/play/core.ts` | Server-checked play: start/resume, answer, finish (service role) |
 | `src/lib/progress/` | Pure logic: streaks, levels, league ranking, adaptive card picking; `load.ts` reads progress for a player |
+| `src/lib/reports/` | Training record: period parsing, completion/status, CSV writer, PDF renderer (pdf-lib); `load.ts` gates by role |
 | `src/app/actions/` | Server actions for play, auth and company/invites |
 | `src/lib/highlight.ts` | Maps red flags and links to card fields and splits text for rendering |
 | `src/components/cards/` | One renderer per channel, plus `CardView` and the link preview |

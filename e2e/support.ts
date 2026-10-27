@@ -3,13 +3,13 @@ import { createAdminClient } from "../src/lib/supabase/admin-client";
 
 export const admin = createAdminClient();
 
-/** Retries an admin call when the network drops ("fetch failed"); other errors surface immediately. */
+/** Retries an admin call when the network drops or times out; other errors surface immediately. */
 async function withRetry<T>(fn: () => Promise<T>, attempts = 3): Promise<T> {
   for (let i = 1; ; i++) {
     try {
       return await fn();
     } catch (error) {
-      if (i >= attempts || !String(error).includes("fetch failed")) throw error;
+      if (i >= attempts || !/fetch failed|timeout|aborted/i.test(String(error))) throw error;
       await new Promise((r) => setTimeout(r, 1000 * i));
     }
   }

@@ -1,4 +1,5 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import { finishRound, startRound, submitAnswer } from "@/lib/play/core";
 import { createAdminClient } from "@/lib/supabase/admin-client";
 import type { Database } from "@/lib/supabase/database.types";
 import { publicSupabaseEnv } from "@/lib/supabase/env";
@@ -53,4 +54,26 @@ export async function createCompany(user: TestUser, name: string): Promise<strin
 export async function cleanup(users: TestUser[], organizationIds: string[]): Promise<void> {
   if (organizationIds.length > 0) await admin.from("organizations").delete().in("id", organizationIds);
   await Promise.all(users.map((u) => admin.auth.admin.deleteUser(u.id)));
+}
+
+/** Plays a whole round on the server, answering "scam" to everything. Returns its id and cards. */
+export async function playRound(userId: string, now: Date) {
+  const round = await startRound(admin, userId, { now });
+  for (let i = round.answered.length; i < round.cards.length; i++) {
+    await submitAnswer(admin, userId, round.roundId, i, "scam");
+  }
+  const finished = await finishRound(admin, userId, round.roundId);
+  return { ...round, finished };
+}
+
+/** Adds `user` to the company that `owner` owns, through a real invite. */
+export async function joinCompany(owner: TestUser, user: TestUser, organizationId: string, displayName: string): Promise<void> {
+  const { data: invite, error } = await owner.client
+    .from("invites")
+    .insert({ organization_id: organizationId, created_by: owner.id })
+    .select("token")
+    .single();
+  if (error) throw error;
+  const joined = await user.client.rpc("accept_invite", { invite_token: invite.token, member_display_name: displayName });
+  if (joined.error) throw joined.error;
 }
