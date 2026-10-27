@@ -43,6 +43,12 @@ describe("scenario content (en-US)", () => {
     }
   });
 
+  it("only uses SMS short codes that can't be real (US short codes never start with 0)", () => {
+    for (const s of scenarios.filter((x) => x.channel === "sms" && /^\d{5,6}$/.test(x.sender.address))) {
+      expect(s.sender.address, s.id).toMatch(/^0/);
+    }
+  });
+
   describe.each(scenarios.map((s) => [s.id, s] as const))("%s", (_id, s) => {
     it("matches the schema", () => {
       expect(s.locale).toBe("en-US");

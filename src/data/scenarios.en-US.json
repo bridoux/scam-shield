@@ -819,8 +819,8 @@
     "difficulty": 2,
     "verdict": "legit",
     "sender": {
-      "name": "72745",
-      "address": "72745"
+      "name": "07274",
+      "address": "07274"
     },
     "body": "ParcelGo: Your package from Lakeview Office Furniture is out for delivery today by 8 PM. Track: https://parcelgo.example/t/PG5520183\nReply STOP to opt out.",
     "links": [
@@ -1061,8 +1061,8 @@
     "difficulty": 3,
     "verdict": "legit",
     "sender": {
-      "name": "46873",
-      "address": "46873"
+      "name": "04687",
+      "address": "04687"
     },
     "body": "Riverstate DMV Dealer Services: Title application T-55190 (VIN ending 0932) was approved 10/22. The title will be mailed to Lakeview Motors in 7-10 business days. No action needed. Status: dmv.riverstate.example/s/T55190\nReply STOP to end alerts.",
     "links": [
@@ -2279,11 +2279,11 @@
     "channel": "sms",
     "industry": "auto_dealer",
     "scamType": "none",
-    "difficulty": 5,
+    "difficulty": 4,
     "verdict": "legit",
     "sender": {
-      "name": "28634",
-      "address": "28634"
+      "name": "02863",
+      "address": "02863"
     },
     "body": "Voxline Business: A request to move the number ending 4410 to a new SIM was BLOCKED because it didn't include your account PIN. Your service hasn't changed and no action is needed. You can review account security in the Voxline Business app. We will never call or text asking for your PIN or a code.\nReply STOP to end alerts.",
     "redFlags": [],
@@ -2974,8 +2974,8 @@
     "difficulty": 3,
     "verdict": "legit",
     "sender": {
-      "name": "47390",
-      "address": "47390"
+      "name": "04739",
+      "address": "04739"
     },
     "body": "Granite Ridge Insurance: A payment of $87.40 for auto policy ending 2231 is past due. Your coverage is still active. To avoid cancellation on 11/14, pay in the Granite Ridge app or call your agent, Harper & Cole.\nReply STOP to end alerts.",
     "redFlags": [],
@@ -3434,8 +3434,8 @@
     "difficulty": 4,
     "verdict": "legit",
     "sender": {
-      "name": "72275",
-      "address": "72275"
+      "name": "07227",
+      "address": "07227"
     },
     "body": "Cedar Valley Bank: An ACH payment of $1,875.50 to Fairmont Paper Co. was returned (R03). The funds are back in your account. Review it in Business Online Banking. We never text links or ask for codes.\nReply STOP to end alerts.",
     "redFlags": [],

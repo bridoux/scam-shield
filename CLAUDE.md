@@ -21,6 +21,10 @@ US offices of 10-250 staff that move money or hold customer financial data: auto
 - All user-facing strings and scenario content carry a `locale` (start with `en-US`). No hard-coded country assumptions in logic.
 - Scenario content lives as data (`src/data/scenarios.<locale>.json` is the source of truth; `npm run db:seed` loads it into Supabase), never inside components.
 - No real brand names, logos or trademarks in scenario content. Use invented brands ("CloudSuite 365", "SignRight") and `.example` domains only.
+  - Government agencies may be named (e.g. the IRS), because impersonating them is the scam being taught.
+  - Banks, carriers and every other business stay fictional.
+  - Phone numbers use the (555) 01xx range. SMS short codes start with 0 (never issued in the US).
+  - Routing numbers must fail the ABA checksum.
 - The client never sees an answer before the player commits: cards go out as `PublicCard` (no `id`, `scamType`, `verdict`, `redFlags`, `legitReason`, `tip`), and verdicts come back from the server per answer.
 - No third-party analytics or tracking SDKs. Store the minimum personal data.
 - Small, focused components. Server components by default; client components only where interaction needs it.
