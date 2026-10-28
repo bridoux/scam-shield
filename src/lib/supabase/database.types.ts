@@ -338,6 +338,29 @@ export type Database = {
         Returns: string
       }
       set_play_days: { Args: { days: number[] }; Returns: number[] }
+      training_report: {
+        Args: { p_from: string; p_to: string }
+        Returns: {
+          cards: number
+          correct: number
+          display_name: string
+          email: string
+          joined_on: string
+          points: number
+          role: string
+          round_dates: string[]
+          team_name: string
+          user_id: string
+        }[]
+      }
+      training_topics: {
+        Args: { p_from: string; p_to: string }
+        Returns: {
+          attempts: number
+          misses: number
+          scam_type: string
+        }[]
+      }
       weekly_league: {
         Args: { week_start: string }
         Returns: {

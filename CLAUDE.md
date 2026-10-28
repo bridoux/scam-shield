@@ -39,6 +39,11 @@ US offices of 10-250 staff that move money or hold customer financial data: auto
   - `set_play_days` is owner-only.
   - `weekly_league(week_start)` returns only the caller's own company. It answers only for Mondays, so it can't be used to piece together colleagues' daily activity.
   - Practice rounds never count toward level, streak or league. Any future reporting must filter `is_practice = false` too.
+- Sprint 4 functions:
+  - `training_report` and `training_topics` are owner/admin-only.
+  - They are the only place employee emails are read: from `auth.users`, never copied into app tables.
+  - The export routes repeat the role check and send `Cache-Control: private, no-store`.
+  - CSV cells are guarded against spreadsheet formulas.
 - Every Supabase client uses a fetch with a deadline (`src/lib/supabase/fetch.ts`): 10 s for data, 30 s in the proxy. A stalled request then fails visibly instead of leaving a player stuck on "Checking…".
 - `npm run test:db` creates throwaway users (`ss-test-…@scam-shield.example`) and deletes them afterwards. The Playwright signed-in tests do the same (`ss-e2e-…`). If the bundled Playwright browser can't be downloaded, set `PLAYWRIGHT_CHANNEL=msedge` to use the installed Edge.
 

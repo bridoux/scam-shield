@@ -1,16 +1,5 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import { finishRound, startRound, submitAnswer } from "@/lib/play/core";
-import { admin, anonClient, cleanup, createCompany, createTestUser, type TestUser } from "./helpers";
-
-/** Plays a whole round on the server, answering "scam" to everything. Returns its id and cards. */
-async function playRound(userId: string, now: Date) {
-  const round = await startRound(admin, userId, { now });
-  for (let i = round.answered.length; i < round.cards.length; i++) {
-    await submitAnswer(admin, userId, round.roundId, i, "scam");
-  }
-  const finished = await finishRound(admin, userId, round.roundId);
-  return { ...round, finished };
-}
+import { admin, anonClient, cleanup, createCompany, createTestUser, playRound, type TestUser } from "./helpers";
 
 async function seenScenarioIds(roundId: string): Promise<string[]> {
   const { data } = await admin.from("round_answers").select("scenario_id").eq("round_id", roundId);

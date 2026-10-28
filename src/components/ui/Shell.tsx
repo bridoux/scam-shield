@@ -7,12 +7,14 @@ interface ShellProps {
   children: ReactNode;
   /** Right side of the top bar. */
   accessory?: ReactNode;
+  /** Wider column on large screens, for tables such as the dashboard. */
+  wide?: boolean;
 }
 
 /** Page frame for the non-game screens: brand bar, then a narrow column of content. */
-export function Shell({ appName, children, accessory }: ShellProps) {
+export function Shell({ appName, children, accessory, wide = false }: ShellProps) {
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-5 pt-8 pb-10">
+    <main className={`mx-auto flex min-h-dvh w-full flex-col px-5 pt-8 pb-10 ${wide ? "max-w-md md:max-w-4xl" : "max-w-md"}`}>
       <div className="flex items-center gap-2">
         <Link href="/" className="flex items-center gap-2 rounded-md text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
           <ShieldIcon className="size-7" />
