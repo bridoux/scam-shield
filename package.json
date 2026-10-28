@@ -13,7 +13,7 @@
     "test:e2e": "playwright test",
     "test:db": "vitest run --project db",
     "db:seed": "vitest run --project unit src/data && tsx --env-file=.env.local scripts/seed-scenarios.ts",
-    "db:types": "supabase gen types typescript --project-id toqkxrtwptfgojbrelyi --schema public > src/lib/supabase/database.types.ts"
+    "db:types": "supabase gen types typescript --project-id dqqqvfghukcjqtwlyxzj --schema public > src/lib/supabase/database.types.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
