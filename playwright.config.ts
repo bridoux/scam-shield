@@ -1,8 +1,11 @@
-import { loadEnvConfig } from "@next/env";
+import { existsSync } from "node:fs";
 import { defineConfig, devices } from "@playwright/test";
+import { assertTestDatabase } from "./tests/guard";
 
-// Signed-in tests use the Supabase project in .env.local to create and remove their own users.
-loadEnvConfig(process.cwd());
+// Signed-in tests create and remove their own users, so both they and the app server under test use the
+// test Supabase project in .env.test.local. Values set here win over .env.local when Next builds the app.
+if (existsSync(".env.test.local")) process.loadEnvFile(".env.test.local");
+assertTestDatabase();
 
 const PORT = 3100;
 

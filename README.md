@@ -36,6 +36,8 @@ Create `.env.local` with `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_
 - `NEXT_PUBLIC_SITE_URL`, the canonical origin used in magic links and invite links.
 - `DEMO_SECRET` (optional), which encrypts demo round tokens. It falls back to the service role key.
 
+Create `.env.test.local` with the same three variables for the **test** Supabase project. `test:db` and `test:e2e` only use that file, and refuse to run if it points at production.
+
 If Playwright can't download its own browser, run `PLAYWRIGHT_CHANNEL=msedge npm run test:e2e` to use the installed Edge.
 
 ```bash
@@ -44,9 +46,10 @@ npm run dev          # http://localhost:3000
 npm run lint
 npm run typecheck
 npm test             # Vitest unit tests: round engine, highlighting, links, content rules
-npm run test:db      # Integration tests against Supabase: RLS isolation, server-checked play
+npm run test:db      # Integration tests against the test Supabase project: RLS isolation, server-checked play
 npm run test:e2e     # Playwright: demo flows + signed-in flows (builds and starts the app on :3100)
 npm run db:seed      # Content checks, then upsert scenarios into Supabase as "approved"
+npm run db:seed:test # The same, into the test project
 npm run db:types     # Regenerate src/lib/supabase/database.types.ts
 ```
 
