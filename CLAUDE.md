@@ -47,6 +47,7 @@ US offices of 10-250 staff that move money or hold customer financial data: auto
 - Every Supabase client uses a fetch with a deadline (`src/lib/supabase/fetch.ts`): 10 s for data, 30 s in the proxy. A stalled request then fails visibly instead of leaving a player stuck on "Checking…".
 - `npm run test:db` creates throwaway users (`ss-test-…@scam-shield.example`) and deletes them afterwards. The Playwright signed-in tests do the same (`ss-e2e-…`). If the bundled Playwright browser can't be downloaded, set `PLAYWRIGHT_CHANNEL=msedge` to use the installed Edge.
 - Tests never run against production. `test:db` and `test:e2e` read the test project's keys from `.env.test.local` (same three variables as `.env.local`), and `tests/guard.ts` refuses to start if the URL points at the production project. After a migration, apply it to the test project too and run `npm run db:seed:test` when cards change.
+- CI (`.github/workflows/ci.yml`) runs lint, typecheck and unit tests, then the db and e2e tests against the test project. Its keys are repository secrets with the same names as in `.env.test.local`; refresh them with `gh secret set -f .env.test.local`.
 
 ## Scenario card schema
 ```ts
