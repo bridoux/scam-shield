@@ -33,7 +33,7 @@
         "items": [
           "Your company's owner and admins: your name, email, team, role and training record (training days completed, accuracy, last played), on their dashboard and in the training records they download.",
           "Your colleagues: your name, team and weekly points in the league.",
-          "Our service providers, only to run Scam Shield: Supabase (database, sign-in and sign-in emails, hosted in the United States), Vercel (website hosting, United States), Resend (error alert emails to our team, United States; these contain only the technical error reports described above) and GitHub (stores our encrypted backups, which it cannot read, United States).",
+          "Our service providers, only to run Scam Shield: Supabase (database, sign-in and sign-in emails, hosted in the United States), Vercel (website hosting, United States), Resend (error alert emails to our team, United States; these contain only the technical error reports described above) and GitHub (runs our nightly backup job and stores the resulting encrypted backups, which it cannot read without our key, United States).",
           "Authorities, only when the law requires it."
         ]
       },
@@ -64,7 +64,7 @@
         "heading": "Security",
         "items": [
           "All traffic is encrypted (HTTPS), and the database is encrypted at rest by our provider.",
-          "Nightly backups are encrypted before they leave our database provider, with a key only [COMPANY NAME] holds, and every backup is test-restored before it is kept.",
+          "Nightly backups are made on a GitHub build server, test-restored there, and encrypted before they are stored, with a key only [COMPANY NAME] holds.",
           "Database rules make sure people only see their own company's information, and the answers to each practice message stay on our servers until you answer.",
           "Only a small number of people at [COMPANY NAME] can access production systems, and only to run and support the service."
         ]
@@ -212,7 +212,7 @@
           "Supabase, Inc.: database, authentication and sign-in emails. United States (US East).",
           "Vercel Inc.: website hosting. United States.",
           "Resend, Inc.: error alert emails to Scam Shield's operator, containing technical error reports with identifiers removed. United States.",
-          "GitHub, Inc.: stores the nightly backups, encrypted before upload with a key only Scam Shield holds, so GitHub cannot read them. United States."
+          "GitHub, Inc.: runs the nightly backup job on its build servers and stores the resulting backups, encrypted with a key only Scam Shield holds before they are stored. United States."
         ]
       },
       {

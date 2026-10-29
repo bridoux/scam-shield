@@ -64,8 +64,11 @@ US offices of 10-250 staff that move money or hold customer financial data: auto
   - Alert emails go through Resend only from production, when `RESEND_API_KEY` and `ALERT_EMAIL_TO` are set: once for a new error, then at most hourly per error, within daily budgets per source (server 40, health 10, browser 5). Browser reports are untrusted input: they're marked UNVERIFIED and their links removed.
   - Browser crashes are posted to `/api/client-error` (same-origin only, rate-limited, network noise dropped). `/api/health` backs the 15-minute uptime workflow (`.github/workflows/uptime.yml`).
 - Backups (`docs/sprints/backups.md`, restore guide `docs/runbooks/restore.md`):
-  - `.github/workflows/backup.yml` dumps production nightly (`PRODUCTION_DB_URL` secret), restores the dump into a throwaway local Supabase stack, compares every table's row count, then encrypts it with `ops/backup-public-key.asc` and keeps it 30 days as an artifact. Only the owner holds the private key.
-  - The Actions logs are public: backup scripts print table names and counts only, never row data or database errors.
+  - `.github/workflows/backup.yml` dumps production nightly, restores the dump into a throwaway local Supabase stack, compares every table's row count, then encrypts it and keeps it 30 days as an artifact.
+    - The dump uses the `PRODUCTION_DB_URL` secret of the `production` environment, which only `main` can use.
+    - It is encrypted with `ops/backup-public-key.asc`, whose fingerprint is pinned in the workflow. Only the owner holds the private key.
+    - The actions are pinned to commit SHAs.
+  - The Actions logs are public. Backup scripts print table names and match/mismatch only: no row data, row counts or database errors (only rehearsals show those).
   - Pull requests that touch migrations rehearse the same dump and restore against a local database with `scripts/backup/rehearsal-data.sql`. A migration that can't be restored from a dump fails there. Add rows there for new tables.
 - Every Supabase client uses a fetch with a deadline (`src/lib/supabase/fetch.ts`): 10 s for data, 30 s in the proxy. A stalled request then fails visibly instead of leaving a player stuck on "Checking…".
 - `npm run test:db` creates throwaway users (`ss-test-…@scam-shield.example`) and deletes them afterwards. The Playwright signed-in tests do the same (`ss-e2e-…`). If the bundled Playwright browser can't be downloaded, set `PLAYWRIGHT_CHANNEL=msedge` to use the installed Edge.

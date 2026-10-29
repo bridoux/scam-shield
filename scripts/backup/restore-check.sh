@@ -2,8 +2,9 @@
 # Restores a dump made by dump.sh into an EMPTY Supabase database, then checks that every table has
 # exactly the rows the dump holds, and that the tables in REQUIRE_ROWS aren't empty.
 #
-# Prints only table names and row counts: the Actions logs of this public repo are public. A failed
-# restore shows only where it failed unless SHOW_ERRORS=1 (rehearsals with made-up data).
+# The Actions logs of this public repo are public, so it prints table names and match/mismatch only;
+# row counts (which reveal how many customers and players there are) and restore errors (which can
+# quote row data) are shown only with SHOW_COUNTS=1 and SHOW_ERRORS=1, for rehearsals with made-up data.
 #
 # Usage: PSQL="<psql command>" restore-check.sh <dump-dir> <database-url>
 #   PSQL="docker exec -i supabase_db_restore psql" restore-check.sh backup postgresql://postgres:postgres@localhost:5432/postgres
@@ -28,7 +29,8 @@ if ! { cat "$dir/roles.sql" "$dir/schema.sql"; echo "SET session_replication_rol
 fi
 
 # Rows per table in the dump: the lines between each "COPY <table> … FROM stdin;" and its "\.".
-awk '/^COPY / { table = $2; rows = 0; inside = 1; next }
+# Only a COPY header outside a block starts one: a data row could also begin with "COPY ".
+awk '!inside && /^COPY / { table = $2; rows = 0; inside = 1; next }
      inside && /^\\\.$/ { print table, rows; inside = 0; next }
      inside { rows++ }' "$dir/data.sql" > "$dir/expected-counts.txt"
 
@@ -37,23 +39,31 @@ if [ ! -s "$dir/expected-counts.txt" ]; then
   exit 1
 fi
 
+show_counts="${SHOW_COUNTS:-0}"
 status=0
-printf '%-48s %10s %10s\n' "table" "dump" "restored"
+if [ "$show_counts" = "1" ]; then printf '%-48s %10s %10s\n' "table" "dump" "restored"; fi
 while read -r table expected; do
   actual=$("${psql_cmd[@]}" --tuples-only --no-align --command "select count(*) from $table" "$db_url")
   name="${table//\"/}"
-  mark=""
+  verdict="ok"
   if [ "$actual" != "$expected" ]; then
-    mark="  MISMATCH"
+    verdict="MISMATCH"
     status=1
   fi
-  printf '%-48s %10s %10s%s\n' "$name" "$expected" "$actual" "$mark"
+  if [ "$show_counts" = "1" ]; then
+    printf '%-48s %10s %10s  %s\n' "$name" "$expected" "$actual" "$verdict"
+  else
+    printf '%-48s %s\n' "$name" "$verdict"
+  fi
 done < "$dir/expected-counts.txt"
 
 for table in $require_rows; do
   rows=$(awk -v t="$table" '{ name = $1; gsub(/"/, "", name) } name == t { print $2 }' "$dir/expected-counts.txt")
-  if [ -z "$rows" ] || [ "$rows" -lt 1 ]; then
-    echo "Expected rows in $table, but the dump has ${rows:-no such table}."
+  if [ -z "$rows" ]; then
+    echo "Expected rows in $table, but the dump has no such table."
+    status=1
+  elif [ "$rows" -lt 1 ]; then
+    echo "Expected rows in $table, but it is empty in the dump."
     status=1
   fi
 done
