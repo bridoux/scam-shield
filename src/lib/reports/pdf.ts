@@ -178,6 +178,11 @@ function employeeRow(w: Writer, e: EmployeeRecord, strings: UiStrings) {
   // Name line, email line, rule: exactly ROW_HEIGHT points in total.
   w.y -= 9;
   w.text(e.email, MARGIN, { size: 7.5, color: MUTED, width: COLUMNS[0].width - 6 });
+  if (e.leftOn) {
+    // Under the joined date; 7pt keeps "Left Sep 30, 2026" inside the column.
+    const joinedX = MARGIN + COLUMNS[0].width + COLUMNS[1].width;
+    w.text(format(strings.record.left, { date: dayLabel(e.leftOn) }), joinedX, { size: 7, color: MUTED, width: COLUMNS[2].width - 6 });
+  }
   w.y -= 9;
   w.rule();
   w.y -= ROW_HEIGHT - 18;

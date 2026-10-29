@@ -75,12 +75,12 @@ async function JoinContent({ params }: Pick<PageProps<"/join/[token]">, "params"
   }
 
   if (session.member?.organizationId === invite.organizationId) redirect("/");
-  if (session.member) {
+  if (session.member || session.deactivated) {
     return (
       <>
         {heading}
         <div className="mt-8">
-          <Notice tone="error">{j.alreadyMember}</Notice>
+          <Notice tone="error">{session.deactivated ? j.deactivated : j.alreadyMember}</Notice>
         </div>
       </>
     );

@@ -62,6 +62,7 @@ export type Database = {
       memberships: {
         Row: {
           created_at: string
+          deactivated_at: string | null
           display_name: string
           organization_id: string
           role: string
@@ -70,6 +71,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          deactivated_at?: string | null
           display_name: string
           organization_id: string
           role: string
@@ -78,6 +80,7 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          deactivated_at?: string | null
           display_name?: string
           organization_id?: string
           role?: string
@@ -337,6 +340,18 @@ export type Database = {
         }
         Returns: string
       }
+      set_member_active: {
+        Args: { active: boolean; target: string }
+        Returns: undefined
+      }
+      set_member_role: {
+        Args: { new_role: string; target: string }
+        Returns: undefined
+      }
+      set_member_team: {
+        Args: { new_team: string; target: string }
+        Returns: undefined
+      }
       set_play_days: { Args: { days: number[] }; Returns: number[] }
       training_report: {
         Args: { p_from: string; p_to: string }
@@ -346,6 +361,7 @@ export type Database = {
           display_name: string
           email: string
           joined_on: string
+          left_on: string
           points: number
           role: string
           round_dates: string[]
@@ -361,6 +377,7 @@ export type Database = {
           scam_type: string
         }[]
       }
+      transfer_ownership: { Args: { new_owner: string }; Returns: undefined }
       weekly_league: {
         Args: { week_start: string }
         Returns: {

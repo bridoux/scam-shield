@@ -172,7 +172,10 @@ function Employees({ employees }: { employees: EmployeeRecord[] }) {
           <li key={e.userId} className="grid grid-cols-[1fr_auto] gap-x-3 gap-y-1 py-3 md:grid-cols-[2fr_1fr_1fr_1fr_1fr_auto] md:items-center">
             <span className="min-w-0">
               <span className="block truncate font-medium text-slate-900">{e.displayName}</span>
-              <span className="block truncate text-xs text-slate-600">{e.teamName ?? d.noTeam}</span>
+              <span className="block truncate text-xs text-slate-600">
+                {e.teamName ?? d.noTeam}
+                {e.leftOn ? ` · ${format(d.leftOn, { date: dayLabel(e.leftOn) })}` : null}
+              </span>
             </span>
             <span className="order-last col-span-2 text-xs text-slate-600 md:order-none md:col-span-1 md:text-sm md:text-slate-800">
               {format(d.daysValue, { done: e.completedDays, required: e.requiredDays })}

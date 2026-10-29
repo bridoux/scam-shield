@@ -13,6 +13,8 @@ export interface ReportRow {
   teamName: string | null;
   role: string;
   joinedOn: string;
+  /** The day their access was turned off, or null for current members. */
+  leftOn: string | null;
   /** Days with a completed record round in the period. */
   roundDates: string[];
   cards: number;
@@ -79,8 +81,11 @@ export function requiredDays(playDays: readonly number[], start: string, end: st
 
 export function employeeRecord(row: ReportRow, playDays: readonly number[], period: Period, today: string): EmployeeRecord {
   const start = row.joinedOn > period.from ? row.joinedOn : period.from;
+  // Someone who left was expected to train up to the day before they left.
+  const lastDay = row.leftOn ? addDays(row.leftOn, -1) : period.to;
+  const end = lastDay < period.to ? lastDay : period.to;
   const played = new Set(row.roundDates);
-  const required = requiredDays(playDays, start, period.to, today, played.has(today));
+  const required = requiredDays(playDays, start, end, today, played.has(today));
   const completedDays = required.filter((d) => played.has(d)).length;
   const completion = required.length === 0 ? null : completedDays / required.length;
   const status: RecordStatus = completion === null ? "new" : completion >= COMPLETION_TARGET ? "on_track" : "behind";

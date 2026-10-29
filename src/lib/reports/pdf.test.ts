@@ -15,6 +15,7 @@ function rows(count: number, name = (i: number) => `Employee ${i}`): ReportRow[]
     teamName: i % 3 === 0 ? null : `Team ${i % 3}`,
     role: i === 0 ? "owner" : "player",
     joinedOn: "2026-09-15",
+    leftOn: null,
     roundDates: i % 2 ? ["2026-10-28", "2026-10-29"] : [],
     cards: i % 2 ? 20 : 0,
     correct: i % 2 ? 15 : 0,

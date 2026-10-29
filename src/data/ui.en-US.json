@@ -107,6 +107,7 @@
     "daysValue": "{done} of {required}",
     "never": "Never",
     "noTeam": "No team",
+    "leftOn": "Left {date}",
     "topicsHeading": "Where the team struggles",
     "topicsIntro": "The scam types the team gets wrong most often in this period (answered at least {min} times).",
     "topicsTooFew": "Not enough answers yet to spot weak areas.",
@@ -153,7 +154,8 @@
     "signature": "Signature",
     "date": "Date",
     "page": "Page {page} of {pages}",
-    "csvColumns": ["Name", "Email", "Team", "Role", "Joined", "Training days required", "Training days completed", "Completion %", "Accuracy %", "Training rounds", "Points", "Last played", "Status"]
+    "left": "Left {date}",
+    "csvColumns": ["Name", "Email", "Team", "Role", "Joined", "Left", "Training days required", "Training days completed", "Completion %", "Accuracy %", "Training rounds", "Points", "Last played", "Status"]
   },
   "league": {
     "title": "Weekly league",
@@ -207,7 +209,9 @@
     "creating": "Creating…",
     "invalid": "Please fill in every field.",
     "alreadyMember": "You already belong to a company.",
-    "failed": "We couldn't create your company. Please try again."
+    "failed": "We couldn't create your company. Please try again.",
+    "deactivatedTitle": "Your access is turned off",
+    "deactivated": "Your company has turned off your Scam Shield access. If that's a mistake, ask your manager to turn it back on."
   },
   "team": {
     "title": "Team & invites",
@@ -241,7 +245,42 @@
     "saving": "Saving…",
     "saved": "Saved.",
     "noDays": "Pick at least one day.",
-    "notOwner": "Only the owner can change training days."
+    "notOwner": "Only the owner can change training days.",
+    "teamsIntro": "Group people the way you work. Teams compete on average points in the weekly league.",
+    "newTeamName": "New team name",
+    "addTeam": "Add team",
+    "adding": "Adding…",
+    "teamName": "Team name",
+    "rename": "Rename",
+    "save": "Save",
+    "cancel": "Cancel",
+    "deleteTeam": "Delete",
+    "onePerson": "1 person",
+    "people": "{count} people",
+    "nameTaken": "A team with that name already exists.",
+    "teamNameInvalid": "Team names need between 1 and 80 characters.",
+    "teamNotEmpty": "Move everyone off this team before deleting it.",
+    "membersIntro": "Change someone's team or role, or remove people who've left.",
+    "you": "You",
+    "manage": "Manage",
+    "memberTeam": "Team",
+    "noTeam": "No team",
+    "move": "Move",
+    "memberRole": "Role",
+    "changeRole": "Change role",
+    "deactivate": "Remove from company",
+    "deactivateConfirm": "Remove {name}? They lose access straight away. Their past training stays on your records, and you can restore them later.",
+    "confirmDeactivate": "Yes, remove",
+    "makeOwner": "Make owner",
+    "makeOwnerConfirm": "Make {name} the owner? You'll become an admin, and only the new owner can change that back.",
+    "confirmMakeOwner": "Yes, make owner",
+    "formerMembers": "Former members",
+    "formerIntro": "People who left. Their past training stays on your records.",
+    "leftOn": "Left {date}",
+    "reactivate": "Restore access",
+    "notAuthorized": "You can't change this person.",
+    "memberDeactivated": "This person's access is turned off. Restore it first.",
+    "notAdmin": "Only an active admin can become the owner. Make them an admin first."
   },
   "join": {
     "title": "Join {company}",
@@ -252,6 +291,7 @@
     "signInFirst": "Sign in to join",
     "invalid": "This invite link is invalid or has expired. Ask your manager for a new one.",
     "alreadyMember": "You already belong to another company, so you can't join this one.",
+    "deactivated": "Your company has turned off your Scam Shield access, so this link can't add you back. Ask your manager to turn it back on.",
     "failed": "We couldn't add you. Please try again."
   },
   "play": {

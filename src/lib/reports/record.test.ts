@@ -14,6 +14,7 @@ const row = (overrides: Partial<ReportRow>): ReportRow => ({
   teamName: "Sales",
   role: "player",
   joinedOn: "2026-10-01",
+  leftOn: null,
   roundDates: [],
   cards: 0,
   correct: 0,
@@ -80,6 +81,19 @@ describe("employeeRecord", () => {
     expect(e.requiredDays).toBe(2); // Wed + Thu; today not played yet
     expect(e.completion).toBe(0.5);
     expect(e.status).toBe("behind");
+  });
+
+  it("stops counting training days the day before someone left", () => {
+    // Left on Thursday 10-22: Mon–Wed were training days, played Mon and Tue.
+    const e = employeeRecord(row({ leftOn: "2026-10-22", roundDates: ["2026-10-19", "2026-10-20"] }), MON_FRI, period, TODAY);
+    expect(e.requiredDays).toBe(3);
+    expect(e.completedDays).toBe(2);
+    expect(e.leftOn).toBe("2026-10-22");
+  });
+
+  it("counts no training days for someone who left on their first day", () => {
+    const e = employeeRecord(row({ joinedOn: "2026-10-20", leftOn: "2026-10-20" }), MON_FRI, period, TODAY);
+    expect(e).toMatchObject({ requiredDays: 0, completion: null, status: "new" });
   });
 
   it("ignores weekend rounds for completion and marks people who joined today as new", () => {
