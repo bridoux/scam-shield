@@ -4,7 +4,9 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { AccountMenu } from "@/components/AccountMenu";
 import { Notice, Panel, Shell } from "@/components/ui/Shell";
+import type { Member } from "@/lib/auth";
 import { format, getStrings, scamTypeLabel } from "@/lib/content";
+import { recentDownloads } from "@/lib/reports/downloads";
 import { loadTrainingRecord } from "@/lib/reports/load";
 import { periodQuery, type Period, type PeriodPreset } from "@/lib/reports/period";
 import {
@@ -78,7 +80,44 @@ async function DashboardContent({ searchParams }: Pick<PageProps<"/dashboard">, 
       <Summary record={record} />
       <Employees employees={record.employees} />
       <Topics record={record} />
+      <DownloadLog member={member} />
     </Shell>
+  );
+}
+
+/** Recent PDF/CSV downloads of the training record: who, which format and period, and when. */
+async function DownloadLog({ member }: { member: Member }) {
+  const downloads = await recentDownloads(member);
+  const when = new Intl.DateTimeFormat(strings.locale, {
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    timeZone: member.timeZone,
+  });
+  return (
+    <Panel className="mt-6">
+      <h2 className="text-lg font-semibold text-slate-900">{d.downloadLogHeading}</h2>
+      <p className="mt-1 text-xs text-slate-600">{d.downloadLogIntro}</p>
+      {downloads.length === 0 ? (
+        <p className="mt-3 text-sm text-slate-600">{d.downloadLogEmpty}</p>
+      ) : (
+        <ul className="mt-2 divide-y divide-slate-200 text-sm" data-testid="download-log">
+          {downloads.map((entry) => (
+            <li key={entry.id} className="flex flex-wrap items-baseline justify-between gap-x-3 py-2">
+              <span className="min-w-0 text-slate-900">
+                <span className="font-medium">{entry.byName ?? d.deletedAccount}</span>
+                {" · "}
+                {entry.format.toUpperCase()}
+                {" · "}
+                {format(d.range, { from: dayLabel(entry.from), to: dayLabel(entry.to) })}
+              </span>
+              <span className="text-xs text-slate-600">{when.format(new Date(entry.at))}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </Panel>
   );
 }
 

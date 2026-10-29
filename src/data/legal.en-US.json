@@ -14,7 +14,8 @@
           "The name you choose to show your team, your role (owner, admin or player) and your team.",
           "Your company's details: name, industry, time zone and training days.",
           "Your training activity: which practice messages you saw, your answers, points, and the days you played.",
-          "Invite links, including who created them and when they expire.",
+          "Invite links, including who created them, how many people joined with them and when they expire.",
+          "A log of training-record downloads: who downloaded which period, in which format, and when. Your company's owners and admins can see it.",
           "Basic technical records kept by our hosting providers to run the service securely, such as the IP address and browser of a request and when you signed in."
         ]
       },
@@ -45,6 +46,7 @@
         "heading": "How long we keep it",
         "items": [
           "Your information is kept while your account is active.",
+          "To stop abuse, we count requests such as sign-in links per IP address and per email. The counters store only keyed one-way hashes, never the address or email itself, and are deleted within a day.",
           "If your company removes you, your past training stays on your company's records until the company deletes it, so it can show the training that took place. You can still delete your own account (see below).",
           "When you delete your account, or a company owner deletes the company, the information is erased at once. Our database provider keeps daily backups for 7 days, so deleted information disappears from backups within 7 days."
         ]
@@ -173,7 +175,7 @@
         "heading": "What is processed",
         "items": [
           "People: the customer's staff and other people the customer invites.",
-          "Information: work email, display name, role, team, company details, training activity and invite records, plus technical records needed to run the service securely.",
+          "Information: work email, display name, role, team, company details, training activity, invite records and the log of record downloads, plus technical records needed to run the service securely.",
           "Purpose: delivering daily training, showing progress, the league, the owner dashboard and training records.",
           "Duration: for as long as the customer uses Scam Shield, then until deletion as described below."
         ]
@@ -193,6 +195,7 @@
           "Encryption in transit (HTTPS) and at rest.",
           "Database-enforced access rules that keep each company's information separate, and give owners and admins only their own company's records.",
           "Access to production systems limited to the people who run the service, using individual accounts.",
+          "Rate limits on sign-in, invitations, downloads and play, and a log of every PDF and CSV download of the training record.",
           "Personnel with access are bound by confidentiality."
         ]
       },

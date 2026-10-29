@@ -16,7 +16,7 @@ export function CreateInviteForm({ strings, teams }: CreateInviteFormProps) {
   const [state, action] = useActionState<FormState, FormData>(createInvite, { status: "idle" });
   return (
     <form action={action} className="mt-4 space-y-3">
-      {state.status === "error" ? <Notice tone="error">{t[state.error as "ownersOnly" | "failed"] ?? t.failed}</Notice> : null}
+      {state.status === "error" ? <Notice tone="error">{t[state.error as "ownersOnly" | "tooMany" | "tooManyInvites" | "failed"] ?? t.failed}</Notice> : null}
       {teams.length > 1 ? (
         <SelectField label={t.inviteTeam} name="teamId" options={teams.map((x) => ({ value: x.id, label: x.name }))} />
       ) : (

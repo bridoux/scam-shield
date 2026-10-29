@@ -4,6 +4,7 @@ import { getSession, getUser } from "@/lib/auth";
 import { finishRound, PlayError, startRound, submitAnswer } from "@/lib/play/core";
 import type { AnsweredCard, FinishedRound, PlayResponse, StartedRound } from "@/lib/play/types";
 import { loadProgress } from "@/lib/progress/load";
+import { allow } from "@/lib/rate-limit";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import type { Verdict } from "@/lib/types";
@@ -21,7 +22,10 @@ async function run<T>(action: string, fn: (userId: string) => Promise<T>): Promi
 }
 
 export async function startRoundAction(): Promise<PlayResponse<StartedRound>> {
-  return run("start", (userId) => startRound(createAdminClient(), userId));
+  return run("start", async (userId) => {
+    if (!(await allow("startRound", userId))) throw new PlayError("rate_limited");
+    return startRound(createAdminClient(), userId);
+  });
 }
 
 export async function submitAnswerAction(

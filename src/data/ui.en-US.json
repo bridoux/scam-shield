@@ -37,6 +37,7 @@
     "incomplete": "Answer every card before finishing.",
     "invalid_input": "Something didn't look right. Please try again.",
     "server_error": "Something went wrong on our side. Please try again.",
+    "rate_limited": "You've started a lot of rounds in the last hour. Take a break and try again later.",
     "retry": "Try again"
   },
   "home": {
@@ -90,6 +91,10 @@
     "downloadPdf": "Download PDF",
     "downloadCsv": "Download CSV",
     "downloadsNote": "The training record for this period, ready for an auditor or insurer.",
+    "downloadLogHeading": "Download history",
+    "downloadLogIntro": "Every PDF and CSV download of the training record is logged, so you can see who exported employee data and when.",
+    "downloadLogEmpty": "No downloads yet.",
+    "deletedAccount": "Deleted account",
     "employees": "Employees",
     "onTrack": "On track",
     "behind": "Behind",
@@ -224,7 +229,8 @@
     "cooldown": "We just sent a link to this address. Please wait {seconds} seconds before asking for another one.",
     "cooldownShort": "Too many requests just now. Please wait a minute, then try again.",
     "hourlyLimit": "Too many sign-in emails were sent recently. Use the most recent link in your inbox, or try again in about an hour.",
-    "linkFailed": "That sign-in link didn't work or has expired. Please request a new one."
+    "linkFailed": "That sign-in link didn't work or has expired. Please request a new one.",
+    "tooMany": "Too many sign-in requests from here. Please wait 15 minutes, then try again."
   },
   "onboarding": {
     "title": "Set up your company",
@@ -272,6 +278,10 @@
     "noInvites": "No active invite links yet.",
     "revoke": "Revoke",
     "ownersOnly": "Only owners and admins can manage invites.",
+    "tooMany": "You've created a lot of invite links in the last hour. Please try again later.",
+    "tooManyInvites": "Your company already has 10 active invite links. Revoke one you no longer need first.",
+    "uses": "{uses} of {max} joined",
+    "full": "Full",
     "failed": "That didn't work. Please try again.",
     "playDaysHeading": "Training days",
     "playDaysIntro": "Pick the days your team is expected to play. Missing one of these breaks a player's streak; rounds on other days are bonus.",
@@ -329,6 +339,7 @@
     "invalid": "This invite link is invalid or has expired. Ask your manager for a new one.",
     "alreadyMember": "You already belong to another company, so you can't join this one.",
     "deactivated": "Your company has turned off your Scam Shield access, so this link can't add you back. Ask your manager to turn it back on.",
+    "full": "This invite link has been used the maximum number of times. Ask your manager for a new one.",
     "failed": "We couldn't add you. Please try again."
   },
   "play": {

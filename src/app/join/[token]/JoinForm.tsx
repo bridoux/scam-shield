@@ -19,7 +19,7 @@ export function JoinForm({ strings, token, company, defaultName }: JoinFormProps
   return (
     <form action={action} className="mt-8 space-y-4">
       {state.status === "error" ? (
-        <Notice tone="error">{j[state.error as "invalid" | "alreadyMember" | "deactivated" | "failed"] ?? j.failed}</Notice>
+        <Notice tone="error">{j[state.error as "invalid" | "alreadyMember" | "deactivated" | "full" | "failed"] ?? j.failed}</Notice>
       ) : null}
       <input type="hidden" name="token" value={token} />
       <TextField label={j.yourName} name="displayName" required maxLength={80} autoComplete="name" defaultValue={defaultName} />

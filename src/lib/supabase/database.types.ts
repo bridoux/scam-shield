@@ -19,28 +19,34 @@ export type Database = {
           created_at: string
           created_by: string | null
           expires_at: string
+          max_uses: number
           organization_id: string
           role: string
           team_id: string | null
           token: string
+          uses: number
         }
         Insert: {
           created_at?: string
           created_by?: string | null
           expires_at?: string
+          max_uses?: number
           organization_id: string
           role?: string
           team_id?: string | null
           token?: string
+          uses?: number
         }
         Update: {
           created_at?: string
           created_by?: string | null
           expires_at?: string
+          max_uses?: number
           organization_id?: string
           role?: string
           team_id?: string | null
           token?: string
+          uses?: number
         }
         Relationships: [
           {
@@ -130,6 +136,44 @@ export type Database = {
           time_zone?: string
         }
         Relationships: []
+      }
+      record_exports: {
+        Row: {
+          created_at: string
+          format: string
+          id: string
+          organization_id: string
+          period_from: string
+          period_to: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          format: string
+          id?: string
+          organization_id: string
+          period_from: string
+          period_to: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          format?: string
+          id?: string
+          organization_id?: string
+          period_from?: string
+          period_to?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "record_exports_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       round_answers: {
         Row: {
@@ -343,6 +387,10 @@ export type Database = {
       delete_organization: {
         Args: { confirm_name: string }
         Returns: undefined
+      }
+      hit_rate_limit: {
+        Args: { p_key: string; p_limit: number; p_window_seconds: number }
+        Returns: boolean
       }
       set_member_active: {
         Args: { active: boolean; target: string }

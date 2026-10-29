@@ -78,6 +78,13 @@ test.describe("signed-in play", () => {
     expect(pdf.headers()["content-type"]).toBe("application/pdf");
     expect(pdf.headers()["content-disposition"]).toMatch(/filename="scam-shield-training-record-lakeshore-motors-e2e-.*\.pdf"/);
     expect((await pdf.body()).subarray(0, 5).toString()).toBe("%PDF-");
+
+    // Both downloads are in the dashboard's download history.
+    await page.reload();
+    const log = page.getByTestId("download-log");
+    await expect(log).toContainText("PDF");
+    await expect(log).toContainText("CSV");
+    await expect(log).toContainText("Owner E2E");
   });
 
   test("plays a full round checked by the server and saves the result", async ({ page }) => {

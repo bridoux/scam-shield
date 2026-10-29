@@ -1,7 +1,14 @@
 import { expect, test } from "@playwright/test";
 
 test("plays a full round with the buttons and reaches the end screen", async ({ page }) => {
-  await page.goto("/demo");
+  // The strict content security policy is on, and the game still runs under it (no CSP errors).
+  const cspErrors: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error" && /Content Security Policy/i.test(message.text())) cspErrors.push(message.text());
+  });
+  const response = await page.goto("/demo");
+  expect(response?.headers()["content-security-policy"]).toContain("script-src 'self'");
+  expect(response?.headers()["content-security-policy"]).toContain("connect-src 'self'");
   await page.getByRole("button", { name: "Start today's round" }).click();
 
   for (let i = 1; i <= 10; i++) {
@@ -18,6 +25,7 @@ test("plays a full round with the buttons and reaches the end screen", async ({ 
 
   await page.getByRole("button", { name: "Play again" }).click();
   await expect(page.getByTestId("progress")).toHaveText("Card 1 of 10");
+  expect(cspErrors).toEqual([]);
 });
 
 test("answers with the keyboard and highlights red flags on scams", async ({ page }) => {

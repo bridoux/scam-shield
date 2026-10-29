@@ -9,7 +9,7 @@ export type RecordAccess =
   | { ok: true; member: Member; record: TrainingRecord }
   | { ok: false; reason: "signed_out" | "no_company" | "forbidden" };
 
-type Params = { range?: unknown; from?: unknown; to?: unknown };
+export type Params = { range?: unknown; from?: unknown; to?: unknown };
 
 /**
  * The training record for the signed-in owner or admin. The database functions repeat the
@@ -17,12 +17,22 @@ type Params = { range?: unknown; from?: unknown; to?: unknown };
  * response, not the only guard.
  */
 export async function loadTrainingRecord(params: Params): Promise<RecordAccess> {
+  const access = await recordManager();
+  return access.ok ? loadRecordFor(access.member, params) : access;
+}
+
+/** The signed-in owner or admin, or why they can't see the record. Cheap: no report query. */
+export async function recordManager(): Promise<{ ok: true; member: Member } | { ok: false; reason: "signed_out" | "no_company" | "forbidden" }> {
   const session = await getSession();
   if (!session) return { ok: false, reason: "signed_out" };
   const member = session.member;
   if (!member) return { ok: false, reason: "no_company" };
   if (member.role !== "owner" && member.role !== "admin") return { ok: false, reason: "forbidden" };
+  return { ok: true, member };
+}
 
+/** The training record for a member already checked by recordManager. */
+export async function loadRecordFor(member: Member, params: Params): Promise<RecordAccess> {
   const today = localDate(new Date(), member.timeZone);
   const period: Period = parsePeriod(params, today);
   const client = await createClient();

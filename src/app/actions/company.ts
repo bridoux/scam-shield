@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { isTimeZone } from "@/lib/play/dates";
+import { allow } from "@/lib/rate-limit";
 import { createClient } from "@/lib/supabase/server";
 import type { Industry } from "@/lib/types";
 import { cleanText } from "@/lib/urls";
@@ -58,6 +59,7 @@ export async function acceptInvite(_prev: FormState, formData: FormData): Promis
     if (hint === "invalid_invite") return { status: "error", error: "invalid" };
     if (hint === "already_member") return { status: "error", error: "alreadyMember" };
     if (hint === "deactivated") return { status: "error", error: "deactivated" };
+    if (hint === "invite_full") return { status: "error", error: "full" };
     console.error("[company] accept_invite failed", error.code, error.message);
     return { status: "error", error: "failed" };
   }
@@ -68,6 +70,7 @@ export async function createInvite(_prev: FormState, formData: FormData): Promis
   const session = await getSession();
   const member = session?.member;
   if (!member || member.role === "player") return { status: "error", error: "ownersOnly" };
+  if (!(await allow("invite", member.userId))) return { status: "error", error: "tooMany" };
 
   const teamId = String(formData.get("teamId") ?? "") || null;
   const supabase = await createClient();
@@ -77,6 +80,7 @@ export async function createInvite(_prev: FormState, formData: FormData): Promis
     team_id: teamId,
     created_by: member.userId,
   });
+  if (hintOf(error) === "too_many_invites") return { status: "error", error: "tooManyInvites" };
   if (error) {
     console.error("[company] create invite failed", error.code, error.message);
     return { status: "error", error: "failed" };
