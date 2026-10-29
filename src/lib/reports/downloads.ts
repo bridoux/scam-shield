@@ -5,6 +5,7 @@ import { createAdminClient } from "../supabase/admin";
 import { createClient } from "../supabase/server";
 import { refusal } from "./http";
 import { loadRecordFor, recordManager, type Params, type RecordAccess } from "./load";
+import { logError } from "../errors/report";
 
 export type DownloadFormat = "pdf" | "csv";
 
@@ -40,7 +41,7 @@ export async function authorizeDownload(request: Request, format: DownloadFormat
     period_to: record.period.to,
   });
   if (error) {
-    console.error("[downloads] logging a record download failed", error.code, error.message);
+    logError("downloads.log", error);
     return textResponse(503, "The download couldn't be recorded, so it was stopped. Please try again.");
   }
   return access;

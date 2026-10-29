@@ -2,6 +2,7 @@ import "server-only";
 import { createHmac } from "node:crypto";
 import { headers } from "next/headers";
 import { createAdminClient } from "./supabase/admin";
+import { logError } from "./errors/report";
 
 /** Fixed-window limits (docs/sprints/hardening.md). */
 export const LIMITS = {
@@ -11,6 +12,7 @@ export const LIMITS = {
   invite: { limit: 20, windowSeconds: 60 * 60 },
   recordDownload: { limit: 30, windowSeconds: 60 * 60 },
   startRound: { limit: 30, windowSeconds: 60 * 60 },
+  clientError: { limit: 20, windowSeconds: 60 * 60 },
 } as const;
 
 export type LimitName = keyof typeof LIMITS;
@@ -62,7 +64,7 @@ export async function allow(name: LimitName, subject: string): Promise<boolean> 
     if (error) throw error;
     return data;
   } catch (error: unknown) {
-    console.error(`[rate-limit] ${name} check failed`, error);
+    logError(`rateLimit.${name}`, error);
     return true;
   }
 }

@@ -16,6 +16,7 @@
           "Your training activity: which practice messages you saw, your answers, points, and the days you played.",
           "Invite links, including who created them, how many people joined with them and when they expire.",
           "A log of training-record downloads: who downloaded which period, in which format, and when. Your company's owners and admins can see it.",
+          "Error reports: when something breaks, a short technical description of what failed, on which page and how often. We remove email addresses, links, invite codes and other identifiers before it is stored, and it never includes your answers or your name.",
           "Basic technical records kept by our hosting providers to run the service securely, such as the IP address and browser of a request and when you signed in."
         ]
       },
@@ -32,7 +33,7 @@
         "items": [
           "Your company's owner and admins: your name, email, team, role and training record (training days completed, accuracy, last played), on their dashboard and in the training records they download.",
           "Your colleagues: your name, team and weekly points in the league.",
-          "Our service providers, only to run Scam Shield: Supabase (database, sign-in and sign-in emails, hosted in the United States) and Vercel (website hosting, United States).",
+          "Our service providers, only to run Scam Shield: Supabase (database, sign-in and sign-in emails, hosted in the United States), Vercel (website hosting, United States) and Resend (error alert emails to our team, United States; these contain only the technical error reports described above).",
           "Authorities, only when the law requires it."
         ]
       },
@@ -47,6 +48,7 @@
         "items": [
           "Your information is kept while your account is active.",
           "To stop abuse, we count requests such as sign-in links per IP address and per email. The counters store only keyed one-way hashes, never the address or email itself, and are deleted within a day.",
+          "Error reports are deleted 30 days after the error last happened.",
           "If your company removes you, your past training stays on your company's records until the company deletes it, so it can show the training that took place. You can still delete your own account (see below).",
           "When you delete your account, or a company owner deletes the company, the information is erased at once. Our database provider keeps daily backups for 7 days, so deleted information disappears from backups within 7 days."
         ]
@@ -175,7 +177,7 @@
         "heading": "What is processed",
         "items": [
           "People: the customer's staff and other people the customer invites.",
-          "Information: work email, display name, role, team, company details, training activity, invite records and the log of record downloads, plus technical records needed to run the service securely.",
+          "Information: work email, display name, role, team, company details, training activity, invite records and the log of record downloads, plus technical records needed to run the service securely, including error reports with identifiers removed (kept 30 days).",
           "Purpose: delivering daily training, showing progress, the league, the owner dashboard and training records.",
           "Duration: for as long as the customer uses Scam Shield, then until deletion as described below."
         ]
@@ -206,7 +208,8 @@
         ],
         "items": [
           "Supabase, Inc.: database, authentication and sign-in emails. United States (US East).",
-          "Vercel Inc.: website hosting. United States."
+          "Vercel Inc.: website hosting. United States.",
+          "Resend, Inc.: error alert emails to Scam Shield's operator, containing technical error reports with identifiers removed. United States."
         ]
       },
       {

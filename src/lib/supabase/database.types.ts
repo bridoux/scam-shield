@@ -392,6 +392,28 @@ export type Database = {
         Args: { p_key: string; p_limit: number; p_window_seconds: number }
         Returns: boolean
       }
+      record_error: {
+        Args: {
+          p_daily_alerts: number
+          p_environment: string
+          p_fingerprint: string
+          p_message: string
+          p_route: string
+          p_scope: string
+          p_source: string
+        }
+        Returns: {
+          first_seen: string
+          is_new: boolean
+          occurrences: number
+          should_alert: boolean
+          since_alert: number
+        }[]
+      }
+      release_error_alert: {
+        Args: { p_fingerprint: string }
+        Returns: undefined
+      }
       set_member_active: {
         Args: { active: boolean; target: string }
         Returns: undefined

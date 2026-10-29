@@ -40,6 +40,12 @@
     "rate_limited": "You've started a lot of rounds in the last hour. Take a break and try again later.",
     "retry": "Try again"
   },
+  "errorPage": {
+    "heading": "Something went wrong",
+    "body": "This page hit a problem on our side. It has been reported automatically, so there's nothing you need to send us.",
+    "retry": "Try again",
+    "home": "Go to the home page"
+  },
   "home": {
     "eyebrow": "Daily scam training for your team",
     "title": "Spot the scam before it costs you",

@@ -8,6 +8,7 @@ import { allow } from "@/lib/rate-limit";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import type { Verdict } from "@/lib/types";
+import { logError } from "@/lib/errors/report";
 
 async function run<T>(action: string, fn: (userId: string) => Promise<T>): Promise<PlayResponse<T>> {
   const user = await getUser();
@@ -16,7 +17,7 @@ async function run<T>(action: string, fn: (userId: string) => Promise<T>): Promi
     return { ok: true, data: await fn(user.id) };
   } catch (error: unknown) {
     if (error instanceof PlayError && error.code !== "server_error") return { ok: false, error: error.code };
-    console.error(`[play] ${action} failed`, error);
+    logError(`play.${action}`, error);
     return { ok: false, error: "server_error" };
   }
 }
@@ -45,7 +46,7 @@ export async function finishRoundAction(roundId: string): Promise<PlayResponse<F
       if (!session?.member) return finished;
       return { ...finished, progress: await loadProgress(await createClient(), session.member) };
     } catch (error: unknown) {
-      console.error("[play] progress after finish failed", error);
+      logError("play.progressAfterFinish", error);
       return finished;
     }
   });

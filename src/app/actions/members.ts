@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { getSession } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { cleanText } from "@/lib/urls";
+import { logError } from "@/lib/errors/report";
 
 // Every rule (who may change whom) is enforced by the database functions and RLS policies;
 // these actions validate input and turn database refusals into messages.
@@ -46,7 +47,7 @@ async function managerOrganization(): Promise<string | null> {
 function refused(action: string, error: { code?: string; hint?: string | null; message: string }): MemberActionState {
   const known = error.hint ? HINTS[error.hint] : undefined;
   if (known) return fail(known);
-  console.error(`[members] ${action} failed`, error.code, error.message);
+  logError(`members.${action}`, error);
   return fail("failed");
 }
 

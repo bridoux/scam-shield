@@ -32,8 +32,10 @@ describe("legal documents", () => {
     const text = JSON.stringify([getLegalDoc("en-US", "privacy"), getLegalDoc("en-US", "dpa")]);
     expect(text).toContain("Supabase");
     expect(text).toContain("Vercel");
-    // No analytics or email vendors until the code actually adds one.
-    expect(text).not.toMatch(/Google Analytics|Segment|Mixpanel|Resend|SendGrid|Postmark/);
+    // Resend sends the operator's error alerts (src/lib/errors/alert-email.ts).
+    expect(text).toContain("Resend");
+    // No analytics or other email vendors until the code actually adds one.
+    expect(text).not.toMatch(/Google Analytics|Segment|Mixpanel|SendGrid|Postmark/);
   });
 
   it("uses only the agreed placeholders", () => {

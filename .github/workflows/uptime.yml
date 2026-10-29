@@ -1,0 +1,37 @@
+name: Uptime
+
+# Checks the live site every 15 minutes (docs/sprints/error-alerts.md). A failed run makes GitHub
+# email the repository owner. GitHub may start scheduled runs a few minutes late, and pauses them
+# after 60 days without commits; re-enable from the Actions tab if that happens.
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: uptime
+  cancel-in-progress: false
+
+env:
+  # Set the SITE_URL repository variable when the site moves to its own domain.
+  SITE_URL: ${{ vars.SITE_URL || 'https://scam-shield-delta-five.vercel.app' }}
+
+jobs:
+  check:
+    name: Live site and database answer
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Health endpoint reports ok
+        run: |
+          for attempt in 1 2; do
+            body=$(curl -fsS --max-time 20 "$SITE_URL/api/health") && echo "$body" | grep -q '"status":"ok"' && { echo "$body"; exit 0; }
+            echo "Attempt $attempt failed: ${body:-no response}"
+            sleep 30
+          done
+          exit 1
+      - name: Home page loads
+        run: curl -fsS --max-time 20 --retry 1 --retry-delay 30 -o /dev/null -w "HTTP %{http_code} in %{time_total}s\n" "$SITE_URL/"

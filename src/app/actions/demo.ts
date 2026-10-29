@@ -5,6 +5,7 @@ import { PlayError } from "@/lib/play/core";
 import { answerDemoCard, startDemoRound } from "@/lib/play/demo";
 import type { AnsweredCard, PlayResponse, StartedRound } from "@/lib/play/types";
 import type { Verdict } from "@/lib/types";
+import { logError } from "@/lib/errors/report";
 
 const LOCALE = "en-US";
 
@@ -20,7 +21,7 @@ function respond<T>(action: string, fn: () => T): PlayResponse<T> {
     return { ok: true, data: fn() };
   } catch (error: unknown) {
     if (error instanceof PlayError && error.code !== "server_error") return { ok: false, error: error.code };
-    console.error(`[demo] ${action} failed`, error);
+    logError(`demo.${action}`, error);
     return { ok: false, error: "server_error" };
   }
 }

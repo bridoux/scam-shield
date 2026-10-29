@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
+import { logError } from "@/lib/errors/report";
 
 export type DeleteState =
   | { status: "idle" }
@@ -30,14 +31,14 @@ export async function deleteMyAccount(_prev: DeleteState, formData: FormData): P
     .eq("user_id", session.user.id)
     .maybeSingle();
   if (readError) {
-    console.error("[account] reading membership failed", readError.code, readError.message);
+    logError("account.readMembership", readError);
     return fail("failed");
   }
   if (membership?.role === "owner") return fail("ownerFirst");
 
   const { error } = await admin.auth.admin.deleteUser(session.user.id);
   if (error) {
-    console.error("[account] deleteUser failed", error.status, error.code);
+    logError("account.deleteUser", error);
     return fail("failed");
   }
   // The session belongs to a user that no longer exists; clear its cookies on this device.
@@ -56,7 +57,7 @@ export async function deleteCompany(_prev: DeleteState, formData: FormData): Pro
   if (error?.hint === "name_mismatch") return fail("mismatch");
   if (error?.hint === "not_authorized") return fail("notOwner");
   if (error) {
-    console.error("[account] delete_organization failed", error.code, error.message);
+    logError("account.deleteOrganization", error);
     return fail("failed");
   }
   redirect("/onboarding");
