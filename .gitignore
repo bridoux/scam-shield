@@ -44,3 +44,14 @@ next-env.d.ts
 /test-results/
 /playwright-report/
 /blob-report/
+
+# database backups and restores (docs/runbooks/restore.md): never commit them
+/backup/
+/restore/
+/roles.sql
+/schema.sql
+/data.sql
+/expected-counts.txt
+*.gpg
+*.tar.gz
+*private-key*.asc

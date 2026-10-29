@@ -34,6 +34,9 @@ describe("legal documents", () => {
     expect(text).toContain("Vercel");
     // Resend sends the operator's error alerts (src/lib/errors/alert-email.ts).
     expect(text).toContain("Resend");
+    // GitHub stores the encrypted nightly backups (.github/workflows/backup.yml).
+    expect(text).toContain("GitHub");
+    expect(text).not.toMatch(/backups (for|within) 7 days, so|leaves backups within 7 days/);
     // No analytics or other email vendors until the code actually adds one.
     expect(text).not.toMatch(/Google Analytics|Segment|Mixpanel|SendGrid|Postmark/);
   });
