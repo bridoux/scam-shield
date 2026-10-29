@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
-import { addTeam, deleteTeam, renameTeam } from "@/app/actions/members";
+import { addTeam, deleteTeam, renameTeam, type MemberActionState } from "@/app/actions/members";
 import { format, type UiStrings } from "@/lib/content";
 import { ActionForm, buttonClass, SELECT, SmallSubmit } from "./controls";
 
@@ -12,10 +12,17 @@ export function TeamRow({ strings, team }: { strings: UiStrings; team: { id: str
   const [renaming, setRenaming] = useState(false);
   const count = team.people === 1 ? t.onePerson : format(t.people, { count: team.people });
 
+  // Closes the editor once the rename is saved; errors keep it open with the message.
+  async function rename(prev: MemberActionState, formData: FormData): Promise<MemberActionState> {
+    const result = await renameTeam(prev, formData);
+    if (result.status === "done") setRenaming(false);
+    return result;
+  }
+
   if (renaming) {
     return (
       <li className="py-2.5" data-testid="team-row">
-        <ActionForm action={renameTeam} strings={strings}>
+        <ActionForm action={rename} strings={strings}>
           <input type="hidden" name="teamId" value={team.id} />
           <label htmlFor={`${id}-name`} className="sr-only">
             {t.teamName}
