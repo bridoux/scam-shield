@@ -57,6 +57,7 @@ export async function acceptInvite(_prev: FormState, formData: FormData): Promis
     const hint = hintOf(error);
     if (hint === "invalid_invite") return { status: "error", error: "invalid" };
     if (hint === "already_member") return { status: "error", error: "alreadyMember" };
+    if (hint === "deactivated") return { status: "error", error: "deactivated" };
     console.error("[company] accept_invite failed", error.code, error.message);
     return { status: "error", error: "failed" };
   }

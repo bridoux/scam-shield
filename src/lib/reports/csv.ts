@@ -28,6 +28,7 @@ export function recordCsv(record: TrainingRecord, strings: UiStrings): string {
     e.teamName,
     roles[e.role] ?? e.role,
     e.joinedOn,
+    e.leftOn,
     e.requiredDays,
     e.completedDays,
     e.completion === null ? null : Number(percent(e.completion)),

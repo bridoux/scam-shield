@@ -39,6 +39,7 @@ export async function loadTrainingRecord(params: Params): Promise<RecordAccess> 
     teamName: r.team_name,
     role: r.role,
     joinedOn: r.joined_on,
+    leftOn: r.left_on,
     roundDates: r.round_dates,
     cards: r.cards,
     correct: r.correct,

@@ -43,6 +43,7 @@ describe("recordCsv", () => {
           teamName: "Sales, floor",
           role: "admin",
           joinedOn: "2026-10-01",
+          leftOn: null,
           roundDates: ["2026-10-29"],
           cards: 10,
           correct: 8,
@@ -56,6 +57,6 @@ describe("recordCsv", () => {
     );
     const lines = recordCsv(record, strings).replace("﻿", "").trim().split("\r\n");
     expect(lines[0]).toBe(strings.record.csvColumns.join(","));
-    expect(lines[1]).toBe(`'=Dana Ortiz,dana@dealer.example,"Sales, floor",Admin,2026-10-01,4,1,25,80,1,95,2026-10-29,Behind`);
+    expect(lines[1]).toBe(`'=Dana Ortiz,dana@dealer.example,"Sales, floor",Admin,2026-10-01,,4,1,25,80,1,95,2026-10-29,Behind`);
   });
 });

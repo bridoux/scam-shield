@@ -44,6 +44,11 @@ US offices of 10-250 staff that move money or hold customer financial data: auto
   - They are the only place employee emails are read: from `auth.users`, never copied into app tables.
   - The export routes repeat the role check and send `Cache-Control: private, no-store`.
   - CSV cells are guarded against spreadsheet formulas.
+- Member management (`docs/sprints/members.md`):
+  - Removing someone sets `memberships.deactivated_at`; the row stays so their past rounds remain on training records ("Left on").
+  - Every membership check must ignore deactivated members: the RLS helpers, the play code (service role, so it checks explicitly), league, reports and `accept_invite`. Any new check needs `deactivated_at is null` too.
+  - Changes go through `set_member_role` (owner only), `set_member_team`, `set_member_active` and `transfer_ownership`. They lock the rows they change. `src/lib/members.ts` mirrors the rules for the UI only.
+  - Teams: clients write only the name; a team can be deleted only with no active members.
 - Every Supabase client uses a fetch with a deadline (`src/lib/supabase/fetch.ts`): 10 s for data, 30 s in the proxy. A stalled request then fails visibly instead of leaving a player stuck on "Checking…".
 - `npm run test:db` creates throwaway users (`ss-test-…@scam-shield.example`) and deletes them afterwards. The Playwright signed-in tests do the same (`ss-e2e-…`). If the bundled Playwright browser can't be downloaded, set `PLAYWRIGHT_CHANNEL=msedge` to use the installed Edge.
 - Tests never run against production. `test:db` and `test:e2e` read the test project's keys from `.env.test.local` (same three variables as `.env.local`), and `tests/guard.ts` refuses to start if the URL points at the production project. After a migration, apply it to the test project too and run `npm run db:seed:test` when cards change.

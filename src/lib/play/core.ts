@@ -151,6 +151,8 @@ async function getMembership(db: AdminClient, userId: string) {
     .from("memberships")
     .select("organization_id, organizations(time_zone, industry)")
     .eq("user_id", userId)
+    // Deactivated members can't play (the service role bypasses the RLS check that stops them).
+    .is("deactivated_at", null)
     .maybeSingle();
   if (error) throw new PlayError("server_error", error.message);
   if (!data) throw new PlayError("no_membership");
@@ -172,14 +174,13 @@ async function roundsOn(db: AdminClient, userId: string, roundDate: string) {
   return data;
 }
 
+/** The player's own round. Also re-checks membership, so someone removed mid-round can't finish it. */
 async function getOwnRound(db: AdminClient, userId: string, roundId: string) {
   if (!isRoundId(roundId)) throw new PlayError("invalid_input");
-  const { data, error } = await db
-    .from("rounds")
-    .select("id, is_practice, completed_at")
-    .eq("id", roundId)
-    .eq("user_id", userId)
-    .maybeSingle();
+  const [{ data, error }] = await Promise.all([
+    db.from("rounds").select("id, is_practice, completed_at").eq("id", roundId).eq("user_id", userId).maybeSingle(),
+    getMembership(db, userId),
+  ]);
   if (error) throw new PlayError("server_error", error.message);
   if (!data) throw new PlayError("not_found");
   return data;

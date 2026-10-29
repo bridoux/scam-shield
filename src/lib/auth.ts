@@ -23,8 +23,16 @@ export async function getUser(): Promise<{ id: string; email: string } | null> {
   return { id: data.user.id, email: data.user.email ?? "" };
 }
 
-/** The signed-in user with their company membership. `member` is null until they create or join a company. */
-export async function getSession(): Promise<{ user: { id: string; email: string }; member: Member | null } | null> {
+export interface Session {
+  user: { id: string; email: string };
+  /** Null until they create or join a company, and while their access is turned off. */
+  member: Member | null;
+  /** Their company turned off their access. Their membership row stays, so they can't start or join another. */
+  deactivated: boolean;
+}
+
+/** The signed-in user with their company membership. */
+export async function getSession(): Promise<Session | null> {
   const supabase = await createClient();
   const { data, error } = await supabase.auth.getUser();
   if (error || !data.user) return null;
@@ -32,14 +40,16 @@ export async function getSession(): Promise<{ user: { id: string; email: string 
 
   const { data: row, error: memberError } = await supabase
     .from("memberships")
-    .select("organization_id, team_id, role, display_name, organizations(name, time_zone, play_days)")
+    .select("organization_id, team_id, role, display_name, deactivated_at, organizations(name, time_zone, play_days)")
     .eq("user_id", user.id)
     .maybeSingle();
   if (memberError) throw new Error(`Loading membership failed: ${memberError.message}`);
-  if (!row) return { user, member: null };
+  if (!row) return { user, member: null, deactivated: false };
+  if (row.deactivated_at) return { user, member: null, deactivated: true };
 
   return {
     user,
+    deactivated: false,
     member: {
       userId: user.id,
       email: user.email,
