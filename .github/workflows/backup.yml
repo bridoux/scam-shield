@@ -1,0 +1,94 @@
+name: Backup
+
+# Nightly off-site backup of production (docs/sprints/backups.md, restore: docs/runbooks/restore.md).
+# Every dump is restored into a throwaway Supabase database and checked table by table before it is
+# encrypted with the owner's public key and kept as an artifact for 30 days. A failed run makes
+# GitHub email the repository owner.
+#
+# On pull requests that touch backups or migrations, the same steps run as a rehearsal against a
+# local database with made-up rows, and nothing is uploaded.
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - ".github/workflows/backup.yml"
+      - "scripts/backup/**"
+      - "supabase/migrations/**"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: backup-${{ github.event_name == 'pull_request' && github.ref || 'production' }}
+  cancel-in-progress: false
+
+env:
+  MODE: ${{ github.event_name == 'pull_request' && 'rehearsal' || 'production' }}
+  # Everything the restore needs from a Supabase project except the dashboard and functions.
+  EXCLUDED_SERVICES: studio,imgproxy,edge-runtime,logflare,vector,mailpit,supavisor,postgres-meta
+
+jobs:
+  backup:
+    name: Dump, restore-check, encrypt
+    if: github.repository == 'bridoux/scam-shield'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: supabase/setup-cli@v1
+        with:
+          version: 2.122.0
+
+      - name: Dump production
+        if: env.MODE == 'production'
+        env:
+          PRODUCTION_DB_URL: ${{ secrets.PRODUCTION_DB_URL }}
+        run: |
+          if [ -z "$PRODUCTION_DB_URL" ]; then
+            echo "The PRODUCTION_DB_URL repository secret is missing (see docs/runbooks/restore.md)."
+            exit 1
+          fi
+          bash scripts/backup/dump.sh backup --db-url "$PRODUCTION_DB_URL"
+
+      - name: Dump a rehearsal database (migrations plus made-up rows)
+        if: env.MODE == 'rehearsal'
+        run: |
+          supabase start -x "$EXCLUDED_SERVICES"
+          docker exec -i supabase_db_scam-shield psql -U postgres -d postgres --variable ON_ERROR_STOP=1 --quiet < scripts/backup/rehearsal-data.sql
+          bash scripts/backup/dump.sh backup --local
+          supabase stop --no-backup
+
+      - name: Restore into an empty Supabase database and compare
+        env:
+          REQUIRE_ROWS: ${{ env.MODE == 'production' && 'public.scenarios public.organizations public.memberships auth.users' || 'public.scenarios public.organizations public.memberships public.rounds public.round_answers auth.users' }}
+          SHOW_ERRORS: ${{ env.MODE == 'rehearsal' && '1' || '0' }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/restore"
+          supabase init --workdir "$RUNNER_TEMP/restore" --force > /dev/null
+          sed -i 's/^project_id = .*/project_id = "restore"/' "$RUNNER_TEMP/restore/supabase/config.toml"
+          supabase start --workdir "$RUNNER_TEMP/restore" -x "$EXCLUDED_SERVICES"
+          PSQL="docker exec -i supabase_db_restore psql -U postgres" \
+            bash scripts/backup/restore-check.sh backup postgresql://postgres:postgres@localhost:5432/postgres
+          supabase stop --workdir "$RUNNER_TEMP/restore" --no-backup
+
+      - name: Encrypt with the owner's public key
+        run: |
+          name="database-backup-$(date -u +%Y-%m-%d)"
+          tar -czf "$name.tar.gz" -C backup roles.sql schema.sql data.sql expected-counts.txt
+          gpg --batch --yes --recipient-file ops/backup-public-key.asc --output "$name.tar.gz.gpg" --encrypt "$name.tar.gz"
+          rm -rf backup "$name.tar.gz"
+          echo "ARCHIVE=$name.tar.gz.gpg" >> "$GITHUB_ENV"
+          ls -l "$name.tar.gz.gpg"
+
+      - name: Keep for 30 days
+        if: env.MODE == 'production'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ARCHIVE }}
+          path: ${{ env.ARCHIVE }}
+          retention-days: 30
+          compression-level: 0
+          if-no-files-found: error

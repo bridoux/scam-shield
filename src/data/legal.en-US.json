@@ -33,7 +33,7 @@
         "items": [
           "Your company's owner and admins: your name, email, team, role and training record (training days completed, accuracy, last played), on their dashboard and in the training records they download.",
           "Your colleagues: your name, team and weekly points in the league.",
-          "Our service providers, only to run Scam Shield: Supabase (database, sign-in and sign-in emails, hosted in the United States), Vercel (website hosting, United States) and Resend (error alert emails to our team, United States; these contain only the technical error reports described above).",
+          "Our service providers, only to run Scam Shield: Supabase (database, sign-in and sign-in emails, hosted in the United States), Vercel (website hosting, United States), Resend (error alert emails to our team, United States; these contain only the technical error reports described above) and GitHub (stores our encrypted backups, which it cannot read, United States).",
           "Authorities, only when the law requires it."
         ]
       },
@@ -50,7 +50,7 @@
           "To stop abuse, we count requests such as sign-in links per IP address and per email. The counters store only keyed one-way hashes, never the address or email itself, and are deleted within a day.",
           "Error reports are deleted 30 days after the error last happened.",
           "If your company removes you, your past training stays on your company's records until the company deletes it, so it can show the training that took place. You can still delete your own account (see below).",
-          "When you delete your account, or a company owner deletes the company, the information is erased at once. Our database provider keeps daily backups for 7 days, so deleted information disappears from backups within 7 days."
+          "When you delete your account, or a company owner deletes the company, the information is erased at once. Our database provider keeps daily backups for 7 days, and we keep an encrypted copy of each night's backup for 30 days, so deleted information disappears from all backups within 30 days."
         ]
       },
       {
@@ -64,6 +64,7 @@
         "heading": "Security",
         "items": [
           "All traffic is encrypted (HTTPS), and the database is encrypted at rest by our provider.",
+          "Nightly backups are encrypted before they leave our database provider, with a key only [COMPANY NAME] holds, and every backup is test-restored before it is kept.",
           "Database rules make sure people only see their own company's information, and the answers to each practice message stay on our servers until you answer.",
           "Only a small number of people at [COMPANY NAME] can access production systems, and only to run and support the service."
         ]
@@ -195,6 +196,7 @@
         "heading": "Security",
         "items": [
           "Encryption in transit (HTTPS) and at rest.",
+          "Nightly encrypted off-site backups, each restored and checked before it is kept, held for 30 days.",
           "Database-enforced access rules that keep each company's information separate, and give owners and admins only their own company's records.",
           "Access to production systems limited to the people who run the service, using individual accounts.",
           "Rate limits on sign-in, invitations, downloads and play, and a log of every PDF and CSV download of the training record.",
@@ -209,7 +211,8 @@
         "items": [
           "Supabase, Inc.: database, authentication and sign-in emails. United States (US East).",
           "Vercel Inc.: website hosting. United States.",
-          "Resend, Inc.: error alert emails to Scam Shield's operator, containing technical error reports with identifiers removed. United States."
+          "Resend, Inc.: error alert emails to Scam Shield's operator, containing technical error reports with identifiers removed. United States.",
+          "GitHub, Inc.: stores the nightly backups, encrypted before upload with a key only Scam Shield holds, so GitHub cannot read them. United States."
         ]
       },
       {
@@ -222,7 +225,7 @@
       {
         "heading": "Deletion",
         "paragraphs": [
-          "The owner can delete the company and all its information at any time from the Account page; it is erased at once and leaves backups within 7 days. If the customer stops using Scam Shield without doing so, Scam Shield deletes the customer's information within 30 days of a written request, or of the account closing."
+          "The owner can delete the company and all its information at any time from the Account page; it is erased at once and leaves all backups within 30 days. If the customer stops using Scam Shield without doing so, Scam Shield deletes the customer's information within 30 days of a written request, or of the account closing."
         ]
       },
       {
