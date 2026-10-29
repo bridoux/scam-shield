@@ -6,6 +6,7 @@ import { allow, clientIp, emailSubject } from "@/lib/rate-limit";
 import { requestOrigin } from "@/lib/origin";
 import { createClient } from "@/lib/supabase/server";
 import { normalizeEmail, safeNextPath } from "@/lib/urls";
+import { logError } from "@/lib/errors/report";
 
 export type SignInState =
   | { status: "idle" }
@@ -34,11 +35,11 @@ export async function sendMagicLink(_prev: SignInState, formData: FormData): Pro
     const failure = classifySignInError(error);
     if (failure.kind === "cooldown") return { status: "error", error: "cooldown", seconds: failure.seconds };
     if (failure.kind === "hourlyLimit") {
-      // The project's email allowance is used up: worth seeing in the logs, it blocks every sign-in.
-      console.warn("[auth] email rate limit reached", error.status, error.code);
+      // The project's email allowance is used up: worth an alert, it blocks every sign-in.
+      logError("auth.emailLimitReached", error);
       return { status: "error", error: "hourlyLimit" };
     }
-    console.error("[auth] signInWithOtp failed", error.status, error.code);
+    logError("auth.signInWithOtp", error);
     return { status: "error", error: "failed" };
   }
   return { status: "sent", email };

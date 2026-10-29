@@ -7,6 +7,7 @@ import { weekStart } from "./calendar";
 import { rankPlayers, type LeagueRow } from "./league";
 import { levelFor } from "./levels";
 import { computeStreak } from "./streak";
+import { logError } from "../errors/report";
 
 type UserClient = Awaited<ReturnType<typeof createClient>>;
 
@@ -36,7 +37,7 @@ export async function loadProgress(client: UserClient, member: Member, now = new
       .not("completed_at", "is", null),
     // The league is a nice-to-have on these screens: log and carry on without it.
     loadLeague(client, weekStart(today)).catch((leagueError: unknown) => {
-      console.error("[progress] league unavailable", leagueError);
+      logError("progress.league", leagueError);
       return null;
     }),
   ]);

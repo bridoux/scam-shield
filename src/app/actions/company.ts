@@ -8,6 +8,7 @@ import { allow } from "@/lib/rate-limit";
 import { createClient } from "@/lib/supabase/server";
 import type { Industry } from "@/lib/types";
 import { cleanText } from "@/lib/urls";
+import { logError } from "@/lib/errors/report";
 
 const INDUSTRIES: readonly Industry[] = ["general", "auto_dealer", "tax_cpa", "mortgage_title", "insurance"];
 /** Invite tokens are two UUIDs without dashes. */
@@ -40,7 +41,7 @@ export async function createCompany(_prev: FormState, formData: FormData): Promi
   });
   if (error) {
     if (hintOf(error) === "already_member") return { status: "error", error: "alreadyMember" };
-    console.error("[company] create_organization failed", error.code, error.message);
+    logError("company.createOrganization", error);
     return { status: "error", error: "failed" };
   }
   redirect("/team");
@@ -60,7 +61,7 @@ export async function acceptInvite(_prev: FormState, formData: FormData): Promis
     if (hint === "already_member") return { status: "error", error: "alreadyMember" };
     if (hint === "deactivated") return { status: "error", error: "deactivated" };
     if (hint === "invite_full") return { status: "error", error: "full" };
-    console.error("[company] accept_invite failed", error.code, error.message);
+    logError("company.acceptInvite", error);
     return { status: "error", error: "failed" };
   }
   redirect("/");
@@ -82,7 +83,7 @@ export async function createInvite(_prev: FormState, formData: FormData): Promis
   });
   if (hintOf(error) === "too_many_invites") return { status: "error", error: "tooManyInvites" };
   if (error) {
-    console.error("[company] create invite failed", error.code, error.message);
+    logError("company.createInvite", error);
     return { status: "error", error: "failed" };
   }
   revalidatePath("/team");
@@ -95,7 +96,7 @@ export async function revokeInvite(formData: FormData): Promise<void> {
   const supabase = await createClient();
   // RLS limits deletes to owners/admins of the invite's organization.
   const { error } = await supabase.from("invites").delete().eq("token", token);
-  if (error) console.error("[company] revoke invite failed", error.code, error.message);
+  if (error) logError("company.revokeInvite", error);
   revalidatePath("/team");
 }
 
@@ -115,7 +116,7 @@ export async function savePlayDays(_prev: PlayDaysState, formData: FormData): Pr
     const hint = hintOf(error);
     if (hint === "not_owner") return { status: "error", error: "notOwner" };
     if (hint === "no_days") return { status: "error", error: "noDays" };
-    console.error("[company] set_play_days failed", error.code, error.message);
+    logError("company.setPlayDays", error);
     return { status: "error", error: "failed" };
   }
   revalidatePath("/team");
