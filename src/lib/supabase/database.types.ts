@@ -340,6 +340,10 @@ export type Database = {
         }
         Returns: string
       }
+      delete_organization: {
+        Args: { confirm_name: string }
+        Returns: undefined
+      }
       set_member_active: {
         Args: { active: boolean; target: string }
         Returns: undefined

@@ -46,6 +46,7 @@
     "signIn": "Sign in",
     "tryDemo": "Try a demo round",
     "signOut": "Sign out",
+    "account": "Your account",
     "team": "Team & invites",
     "league": "This week's league",
     "dashboard": "Dashboard & training record",
@@ -175,6 +176,41 @@
     "empty": "No rounds played yet this week. Be the first!",
     "back": "Back to today's round"
   },
+  "account": {
+    "title": "Your account",
+    "back": "Back to today's round",
+    "email": "Email",
+    "name": "Name",
+    "company": "Company",
+    "role": "Role",
+    "noCompany": "No company",
+    "accessOff": "Access turned off",
+    "privacyNote": "What we keep and why is explained in the {privacy}.",
+    "deleteHeading": "Delete my account",
+    "deleteIntro": "This erases your sign-in, your name and all your training history, and can't be undone. Training records your company already downloaded aren't affected.",
+    "deleteConfirmLabel": "Type your email address to confirm",
+    "deleteButton": "Delete my account",
+    "deleting": "Deleting…",
+    "ownerFirst": "You own {company}. Make an admin the owner on the Team page, or delete the company below, before deleting your account.",
+    "companyHeading": "Delete company",
+    "companyIntro": "This erases {company}, its teams, invite links and every training round for everyone, and can't be undone. People keep their sign-in but lose access. Download any training records you need first.",
+    "companyConfirmLabel": "Type the company name to confirm",
+    "companyButton": "Delete company",
+    "mismatch": "That doesn't match. Check the spelling and try again.",
+    "notOwner": "Only the owner can delete the company.",
+    "signedOut": "Your session ended. Sign in again to continue.",
+    "failed": "That didn't work. Please try again.",
+    "deleted": "Your account and training history have been deleted."
+  },
+  "legal": {
+    "navLabel": "Legal",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "dpa": "Data Processing Addendum",
+    "signInNotice": "By signing in you accept the {terms} and the {privacy}.",
+    "termsLink": "Terms of Service",
+    "privacyLink": "Privacy Policy"
+  },
   "auth": {
     "title": "Sign in to Scam Shield",
     "intro": "Enter your work email and we'll send you a sign-in link. No password needed.",
@@ -211,7 +247,8 @@
     "alreadyMember": "You already belong to a company.",
     "failed": "We couldn't create your company. Please try again.",
     "deactivatedTitle": "Your access is turned off",
-    "deactivated": "Your company has turned off your Scam Shield access. If that's a mistake, ask your manager to turn it back on."
+    "deactivated": "Your company has turned off your Scam Shield access. If that's a mistake, ask your manager to turn it back on.",
+    "deactivatedAccount": "To erase your data, or to join a different company with this email, delete your account:"
   },
   "team": {
     "title": "Team & invites",

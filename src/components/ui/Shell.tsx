@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { getStrings } from "@/lib/content";
 import { ShieldIcon } from "../icons";
 
 interface ShellProps {
@@ -23,7 +24,28 @@ export function Shell({ appName, children, accessory, wide = false }: ShellProps
         {accessory ? <div className="ml-auto">{accessory}</div> : null}
       </div>
       {children}
+      <LegalFooter />
     </main>
+  );
+}
+
+function LegalFooter() {
+  const l = getStrings("en-US").legal;
+  const links = [
+    { href: "/privacy", label: l.privacy },
+    { href: "/terms", label: l.terms },
+    { href: "/dpa", label: l.dpa },
+  ];
+  return (
+    <footer className="mt-auto pt-10">
+      <nav aria-label={l.navLabel} className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-500">
+        {links.map((link) => (
+          <Link key={link.href} href={link.href} className="hover:text-slate-800 hover:underline">
+            {link.label}
+          </Link>
+        ))}
+      </nav>
+    </footer>
   );
 }
 

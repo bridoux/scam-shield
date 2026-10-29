@@ -1,0 +1,230 @@
+{
+  "privacy": {
+    "title": "Privacy Policy",
+    "effective": "Effective [EFFECTIVE DATE]",
+    "intro": [
+      "Scam Shield is a short daily training game that teaches staff at small businesses to spot scams. It is operated by [COMPANY NAME] (\"we\"). This policy explains what we collect, why, who can see it and how to remove it.",
+      "When your employer signs up, it decides who is invited and uses Scam Shield to train its staff. For that information we act as a service provider on your employer's behalf, and your employer is responsible for it under the privacy laws that apply to them."
+    ],
+    "sections": [
+      {
+        "heading": "What we collect",
+        "items": [
+          "Your work email address, used to sign you in with a one-time link. We never ask for a password.",
+          "The name you choose to show your team, your role (owner, admin or player) and your team.",
+          "Your company's details: name, industry, time zone and training days.",
+          "Your training activity: which practice messages you saw, your answers, points, and the days you played.",
+          "Invite links, including who created them and when they expire.",
+          "Basic technical records kept by our hosting providers to run the service securely, such as the IP address and browser of a request and when you signed in."
+        ]
+      },
+      {
+        "heading": "What we don't do",
+        "items": [
+          "No analytics, advertising or tracking tools, and no tracking cookies.",
+          "We don't sell your information or share it for advertising.",
+          "We don't use your training answers for anything except running the training for your company."
+        ]
+      },
+      {
+        "heading": "Who can see your information",
+        "items": [
+          "Your company's owner and admins: your name, email, team, role and training record (training days completed, accuracy, last played), on their dashboard and in the training records they download.",
+          "Your colleagues: your name, team and weekly points in the league.",
+          "Our service providers, only to run Scam Shield: Supabase (database, sign-in and sign-in emails, hosted in the United States) and Vercel (website hosting, United States).",
+          "Authorities, only when the law requires it."
+        ]
+      },
+      {
+        "heading": "Cookies",
+        "paragraphs": [
+          "We use one kind of cookie: the sign-in session cookie that keeps you signed in. It is strictly necessary, so there is nothing to opt out of. We use no other cookies."
+        ]
+      },
+      {
+        "heading": "How long we keep it",
+        "items": [
+          "Your information is kept while your account is active.",
+          "If your company removes you, your past training stays on your company's records until the company deletes it, so it can show the training that took place. You can still delete your own account (see below).",
+          "When you delete your account, or a company owner deletes the company, the information is erased at once. Our database provider keeps daily backups for 7 days, so deleted information disappears from backups within 7 days."
+        ]
+      },
+      {
+        "heading": "Your choices and rights",
+        "paragraphs": [
+          "You can delete your account yourself at any time from the Account page. That erases your sign-in, your name and all your training activity. If you are a company owner, first hand ownership to an admin or delete the company.",
+          "Depending on where you live (for example California and other US states), you may also have the right to know what we hold about you, to correct it, or to ask us to delete it. Email [CONTACT EMAIL] and we will answer within 45 days. Because we act for your employer, we may pass your request to them. We will not treat you differently for using these rights."
+        ]
+      },
+      {
+        "heading": "Security",
+        "items": [
+          "All traffic is encrypted (HTTPS), and the database is encrypted at rest by our provider.",
+          "Database rules make sure people only see their own company's information, and the answers to each practice message stay on our servers until you answer.",
+          "Only a small number of people at [COMPANY NAME] can access production systems, and only to run and support the service."
+        ]
+      },
+      {
+        "heading": "Children",
+        "paragraphs": ["Scam Shield is a workplace tool and is not directed to children under 16. We do not knowingly collect information from them."]
+      },
+      {
+        "heading": "Where your information is stored",
+        "paragraphs": ["Your information is stored and processed in the United States."]
+      },
+      {
+        "heading": "Changes and contact",
+        "paragraphs": [
+          "If we change this policy, we will update the date at the top and, for significant changes, tell company owners by email or in the app.",
+          "Questions or requests: [CONTACT EMAIL], or [COMPANY NAME], [ADDRESS]."
+        ]
+      }
+    ]
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "effective": "Effective [EFFECTIVE DATE]",
+    "intro": [
+      "These terms are an agreement between [COMPANY NAME] (\"we\") and the company that signs up for Scam Shield (\"you\" or the \"customer\"), and they also apply to everyone who uses Scam Shield through that company. By signing in or creating a company, you accept them."
+    ],
+    "sections": [
+      {
+        "heading": "The service",
+        "paragraphs": [
+          "Scam Shield gives your staff a short daily round of realistic but simulated messages to practise spotting scams, and gives owners a dashboard and downloadable training records."
+        ]
+      },
+      {
+        "heading": "Training, not a guarantee",
+        "items": [
+          "Scam Shield is security awareness training. It is not a security control, does not stop real scams, and does not guarantee that your staff will never be fooled.",
+          "Training records show what was completed in Scam Shield. They can support, but do not by themselves prove, compliance with any law or rule (such as the FTC Safeguards Rule) or the conditions of an insurance policy.",
+          "Practice messages use invented businesses and example addresses. Any resemblance to a real message is unintended."
+        ]
+      },
+      {
+        "heading": "Accounts",
+        "items": [
+          "The person who creates a company becomes its owner and confirms they are authorised to sign the company up.",
+          "Owners and admins decide who is invited, and are responsible for inviting only people who work for or with the company, and for removing people who leave.",
+          "Keep access to your work email secure: anyone who can read it can sign in as you."
+        ]
+      },
+      {
+        "heading": "Acceptable use",
+        "paragraphs": ["You agree not to:"],
+        "items": [
+          "use practice messages or anything else from Scam Shield to deceive or defraud real people;",
+          "try to read answers before answering, access another company's information, or get around the rules that protect it;",
+          "copy, scrape or resell the practice content, or use Scam Shield to build a competing product;",
+          "overload, probe or disrupt the service, except for security testing we have agreed to in writing."
+        ]
+      },
+      {
+        "heading": "Your data",
+        "paragraphs": [
+          "Your company's information belongs to your company. We use it only to provide Scam Shield, as described in our Privacy Policy and Data Processing Addendum. Owners can delete the company and all its data at any time from the Account page."
+        ]
+      },
+      {
+        "heading": "Fees",
+        "paragraphs": [
+          "Scam Shield is free during the pilot. Paid plans, when introduced, will be shown before you are charged, and you can cancel at any time. [PRICING AND BILLING TERMS]"
+        ]
+      },
+      {
+        "heading": "Ending the service",
+        "paragraphs": [
+          "You can stop using Scam Shield and delete your company at any time. We may suspend or close an account that breaks these terms or puts the service or other customers at risk, and we will tell you why unless the law prevents it. If we ever shut Scam Shield down, we will give at least 30 days' notice so owners can download their training records."
+        ]
+      },
+      {
+        "heading": "Disclaimers and liability",
+        "items": [
+          "Scam Shield is provided \"as is\". To the extent the law allows, we make no warranties beyond those stated in these terms.",
+          "To the extent the law allows, we are not liable for indirect or consequential losses, or for losses caused by real scams. Our total liability for any claim is limited to the fees you paid us in the 12 months before the claim, or [LIABILITY CAP] if greater.",
+          "Nothing in these terms limits liability that cannot be limited by law."
+        ]
+      },
+      {
+        "heading": "General",
+        "items": [
+          "These terms are governed by the laws of [STATE], United States, and disputes are heard in the courts of [STATE].",
+          "We may update these terms. For significant changes we will tell owners at least 30 days ahead; continuing to use Scam Shield after that means you accept the new terms.",
+          "Contact: [CONTACT EMAIL], [COMPANY NAME], [ADDRESS]."
+        ]
+      }
+    ]
+  },
+  "dpa": {
+    "title": "Data Processing Addendum",
+    "effective": "Effective [EFFECTIVE DATE]",
+    "intro": [
+      "This addendum forms part of the Terms of Service between the customer and [COMPANY NAME] (\"Scam Shield\"). It sets out how Scam Shield handles personal information on the customer's behalf. It applies automatically; customers who need a signed copy can request one at [CONTACT EMAIL]."
+    ],
+    "sections": [
+      {
+        "heading": "Roles",
+        "paragraphs": [
+          "The customer is the business (controller) for its staff's personal information. Scam Shield is its service provider (processor) and processes that information only to provide the service, on the customer's documented instructions, which are these terms and the customer's use of the app."
+        ]
+      },
+      {
+        "heading": "What is processed",
+        "items": [
+          "People: the customer's staff and other people the customer invites.",
+          "Information: work email, display name, role, team, company details, training activity and invite records, plus technical records needed to run the service securely.",
+          "Purpose: delivering daily training, showing progress, the league, the owner dashboard and training records.",
+          "Duration: for as long as the customer uses Scam Shield, then until deletion as described below."
+        ]
+      },
+      {
+        "heading": "Service provider commitments",
+        "paragraphs": ["Scam Shield will not:"],
+        "items": [
+          "sell or share the personal information, including for cross-context behavioural advertising;",
+          "use, keep or disclose it for any purpose other than providing the service;",
+          "combine it with personal information from other sources, except as needed to provide the service."
+        ]
+      },
+      {
+        "heading": "Security",
+        "items": [
+          "Encryption in transit (HTTPS) and at rest.",
+          "Database-enforced access rules that keep each company's information separate, and give owners and admins only their own company's records.",
+          "Access to production systems limited to the people who run the service, using individual accounts.",
+          "Personnel with access are bound by confidentiality."
+        ]
+      },
+      {
+        "heading": "Sub-processors",
+        "paragraphs": [
+          "The customer authorises these sub-processors. Scam Shield will give at least 30 days' notice of a new one, and the customer may object by ending the service."
+        ],
+        "items": [
+          "Supabase, Inc.: database, authentication and sign-in emails. United States (US East).",
+          "Vercel Inc.: website hosting. United States."
+        ]
+      },
+      {
+        "heading": "Requests and incidents",
+        "items": [
+          "Scam Shield will help the customer answer requests from its staff to access, correct or delete their information. Staff can also delete their own accounts in the app.",
+          "Scam Shield will tell the customer without undue delay, and within 72 hours of confirming it, about any security incident affecting the customer's personal information, with the details it has."
+        ]
+      },
+      {
+        "heading": "Deletion",
+        "paragraphs": [
+          "The owner can delete the company and all its information at any time from the Account page; it is erased at once and leaves backups within 7 days. If the customer stops using Scam Shield without doing so, Scam Shield deletes the customer's information within 30 days of a written request, or of the account closing."
+        ]
+      },
+      {
+        "heading": "Audits",
+        "paragraphs": [
+          "On reasonable request, no more than once a year, Scam Shield will answer the customer's written security questions and provide the information needed to show it meets this addendum."
+        ]
+      }
+    ]
+  }
+}
