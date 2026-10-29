@@ -64,7 +64,7 @@ async function Invites({ member }: { member: Member }) {
     supabase.from("teams").select("id, name").eq("organization_id", member.organizationId).order("created_at"),
     supabase
       .from("invites")
-      .select("token, expires_at, teams(name)")
+      .select("token, expires_at, uses, max_uses, teams(name)")
       .eq("organization_id", member.organizationId)
       .gt("expires_at", new Date().toISOString())
       .order("created_at", { ascending: false }),
@@ -94,6 +94,8 @@ async function Invites({ member }: { member: Member }) {
                 <div className="mt-2 flex items-center justify-between text-xs text-slate-600">
                   <span>
                     {invite.teams?.name ? `${invite.teams.name} · ` : ""}
+                    {invite.uses >= invite.max_uses ? t.full : format(t.uses, { uses: invite.uses, max: invite.max_uses })}
+                    {" · "}
                     {format(t.expires, { date: dateFormat.format(new Date(invite.expires_at)) })}
                   </span>
                   <form action={revokeInvite}>

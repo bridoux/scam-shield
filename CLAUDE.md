@@ -52,6 +52,12 @@ US offices of 10-250 staff that move money or hold customer financial data: auto
 - Privacy and deletion (`docs/sprints/privacy.md`):
   - `/privacy`, `/terms` and `/dpa` render `src/data/legal.en-US.json`. They state facts about the app (data collected, who sees it, no analytics, sub-processors Supabase and Vercel, 7-day backups). Update them whenever one of those facts changes, e.g. adding an email provider, analytics or Stripe. `[PLACEHOLDERS]` are highlighted until filled in.
   - `/account` lets anyone signed in delete their account (auth admin delete; foreign keys cascade memberships and rounds). Owners must transfer ownership or delete the company first. `delete_organization` (owner only, exact name) erases the company; members keep their sign-in.
+- Hardening (`docs/sprints/hardening.md`):
+  - Rate limits live in `src/lib/rate-limit.ts` (`allow(name, subject)`), counted by `hit_rate_limit` (service role only) with SHA-256 keys. Add a limit there for any new endpoint that sends email, creates rows or exports data. The limiter allows requests if it fails itself.
+  - Invite links cap at 25 joins (`max_uses`/`uses`), with at most 10 active per company (trigger).
+  - Every record download goes through `authorizeDownload` (`src/lib/reports/downloads.ts`), which checks the role, applies the limit and writes `record_exports` first. An unlogged download is refused.
+  - The CSP in `next.config.ts` allows only the site itself. If you add a third-party script, font, image host or API, it must be added there, and to the privacy policy if it handles personal data.
+  - Supabase's default TRUNCATE/TRIGGER/REFERENCES grants are revoked for anon and authenticated, including on future tables.
 - Every Supabase client uses a fetch with a deadline (`src/lib/supabase/fetch.ts`): 10 s for data, 30 s in the proxy. A stalled request then fails visibly instead of leaving a player stuck on "Checking…".
 - `npm run test:db` creates throwaway users (`ss-test-…@scam-shield.example`) and deletes them afterwards. The Playwright signed-in tests do the same (`ss-e2e-…`). If the bundled Playwright browser can't be downloaded, set `PLAYWRIGHT_CHANNEL=msedge` to use the installed Edge.
 - Tests never run against production. `test:db` and `test:e2e` read the test project's keys from `.env.test.local` (same three variables as `.env.local`), and `tests/guard.ts` refuses to start if the URL points at the production project. After a migration, apply it to the test project too and run `npm run db:seed:test` when cards change.

@@ -44,6 +44,7 @@ export type PlayErrorCode =
   | "out_of_order"
   | "incomplete"
   | "invalid_input"
+  | "rate_limited"
   | "server_error";
 
 /** Envelope returned by every play server action. */
