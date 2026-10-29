@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { classifySignInError } from "@/lib/auth-errors";
-import { allow, clientIp } from "@/lib/rate-limit";
+import { allow, clientIp, emailSubject } from "@/lib/rate-limit";
 import { requestOrigin } from "@/lib/origin";
 import { createClient } from "@/lib/supabase/server";
 import { normalizeEmail, safeNextPath } from "@/lib/urls";
@@ -17,8 +17,10 @@ export async function sendMagicLink(_prev: SignInState, formData: FormData): Pro
   const email = normalizeEmail(formData.get("email"));
   if (!email) return { status: "error", error: "invalidEmail" };
   const next = safeNextPath(formData.get("next"));
-  const [ipAllowed, emailAllowed] = await Promise.all([allow("signInIp", await clientIp()), allow("signInEmail", email)]);
-  if (!ipAllowed || !emailAllowed) return { status: "error", error: "tooMany" };
+  // The IP check runs first so a refused request doesn't also use up the person's email allowance.
+  const ip = await clientIp();
+  if (ip && !(await allow("signInIp", ip))) return { status: "error", error: "tooMany" };
+  if (!(await allow("signInEmail", emailSubject(email)))) return { status: "error", error: "tooMany" };
 
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithOtp({

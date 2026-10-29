@@ -92,7 +92,7 @@
     "downloadCsv": "Download CSV",
     "downloadsNote": "The training record for this period, ready for an auditor or insurer.",
     "downloadLogHeading": "Download history",
-    "downloadLogIntro": "Every training-record download is logged, so you can see who exported employee data and when.",
+    "downloadLogIntro": "Every PDF and CSV download of the training record is logged, so you can see who exported employee data and when.",
     "downloadLogEmpty": "No downloads yet.",
     "deletedAccount": "Deleted account",
     "employees": "Employees",

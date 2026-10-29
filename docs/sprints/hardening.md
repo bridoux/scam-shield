@@ -9,10 +9,10 @@ Pilot readiness: make abuse expensive, keep an audit trail of record downloads, 
 - **Rate-limit counters live in our database** (no new vendor).
 
 ## Scope
-1. Rate limits (fixed windows, counters in `private.rate_limits`, written only through `hit_rate_limit`, which only the service role can call). Keys are SHA-256 hashes, so no raw IP address or email is stored.
-   - Sign-in links: 10 per IP per 15 minutes, 5 per email per hour.
+1. Rate limits (fixed windows, counters in `private.rate_limits`, written only through `hit_rate_limit`, which only the service role can call). Keys are HMAC-SHA256 hashes with a server secret (`RATE_LIMIT_SECRET`, falling back to the service role key), so no raw IP address or email is stored or recoverable. Counters older than a day are deleted on every call.
+   - Sign-in links: 60 per IP per 15 minutes (a whole office often shares one address), then 5 per email per hour (plus-address variants count together). The email limit is only counted once the IP check passes.
    - Invite links: 20 per person per hour.
-   - Record downloads: 30 per person per hour.
+   - Record downloads: 30 per person per hour, checked before the report is built. Downloads started from another site (`Sec-Fetch-Site: cross-site`) are refused.
    - Starting a round: 30 per person per hour.
    - If the limiter itself fails, requests are allowed and the failure is logged, so an outage never locks people out.
 2. Invites: `max_uses` (25) and `uses`; `accept_invite` counts new members only and refuses a full link. A trigger refuses an 11th active link.

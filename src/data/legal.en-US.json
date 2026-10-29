@@ -46,7 +46,7 @@
         "heading": "How long we keep it",
         "items": [
           "Your information is kept while your account is active.",
-          "To stop abuse, we count requests such as sign-in links per IP address and per email. The counters store only one-way hashes, never the address or email itself, and are deleted within a day.",
+          "To stop abuse, we count requests such as sign-in links per IP address and per email. The counters store only keyed one-way hashes, never the address or email itself, and are deleted within a day.",
           "If your company removes you, your past training stays on your company's records until the company deletes it, so it can show the training that took place. You can still delete your own account (see below).",
           "When you delete your account, or a company owner deletes the company, the information is erased at once. Our database provider keeps daily backups for 7 days, so deleted information disappears from backups within 7 days."
         ]
@@ -195,7 +195,7 @@
           "Encryption in transit (HTTPS) and at rest.",
           "Database-enforced access rules that keep each company's information separate, and give owners and admins only their own company's records.",
           "Access to production systems limited to the people who run the service, using individual accounts.",
-          "Rate limits on sign-in, invitations, downloads and play, and a log of every training-record download.",
+          "Rate limits on sign-in, invitations, downloads and play, and a log of every PDF and CSV download of the training record.",
           "Personnel with access are bound by confidentiality."
         ]
       },

@@ -4,29 +4,33 @@ import { allow } from "../rate-limit";
 import { createAdminClient } from "../supabase/admin";
 import { createClient } from "../supabase/server";
 import { refusal } from "./http";
-import { loadTrainingRecord, type RecordAccess } from "./load";
+import { loadRecordFor, recordManager, type Params, type RecordAccess } from "./load";
 
 export type DownloadFormat = "pdf" | "csv";
-
-type Params = Parameters<typeof loadTrainingRecord>[0];
 
 function textResponse(status: number, message: string): Response {
   return new Response(message, { status, headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store" } });
 }
 
 /**
- * Everything a record download must pass before the file is built: the role check, the per-person
- * download limit, and a row in the download log. A download that can't be logged is refused, so
- * the log stays complete.
+ * Everything a record download must pass before the file is built, cheapest first: no cross-site
+ * trigger, the role check, the per-person download limit, the report itself, and a row in the
+ * download log. A download that can't be logged is refused, so the log stays complete.
  */
-export async function authorizeDownload(params: Params, format: DownloadFormat): Promise<Extract<RecordAccess, { ok: true }> | Response> {
-  const access = await loadTrainingRecord(params);
-  if (!access.ok) return refusal(access.reason);
-  const { member, record } = access;
+export async function authorizeDownload(request: Request, format: DownloadFormat): Promise<Extract<RecordAccess, { ok: true }> | Response> {
+  // A link on another site can't spend someone's download allowance or fill the log.
+  if (request.headers.get("sec-fetch-site") === "cross-site") return textResponse(403, "Open the download from the dashboard.");
 
-  if (!(await allow("recordDownload", member.userId))) {
+  const manager = await recordManager();
+  if (!manager.ok) return refusal(manager.reason);
+  if (!(await allow("recordDownload", manager.member.userId))) {
     return textResponse(429, "Too many downloads in the last hour. Please try again later.");
   }
+
+  const params: Params = Object.fromEntries(new URL(request.url).searchParams);
+  const access = await loadRecordFor(manager.member, params);
+  if (!access.ok) return refusal(access.reason);
+  const { member, record } = access;
 
   const { error } = await createAdminClient().from("record_exports").insert({
     organization_id: member.organizationId,

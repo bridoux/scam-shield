@@ -7,7 +7,7 @@ import { renderRecordPdf } from "@/lib/reports/pdf";
 
 /** The training record as a PDF, for owners and admins. Same period parameters as /dashboard. */
 export async function GET(request: NextRequest) {
-  const access = await authorizeDownload(Object.fromEntries(request.nextUrl.searchParams), "pdf");
+  const access = await authorizeDownload(request, "pdf");
   if (access instanceof Response) return access;
 
   const { member, record } = access;

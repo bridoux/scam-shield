@@ -7,7 +7,7 @@ import { recordFileName } from "@/lib/reports/load";
 
 /** The training record as CSV (one row per employee), for owners and admins. */
 export async function GET(request: NextRequest) {
-  const access = await authorizeDownload(Object.fromEntries(request.nextUrl.searchParams), "csv");
+  const access = await authorizeDownload(request, "csv");
   if (access instanceof Response) return access;
 
   const { member, record } = access;

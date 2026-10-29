@@ -1,8 +1,8 @@
 -- Hardening (docs/sprints/hardening.md): rate-limit counters, invite caps, record download log.
 
 -- ---------------------------------------------------------------------------
--- Rate limits: fixed-window counters. Keys are SHA-256 hashes made by server code,
--- so no raw IP address or email is stored. Only the service role can count.
+-- Rate limits: fixed-window counters. Keys are HMAC-SHA256 hashes made by server code with a
+-- secret, so no raw IP address or email is stored or recoverable. Only the service role can count.
 -- ---------------------------------------------------------------------------
 
 create table private.rate_limits (
@@ -11,6 +11,7 @@ create table private.rate_limits (
   hits integer not null default 1,
   primary key (key, window_start)
 );
+create index rate_limits_window_idx on private.rate_limits (window_start);
 
 -- Counts one hit and says whether it is within the limit.
 create function public.hit_rate_limit(p_key text, p_limit integer, p_window_seconds integer) returns boolean
@@ -26,10 +27,9 @@ begin
   insert into private.rate_limits as r (key, window_start) values (p_key, bucket)
   on conflict (key, window_start) do update set hits = r.hits + 1
   returning r.hits into total;
-  -- Finished windows are useless; clear them now and then rather than on every call.
-  if random() < 0.01 then
-    delete from private.rate_limits where window_start < now() - interval '1 day';
-  end if;
+  -- Counters older than a day are never needed again (the longest window is an hour); the
+  -- index keeps this cheap, and doing it on every call keeps the privacy policy's promise.
+  delete from private.rate_limits where window_start < now() - interval '1 day';
   return total <= p_limit;
 end;
 $$;
