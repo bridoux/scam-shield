@@ -25,6 +25,9 @@ export function AccountMenu({ member, strings }: { member: Member; strings: UiSt
         <Link href="/team" className="block rounded-lg px-2 py-2 text-sm font-medium text-slate-900 hover:bg-slate-100">
           {h.team}
         </Link>
+        <Link href="/account" className="block rounded-lg px-2 py-2 text-sm font-medium text-slate-900 hover:bg-slate-100">
+          {h.account}
+        </Link>
         <form action={signOut}>
           <button type="submit" className="block w-full rounded-lg px-2 py-2 text-left text-sm font-medium text-slate-900 hover:bg-slate-100">
             {h.signOut}

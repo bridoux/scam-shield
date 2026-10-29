@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { Notice, Shell } from "@/components/ui/Shell";
@@ -34,6 +35,12 @@ async function Content() {
         <div className="mt-6" data-testid="deactivated">
           <Notice tone="info">{strings.onboarding.deactivated}</Notice>
         </div>
+        <p className="mt-4 text-sm text-slate-700">
+          {strings.onboarding.deactivatedAccount}{" "}
+          <Link href="/account" className="font-semibold text-accent hover:underline">
+            {strings.home.account}
+          </Link>
+        </p>
       </>
     );
   }
